@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'sharedFuncs/funcs.dart';
+import 'package:flutter_rounded_progress_bar/flutter_rounded_progress_bar.dart';
+import 'package:flutter_rounded_progress_bar/rounded_progress_bar_style.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
@@ -16,19 +18,54 @@ class HomeScreen extends StatelessWidget {
             child: Column(
               children: <Widget>[
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    Text(
-                      'Hello,  How are you?',
-                      textAlign: TextAlign.center,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                        fontSize: 34.0,
-                        fontFamily: 'Lato',
-                      ),
+                    Column(
+                      children: <Widget>[
+                        Text(
+                          'Hello,',
+                          textAlign: TextAlign.center,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                            fontSize: 34.0,
+                            fontFamily: 'Lato',
+                          ),
+                        ),
+                        Container(
+                            child: Container(
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image:
+                                  AssetImage("assets/images/progress_bg.jpg"),
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                          child: null,
+                        )),
+                        Column(
+                          children: <Widget>[
+                            Text(
+                              'Done today:',
+                              textAlign: TextAlign.center,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                fontWeight: FontWeight.normal,
+                                color: Colors.white,
+                                fontSize: 14.0,
+                                fontFamily: 'Lato',
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
-                    Text('asdf')
+                    CircleAvatar(
+                      radius: 35.0,
+                      backgroundImage: AssetImage('assets/images/faceIcon.png'),
+                      backgroundColor: Colors.white,
+                    )
                   ],
                 ),
               ],
@@ -50,22 +87,46 @@ class HomeScreen extends StatelessWidget {
           ),
           Container(
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
-                IconButton(
-                  icon: Icon(Icons.volume_up),
-                  tooltip: 'Increase volume by 10',
-                  onPressed: () {
-                    setState(() {
-                      _volume += 10;
-                    });
-                  },
+                Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    IconButton(
+                      icon: Icon(Icons.home),
+                      tooltip: 'Home',
+                      onPressed: () {
+                        null;
+                      },
+                    ),
+                    Text('Home')
+                  ],
                 ),
-                (
-                  Icons.home,
-                  color: Colors.grey,
-                  size: 24.0,
-                  semanticLabel: 'Text to announce in accessibility modes',
-                  label: '',
+                Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    IconButton(
+                      icon: Icon(Icons.settings),
+                      tooltip: 'Settings',
+                      onPressed: () {
+                        null;
+                      },
+                    ),
+                    Text('Settings')
+                  ],
+                ),
+                Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    IconButton(
+                      icon: Icon(Icons.star),
+                      tooltip: 'Rate Us',
+                      onPressed: () {
+                        null;
+                      },
+                    ),
+                    Text('Rate Us')
+                  ],
                 ),
               ],
             ),
