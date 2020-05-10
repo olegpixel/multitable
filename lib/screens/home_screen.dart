@@ -93,7 +93,7 @@ class HomeScreen extends StatelessWidget {
                             left: 20.0, top: 6.0, right: 7.0, bottom: 20.0),
                       ),
                       SquareMenuItem(
-                        title: 'Stats',
+                        title: 'Progress',
                         backgroundImage: 'assets/images/sq4.png',
                         iconImage: Padding(
                           padding:
