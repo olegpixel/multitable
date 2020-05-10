@@ -1,7 +1,11 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'sharedFuncs/funcs.dart';
-import 'package:flutter_rounded_progress_bar/flutter_rounded_progress_bar.dart';
-import 'package:flutter_rounded_progress_bar/rounded_progress_bar_style.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'widgets/squares.dart';
+import 'widgets/footer.dart';
+import 'widgets/progress_bar.dart';
+import 'package:percent_indicator/percent_indicator.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
@@ -12,53 +16,96 @@ class HomeScreen extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           Container(
-            padding: const EdgeInsets.fromLTRB(30.0, 40.0, 30.0, 0),
+            padding: const EdgeInsets.fromLTRB(20.0, 40.0, 20.0, 0),
             width: double.infinity,
-            height: 150.0,
+            height: 145.0,
             child: Column(
               children: <Widget>[
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Text(
-                          'Hello,',
+                          'Multiplication Table',
                           textAlign: TextAlign.center,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                            fontSize: 34.0,
-                            fontFamily: 'Lato',
-                          ),
-                        ),
-                        Container(
-                            child: Container(
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image:
-                                  AssetImage("assets/images/progress_bg.jpg"),
-                              fit: BoxFit.cover,
+                          overflow: TextOverflow.clip,
+                          style: GoogleFonts.titilliumWeb(
+                            textStyle: TextStyle(
+                              fontWeight: FontWeight.w700,
+                              color: Colors.white,
+                              fontSize: 24.0,
+                              letterSpacing: .5,
                             ),
                           ),
-                          child: null,
-                        )),
-                        Column(
-                          children: <Widget>[
-                            Text(
-                              'Done today:',
-                              textAlign: TextAlign.center,
-                              overflow: TextOverflow.ellipsis,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 5.0),
+                          child: Text(
+                            'Your progress: ',
+                            textAlign: TextAlign.center,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              color: Colors.white,
+                              fontSize: 14.0,
+                              fontFamily: 'Lato',
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(top: 7.0),
+                          child: new LinearPercentIndicator(
+                            width: 200.0,
+                            animation: true,
+                            animationDuration: 700,
+                            lineHeight: 12.0,
+                            percent: 0.21,
+                            backgroundColor: hexToColor('#E6E6E6'),
+                            center: Text(
+                              "21.0%",
                               style: TextStyle(
-                                fontWeight: FontWeight.normal,
-                                color: Colors.white,
-                                fontSize: 14.0,
-                                fontFamily: 'Lato',
+                                fontWeight: FontWeight.w500,
+                                color: hexToColor('#3D3D74'),
+                                fontSize: 12.0,
                               ),
                             ),
-                          ],
+                            linearStrokeCap: LinearStrokeCap.roundAll,
+                            progressColor: hexToColor('#F7AC1A'),
+                          ),
                         ),
+//                        ProgressBar(30),
+//                        Row(
+//                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+//                          children: <Widget>[
+//                            Padding(
+//                              padding: const EdgeInsets.only(right: 8.0),
+//                              child: Text(
+//                                'Solved today: 150',
+////                              textAlign: TextAlign.center,
+//                                overflow: TextOverflow.ellipsis,
+//                                style: TextStyle(
+//                                  fontWeight: FontWeight.normal,
+//                                  color: Colors.white,
+//                                  fontSize: 14.0,
+//                                  fontFamily: 'Lato',
+//                                ),
+//                              ),
+//                            ),
+//                            Text(
+//                              'Total: 2865',
+////                              textAlign: TextAlign.center,
+//                              overflow: TextOverflow.ellipsis,
+//                              style: TextStyle(
+//                                fontWeight: FontWeight.normal,
+//                                color: Colors.white,
+//                                fontSize: 14.0,
+//                                fontFamily: 'Lato',
+//                              ),
+//                            ),
+//                          ],
+//                        ),
                       ],
                     ),
                     CircleAvatar(
@@ -82,99 +129,63 @@ class HomeScreen extends StatelessWidget {
               borderRadius: BorderRadius.only(bottomLeft: Radius.circular(40)),
             ),
           ),
-          Container(
-            child: Text('asFsdsad'),
-          ),
-          Container(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+          Expanded(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
-                Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    IconButton(
-                      icon: Icon(Icons.home),
-                      tooltip: 'Home',
-                      onPressed: () {
-                        null;
-                      },
-                    ),
-                    Text('Home')
-                  ],
+                Expanded(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: <Widget>[
+                      SquareMenuItem(
+                        'Tables',
+                        'assets/images/square1.png',
+                        '#F9CF72',
+                        EdgeInsets.only(
+                            left: 20.0, top: 20.0, right: 10.0, bottom: 10.0),
+                        () => {},
+                      ),
+                      SquareMenuItem(
+                        'Practice',
+                        'assets/images/square2.png',
+                        '#FFEABA',
+                        EdgeInsets.only(
+                            left: 10.0, top: 20.0, right: 20.0, bottom: 10.0),
+                        () => {},
+                      ),
+                    ],
+                  ),
                 ),
-                Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    IconButton(
-                      icon: Icon(Icons.settings),
-                      tooltip: 'Settings',
-                      onPressed: () {
-                        null;
-                      },
-                    ),
-                    Text('Settings')
-                  ],
-                ),
-                Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    IconButton(
-                      icon: Icon(Icons.star),
-                      tooltip: 'Rate Us',
-                      onPressed: () {
-                        null;
-                      },
-                    ),
-                    Text('Rate Us')
-                  ],
-                ),
-              ],
-            ),
-            height: 97.0,
-            width: double.infinity,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(25),
-                topRight: Radius.circular(25),
-              ),
-              boxShadow: [
-                BoxShadow(
-                  color: hexToColor("#999999").withOpacity(0.16),
-                  spreadRadius: 5,
-                  blurRadius: 15,
-                  offset: Offset(0, -3), // changes position of shadow
+                Expanded(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: <Widget>[
+                      SquareMenuItem(
+                        'Exam',
+                        'assets/images/square3.png',
+                        '#B3EEFA',
+                        EdgeInsets.only(
+                            left: 20.0, top: 10.0, right: 10.0, bottom: 20.0),
+                        () => {},
+                      ),
+                      SquareMenuItem(
+                        'Stats',
+                        'assets/images/square4.png',
+                        '#FFD5DF',
+                        EdgeInsets.only(
+                            left: 10.0, top: 10.0, right: 20.0, bottom: 20.0),
+                        () => {},
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
-//            color: Colors.red,
-//            decoration: BoxDecoration(
-//              border: Border(
-//                top: BorderSide(
-//                  width: 3.0,
-//                  color: Colors.black,
-//                ),
-//              ),
-//              borderRadius: BorderRadius.only(
-//                topLeft: Radius.circular(10),
-//                topRight: Radius.circular(10),
-//                bottomLeft: Radius.circular(10),
-//                bottomRight: Radius.circular(10),
-//              ),
-////              boxShadow: [
-////                BoxShadow(
-////                  color: Colors.grey.withOpacity(0.5),
-////                  spreadRadius: 5,
-////                  blurRadius: 7,
-////                  offset: Offset(0, 3), // changes position of shadow
-////                ),
-////              ],
-//            ),
-//            padding: const EdgeInsets.symmetric(
-//              vertical: 15.0,
-//              horizontal: 20.0,
-//            ),
           ),
+          Footer(),
         ],
       ),
     );
