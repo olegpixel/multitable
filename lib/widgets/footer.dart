@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
-import '../sharedFuncs/funcs.dart';
+import '../funcs/funcs.dart';
 
 class MenuIcon extends StatelessWidget {
   final String title;
   final IconData icon;
   final Color color;
   MenuIcon(this.title, this.icon, this.color);
+
+  void clickHandler(BuildContext ctx) {
+//    Navigator.of(ctx).pushNamed(pathTo);
+  }
 
   @override
   Widget build(BuildContext context) {

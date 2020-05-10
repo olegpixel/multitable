@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
-import 'home_screen.dart';
+import 'screens/home_screen.dart';
+import 'screens/practice_screen.dart';
+import 'screens/stats_screen.dart';
+import 'screens/exam_screen.dart';
+import 'screens/tables_screen.dart';
 
 void main() => runApp(MyApp());
 
@@ -12,6 +16,12 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: HomeScreen(),
+      routes: {
+        TablesScreen.routeName: (ctx) => TablesScreen(),
+        PracticeScreen.routeName: (ctx) => PracticeScreen(),
+        ExamScreen.routeName: (ctx) => ExamScreen(),
+        StatsScreen.routeName: (ctx) => StatsScreen(),
+      },
     );
   }
 }

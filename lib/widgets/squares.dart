@@ -1,53 +1,37 @@
 import 'package:flutter/material.dart';
-import '../sharedFuncs/funcs.dart';
+import '../funcs/funcs.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../practice_screen.dart';
 
 class SquareMenuItem extends StatelessWidget {
   final String title;
   final String backgroundImage;
   final String backgroundColor;
-  final Function clickHandler;
-  final EdgeInsets sqMargin;
+  final Widget iconImage;
+  final String pathTo;
+  final EdgeInsets margins;
 
-  const SquareMenuItem(this.title, this.backgroundImage, this.backgroundColor,
-      this.sqMargin, this.clickHandler);
+  const SquareMenuItem({
+    this.title,
+    this.backgroundImage,
+    this.backgroundColor,
+    this.iconImage,
+    this.margins,
+    this.pathTo,
+  });
 
   void selectCategory(BuildContext ctx) {
-    Navigator.of(ctx).push(
-      MaterialPageRoute(
-        builder: (_) {
-          return PracticeScreen();
-        },
-      ),
-    );
+    Navigator.of(ctx).pushNamed(pathTo);
   }
 
   @override
   Widget build(BuildContext context) {
     return Expanded(
       child: Container(
-        margin: sqMargin,
+        margin: margins,
         child: InkWell(
           onTap: () => selectCategory(context),
-          splashColor: Colors.red,
           borderRadius: BorderRadius.circular(15.0),
           child: Container(
-            child: Padding(
-              padding: const EdgeInsets.only(top: 28.0, left: 18.0),
-              child: Text(
-                '$title',
-                overflow: TextOverflow.clip,
-                style: GoogleFonts.titilliumWeb(
-                  textStyle: TextStyle(
-                    fontWeight: FontWeight.w700,
-                    color: hexToColor('#3D3D74'),
-                    fontSize: 33.0,
-                    letterSpacing: .5,
-                  ),
-                ),
-              ),
-            ),
             width: double.infinity,
             height: double.infinity,
             decoration: BoxDecoration(
@@ -57,6 +41,31 @@ class SquareMenuItem extends StatelessWidget {
                 image: AssetImage("$backgroundImage"),
                 fit: BoxFit.cover,
               ),
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.only(top: 22.0, left: 15.0),
+                  child: Text(
+                    '$title',
+                    overflow: TextOverflow.clip,
+                    style: GoogleFonts.titilliumWeb(
+                      textStyle: TextStyle(
+                        fontWeight: FontWeight.w700,
+                        color: hexToColor('#3D3D74'),
+                        fontSize: 32.0,
+                        letterSpacing: .5,
+                      ),
+                    ),
+                  ),
+                ),
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: iconImage,
+                ),
+              ],
             ),
           ),
         ),

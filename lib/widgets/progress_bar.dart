@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../sharedFuncs/funcs.dart';
+import '../funcs/funcs.dart';
 
 class ProgressBar extends StatelessWidget {
   final int progress;
