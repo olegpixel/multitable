@@ -4,6 +4,7 @@ import 'screens/practice_screen.dart';
 import 'screens/stats_screen.dart';
 import 'screens/exam_screen.dart';
 import 'screens/tables_screen.dart';
+import 'screens/test_screen.dart';
 
 void main() => runApp(MyApp());
 
@@ -21,6 +22,7 @@ class MyApp extends StatelessWidget {
         PracticeScreen.routeName: (ctx) => PracticeScreen(),
         ExamScreen.routeName: (ctx) => ExamScreen(),
         StatsScreen.routeName: (ctx) => StatsScreen(),
+        TestScreen.routeName: (ctx) => TestScreen(),
       },
     );
   }
