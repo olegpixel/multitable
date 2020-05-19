@@ -17,6 +17,7 @@ class ListItem extends StatelessWidget {
 
   void selectCategory(BuildContext ctx) {
 //    Navigator.of(ctx).pushNamed(pathTo);
+    Navigator.of(ctx).pushNamed('/test');
   }
 
   @override
@@ -49,7 +50,6 @@ class ListItem extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.all(15.0),
                       child: Container(
-//                        child: Text('asdfads'),
                         width: 67.0,
                         height: 67.0,
                         decoration: BoxDecoration(
