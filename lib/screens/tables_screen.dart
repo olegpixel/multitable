@@ -68,21 +68,7 @@ class _TablesBodyState extends State<TablesBody> {
                     ),
                   ],
                 ),
-                child: Column(
-                  children: <Widget>[
-                    Text(
-                      _selectedNumber.toString(),
-                      overflow: TextOverflow.clip,
-                      style: GoogleFonts.lato(
-                        textStyle: TextStyle(
-                          fontWeight: FontWeight.w700,
-                          color: hexToColor('#3D3D74'),
-                          fontSize: 15.0,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+                child: TableText(_selectedNumber),
               ),
             ),
           ),
@@ -140,6 +126,101 @@ class _TablesBodyState extends State<TablesBody> {
           )
         ],
       ),
+    );
+  }
+}
+
+class TableText extends StatelessWidget {
+  final int _selectedNumber;
+
+  static const odds = [1, 3, 5, 7, 9, 11];
+  static const evens = [2, 4, 6, 8, 10, 12];
+
+  TableText(this._selectedNumber);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: <Widget>[
+        Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: <Widget>[
+            Expanded(
+              child: Row(
+                children: <Widget>[
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      ...odds
+                          .map((i) => new Text(
+                                '$_selectedNumber x $i',
+                                overflow: TextOverflow.clip,
+                                style: GoogleFonts.lato(
+                                  textStyle: TextStyle(
+                                    fontWeight: FontWeight.w700,
+                                    color: hexToColor('#3D3D74'),
+                                    fontSize: 27.0,
+                                  ),
+                                ),
+                              ))
+                          .toList(),
+                    ],
+                  ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: <Widget>[
+                      ...odds
+                          .map((i) => new Text(
+                                ' = ' + (_selectedNumber * i).toString(),
+                                overflow: TextOverflow.clip,
+                                style: GoogleFonts.lato(
+                                  textStyle: TextStyle(
+                                    fontWeight: FontWeight.w700,
+                                    color: hexToColor('#3D3D74'),
+                                    fontSize: 27.0,
+                                  ),
+                                ),
+                              ))
+                          .toList(),
+                    ],
+                  ),
+                ],
+              ),
+            )
+          ],
+        ),
+        Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: <Widget>[
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  ...evens
+                      .map((i) => new Text(
+                            '$_selectedNumber x $i = ' +
+                                (_selectedNumber * i).toString(),
+                            overflow: TextOverflow.clip,
+                            style: GoogleFonts.lato(
+                              textStyle: TextStyle(
+                                fontWeight: FontWeight.w700,
+                                color: hexToColor('#3D3D74'),
+                                fontSize: 27.0,
+                              ),
+                            ),
+                          ))
+                      .toList(),
+                ],
+              ),
+            )
+          ],
+        ),
+      ],
     );
   }
 }
