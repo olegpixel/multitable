@@ -5,8 +5,16 @@ import 'screens/stats_screen.dart';
 import 'screens/exam_screen.dart';
 import 'screens/tables_screen.dart';
 import 'screens/test_screen.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
-void main() => runApp(MyApp());
+const dbName = 'multitables';
+
+void main() async {
+  await Hive.initFlutter();
+  await Hive.openBox(dbName);
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   @override
