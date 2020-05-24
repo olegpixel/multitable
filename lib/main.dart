@@ -7,12 +7,11 @@ import 'screens/tables_screen.dart';
 import 'screens/test_screen.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-
-const dbName = 'multitables';
+import 'package:multitables/datastore/constants.dart';
 
 void main() async {
   await Hive.initFlutter();
-  await Hive.openBox(dbName);
+  await Hive.openBox(hiveProgressBox);
   runApp(MyApp());
 }
 

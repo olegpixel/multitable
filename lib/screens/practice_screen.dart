@@ -3,6 +3,7 @@ import '../funcs/funcs.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../widgets/list_item.dart';
 import '../widgets/header.dart';
+import 'package:multitables/datastore/test_groups.dart';
 
 class PracticeScreen extends StatelessWidget {
   static const routeName = '/practice';
@@ -11,7 +12,6 @@ class PracticeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
-//        color: hexToColor('#F6F7FC'),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -27,39 +27,13 @@ class PracticeScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
-//                  Expanded(
-//                    child:
-                  ListItem(
-                    title: 'Tables',
-                    iconImage: 'assets/images/square1.png',
-                    backgroundColor: '#F9CF72',
-                    pathTo: '',
-                  ),
-                  ListItem(
-                    title: 'Tables',
-                    iconImage: 'assets/images/square1.png',
-                    backgroundColor: '#F9CF72',
-                    pathTo: '',
-                  ),
-                  ListItem(
-                    title: 'Tables',
-                    iconImage: 'assets/images/square1.png',
-                    backgroundColor: '#F9CF72',
-                    pathTo: '',
-                  ),
-                  ListItem(
-                    title: 'Tables',
-                    iconImage: 'assets/images/square1.png',
-                    backgroundColor: '#F9CF72',
-                    pathTo: '',
-                  ),
-                  ListItem(
-                    title: 'Tables',
-                    iconImage: 'assets/images/square1.png',
-                    backgroundColor: '#F9CF72',
-                    pathTo: '',
-                  ),
-//                  ),
+                  ...PRACTICE_TEST_GROUPS
+                      .map(
+                        (group) => new ListItem(
+                          testGroup: group,
+                        ),
+                      )
+                      .toList(),
                 ],
               ),
             ),

@@ -1,9 +1,40 @@
 import 'package:flutter/material.dart';
-import '../funcs/funcs.dart';
+import 'package:multitables/funcs/funcs.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:percent_indicator/percent_indicator.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:multitables/datastore/constants.dart';
+import 'package:multitables/datastore/test_groups.dart';
 
-class MainHeader extends StatelessWidget {
+class MainHeader extends StatefulWidget {
+  @override
+  _MainHeaderState createState() => _MainHeaderState();
+}
+
+class _MainHeaderState extends State<MainHeader> {
+  Box _box;
+
+  @override
+  void initState() {
+    _box = Hive.box(hiveProgressBox);
+    super.initState();
+  }
+
+  int getTotalProgress() {
+    double totalProgress = 0;
+    PRACTICE_TEST_GROUPS.forEach((element) {
+      totalProgress += _box.get(element.id, defaultValue: 0);
+    });
+    EXAM_TEST_GROUPS.forEach((element) {
+      totalProgress += _box.get(element.id, defaultValue: 0);
+    });
+
+    return (totalProgress /
+            (PRACTICE_TEST_GROUPS.length + EXAM_TEST_GROUPS.length))
+        .round();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -63,10 +94,10 @@ class MainHeader extends StatelessWidget {
                       animation: true,
                       animationDuration: 700,
                       lineHeight: 12.0,
-                      percent: 0.21,
+                      percent: getTotalProgress() / 100,
                       backgroundColor: hexToColor('#E6E6E6'),
                       center: Text(
-                        "21 XP",
+                        getTotalProgress().toString() + ' XP',
                         style: TextStyle(
                           fontWeight: FontWeight.w500,
                           color: hexToColor('#3D3D74'),

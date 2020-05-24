@@ -1,23 +1,34 @@
 import 'package:flutter/material.dart';
 import '../funcs/funcs.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:multitables/datastore/constants.dart';
+import 'package:multitables/models/test_group.dart';
+import 'package:multitables/screens/test_screen.dart';
 
-class ListItem extends StatelessWidget {
-  final String title;
-  final String iconImage;
-  final String backgroundColor;
-  final String pathTo;
+class ListItem extends StatefulWidget {
+  final TestGroup testGroup;
 
   const ListItem({
-    this.title,
-    this.iconImage = '',
-    this.backgroundColor,
-    this.pathTo,
+    this.testGroup,
   });
 
-  void selectCategory(BuildContext ctx) {
-//    Navigator.of(ctx).pushNamed(pathTo);
-    Navigator.of(ctx).pushNamed('/test');
+  @override
+  _ListItemState createState() => _ListItemState();
+}
+
+class _ListItemState extends State<ListItem> {
+  Box _box;
+
+  @override
+  void initState() {
+    _box = Hive.box(hiveProgressBox);
+    super.initState();
+  }
+
+  void selectCategory(BuildContext ctx, TestGroup group) {
+    Navigator.of(ctx).pushNamed(TestScreen.routeName, arguments: group);
   }
 
   @override
@@ -28,7 +39,7 @@ class ListItem extends StatelessWidget {
             EdgeInsets.only(left: 20.0, top: 10.0, right: 20.0, bottom: 8.0),
         height: 115.0,
         child: InkWell(
-          onTap: () => selectCategory(context),
+          onTap: () => selectCategory(context, widget.testGroup),
           borderRadius: BorderRadius.circular(8.0),
           child: Container(
             decoration: BoxDecoration(
@@ -63,7 +74,7 @@ class ListItem extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Text(
-                            '$title',
+                            widget.testGroup.title,
                             overflow: TextOverflow.clip,
                             style: GoogleFonts.lato(
                               textStyle: TextStyle(
@@ -76,7 +87,11 @@ class ListItem extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.only(top: 8.0),
                             child: Text(
-                              '$title',
+                              widget.testGroup.title +
+                                  ' progress:' +
+                                  (_box.get(widget.testGroup.id,
+                                          defaultValue: 0))
+                                      .toString(),
                               overflow: TextOverflow.clip,
                               style: GoogleFonts.lato(
                                 textStyle: TextStyle(
@@ -87,19 +102,18 @@ class ListItem extends StatelessWidget {
                               ),
                             ),
                           ),
+                          ValueListenableBuilder(
+                            valueListenable: Hive.box(hiveProgressBox)
+                                .listenable(keys: [widget.testGroup.id]),
+                            builder: (context, box, w) {
+                              return Text(
+                                (_box.get(widget.testGroup.id, defaultValue: 0))
+                                    .toString(),
+                              );
+                            },
+                          )
                         ],
                       ),
-//                    width: double.infinity,
-//                    height: double.infinity,
-
-//            decoration: BoxDecoration(
-//              borderRadius: BorderRadius.circular(15.0),
-//              color: hexToColor('$backgroundColor'),
-////              image: DecorationImage(
-////                image: AssetImage("$iconImage"),
-////                fit: BoxFit.cover,
-////              ),
-//            ),
                     ),
                   ],
                 ),
