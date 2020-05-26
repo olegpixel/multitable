@@ -1,15 +1,15 @@
 import 'package:multitables/models/test_group.dart';
 
 const PRACTICE_TEST_GROUPS = const [
-  TestGroup(
-    id: 'practice-0',
-    title: 'Number 0',
-    description: 'Multiply number 0',
-    problemsClass: [0],
-    iconImage: '',
-    itemsCount: 10,
-    isTimed: false,
-  ),
+//  TestGroup(
+//    id: 'practice-0',
+//    title: 'Number 0',
+//    description: 'Multiply number 0',
+//    problemsClass: [0],
+//    iconImage: '',
+//    itemsCount: 10,
+//    isTimed: false,
+//  ),
   TestGroup(
     id: 'practice-1',
     title: 'Number 1',

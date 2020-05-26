@@ -5,9 +5,16 @@ import 'package:multitables/models/test_group.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:multitables/datastore/constants.dart';
+import 'package:multitables/models/problem.dart';
+import 'package:multitables/funcs/question_generator.dart';
+import 'dart:io';
+import 'dart:async';
 
 class TestScreen extends StatefulWidget {
   static const routeName = '/test';
+  final TestGroup testGroup;
+
+  TestScreen(this.testGroup);
 
   @override
   _TestScreenState createState() => _TestScreenState();
@@ -15,26 +22,56 @@ class TestScreen extends StatefulWidget {
 
 class _TestScreenState extends State<TestScreen> {
   Box _box;
-  String _question;
-  List<String> _answers;
+  List<Problem> _questionsList;
+  int iterator;
+  TestGroup testGroup;
+  List<Color> buttonColors;
+  bool clickable;
 
   @override
   void initState() {
     _box = Hive.box(hiveProgressBox);
     super.initState();
+    testGroup = widget.testGroup;
+    _questionsList = generateClosedTest(
+        widget.testGroup.problemsClass, widget.testGroup.itemsCount);
+    iterator = 0;
+    buttonColors = [Colors.white, Colors.white, Colors.white, Colors.white];
+    clickable = true;
   }
 
-  void passArgsToState(TestGroup testGroup) {
-    setState(() {
-      _question = testGroup.title;
-    });
+  void answerClick(int index) {
+    if (clickable) {
+      clickable = false;
+      setState(() {
+        int givenAnswer = _questionsList[iterator].answers[index];
+        _questionsList[iterator].givenAnswer = givenAnswer;
+        if (givenAnswer == _questionsList[iterator].correctAnswer) {
+          buttonColors[index] = Colors.green;
+        } else {
+          buttonColors[index] = Colors.red;
+        }
+        if (iterator < _questionsList.length - 1) {
+          iterator++;
+          buttonColors[index] = Colors.white;
+          Future.delayed(Duration(seconds: 1), () {
+            clickable = true;
+          });
+
+//          sleep(const Duration(seconds: 1));
+////          new Future.delayed(const Duration(seconds: 1), () {
+//          iterator++;
+//          buttonColors[index] = Colors.white;
+//          clickable = true;
+//          });
+        }
+      });
+//      clicked = false;
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    final testGroup = ModalRoute.of(context).settings.arguments as TestGroup;
-    passArgsToState(testGroup);
-
     return Scaffold(
       appBar: AppBar(
         bottomOpacity: 0.0,
@@ -55,7 +92,7 @@ class _TestScreenState extends State<TestScreen> {
         children: <Widget>[
           Center(
             child: Text(
-              '1  of  10',
+              '${iterator + 1}  of  10',
               style: GoogleFonts.lato(
                 textStyle: TextStyle(
                   fontWeight: FontWeight.w600,
@@ -67,7 +104,7 @@ class _TestScreenState extends State<TestScreen> {
           ),
           Center(
             child: Text(
-              _question,
+              _questionsList[iterator].questionString,
               style: GoogleFonts.lato(
                 textStyle: TextStyle(
                   fontWeight: FontWeight.w600,
@@ -94,9 +131,11 @@ class _TestScreenState extends State<TestScreen> {
                           padding: const EdgeInsets.only(
                               left: 20.0, top: 20.0, right: 7.0, bottom: 6.0),
                           child: InkWell(
-                            onTap: () => {},
+                            onTap: () => answerClick(0),
                             borderRadius: BorderRadius.circular(15.0),
-                            child: AnswerSquare("12"),
+                            child: AnswerSquare(
+                                _questionsList[iterator].answers[0].toString(),
+                                buttonColors[0]),
                           ),
                         ),
                       ),
@@ -105,9 +144,11 @@ class _TestScreenState extends State<TestScreen> {
                           padding: const EdgeInsets.only(
                               left: 7.0, top: 20.0, right: 20.0, bottom: 6.0),
                           child: InkWell(
-                            onTap: () => {},
+                            onTap: () => answerClick(1),
                             borderRadius: BorderRadius.circular(15.0),
-                            child: AnswerSquare("9"),
+                            child: AnswerSquare(
+                                _questionsList[iterator].answers[1].toString(),
+                                buttonColors[1]),
                           ),
                         ),
                       ),
@@ -122,9 +163,11 @@ class _TestScreenState extends State<TestScreen> {
                           padding: const EdgeInsets.only(
                               left: 20.0, top: 20.0, right: 7.0, bottom: 6.0),
                           child: InkWell(
-                            onTap: () => {},
+                            onTap: () => answerClick(2),
                             borderRadius: BorderRadius.circular(15.0),
-                            child: AnswerSquare("155"),
+                            child: AnswerSquare(
+                                _questionsList[iterator].answers[2].toString(),
+                                buttonColors[2]),
                           ),
                         ),
                       ),
@@ -133,9 +176,11 @@ class _TestScreenState extends State<TestScreen> {
                           padding: const EdgeInsets.only(
                               left: 7.0, top: 20.0, right: 20.0, bottom: 6.0),
                           child: InkWell(
-                            onTap: () => {},
+                            onTap: () => answerClick(3),
                             borderRadius: BorderRadius.circular(15.0),
-                            child: AnswerSquare("0"),
+                            child: AnswerSquare(
+                                _questionsList[iterator].answers[3].toString(),
+                                buttonColors[3]),
                           ),
                         ),
                       ),
@@ -156,15 +201,16 @@ class _TestScreenState extends State<TestScreen> {
 
 class AnswerSquare extends StatelessWidget {
   final String answerText;
+  final Color bgColor;
 
-  AnswerSquare(this.answerText);
+  AnswerSquare(this.answerText, this.bgColor);
 
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(30.0),
-        color: Colors.white,
+        color: bgColor,
         boxShadow: [
           BoxShadow(
             color: hexToColor("#004080").withOpacity(0.1),

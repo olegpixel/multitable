@@ -19,18 +19,24 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: HomeScreen(),
-      routes: {
-        TablesScreen.routeName: (ctx) => TablesScreen(),
-        PracticeScreen.routeName: (ctx) => PracticeScreen(),
-        ExamScreen.routeName: (ctx) => ExamScreen(),
-        StatsScreen.routeName: (ctx) => StatsScreen(),
-        TestScreen.routeName: (ctx) => TestScreen(),
-      },
-    );
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        routes: {
+          '/': (ctx) => HomeScreen(),
+          TablesScreen.routeName: (ctx) => TablesScreen(),
+          PracticeScreen.routeName: (ctx) => PracticeScreen(),
+          ExamScreen.routeName: (ctx) => ExamScreen(),
+          StatsScreen.routeName: (ctx) => StatsScreen(),
+//          TestScreen.routeName: (ctx) => TestScreen(),
+        },
+        onGenerateRoute: (RouteSettings settings) {
+          var routes = <String, WidgetBuilder>{
+            TestScreen.routeName: (ctx) => TestScreen(settings.arguments),
+          };
+          WidgetBuilder builder = routes[settings.name];
+          return MaterialPageRoute(builder: (ctx) => builder(ctx));
+        });
   }
 }
