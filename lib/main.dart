@@ -5,6 +5,7 @@ import 'screens/stats_screen.dart';
 import 'screens/exam_screen.dart';
 import 'screens/tables_screen.dart';
 import 'screens/test_screen.dart';
+import 'screens/test_results_screen.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:multitables/datastore/constants.dart';
@@ -29,6 +30,7 @@ class MyApp extends StatelessWidget {
           PracticeScreen.routeName: (ctx) => PracticeScreen(),
           ExamScreen.routeName: (ctx) => ExamScreen(),
           StatsScreen.routeName: (ctx) => StatsScreen(),
+          TestResultsScreen.routeName: (ctx) => TestResultsScreen(),
 //          TestScreen.routeName: (ctx) => TestScreen(),
         },
         onGenerateRoute: (RouteSettings settings) {

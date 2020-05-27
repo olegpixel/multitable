@@ -3,7 +3,8 @@ import 'package:multitables/funcs/funcs.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:multitables/models/test_group.dart';
 import 'package:hive/hive.dart';
-import 'package:hive_flutter/hive_flutter.dart';
+import 'package:multitables/models/test_results.dart';
+import 'package:multitables/screens/test_results_screen.dart';
 import 'package:multitables/datastore/constants.dart';
 import 'package:multitables/models/problem.dart';
 import 'package:multitables/funcs/question_generator.dart';
@@ -26,7 +27,7 @@ class _TestScreenState extends State<TestScreen> {
   int iterator;
   TestGroup testGroup;
   List<Color> buttonColors;
-  bool clickable;
+  bool _isButtonTapped = false;
 
   @override
   void initState() {
@@ -37,13 +38,12 @@ class _TestScreenState extends State<TestScreen> {
         widget.testGroup.problemsClass, widget.testGroup.itemsCount);
     iterator = 0;
     buttonColors = [Colors.white, Colors.white, Colors.white, Colors.white];
-    clickable = true;
+    _isButtonTapped = false;
   }
 
-  void answerClick(int index) {
-    if (clickable) {
-      clickable = false;
-      setState(() {
+  void answerClick(BuildContext ctx, int index) {
+    setState(() {
+      if (!_isButtonTapped) {
         int givenAnswer = _questionsList[iterator].answers[index];
         _questionsList[iterator].givenAnswer = givenAnswer;
         if (givenAnswer == _questionsList[iterator].correctAnswer) {
@@ -51,23 +51,26 @@ class _TestScreenState extends State<TestScreen> {
         } else {
           buttonColors[index] = Colors.red;
         }
-        if (iterator < _questionsList.length - 1) {
-          iterator++;
-          buttonColors[index] = Colors.white;
-          Future.delayed(Duration(seconds: 1), () {
-            clickable = true;
-          });
 
-//          sleep(const Duration(seconds: 1));
-////          new Future.delayed(const Duration(seconds: 1), () {
-//          iterator++;
-//          buttonColors[index] = Colors.white;
-//          clickable = true;
-//          });
+        _isButtonTapped = true;
+        if (iterator < _questionsList.length - 1) {
+          Future.delayed(const Duration(milliseconds: 1000), () {
+            setState(() {
+              buttonColors[index] = Colors.white;
+              _isButtonTapped = false;
+              iterator++;
+            });
+          });
+        } else {
+          Future.delayed(const Duration(milliseconds: 1000), () {
+            TestResults tr =
+                TestResults(retryPath: '/', testData: _questionsList);
+            Navigator.of(ctx).pushReplacementNamed(TestResultsScreen.routeName,
+                arguments: tr);
+          });
         }
-      });
-//      clicked = false;
-    }
+      }
+    });
   }
 
   @override
@@ -131,7 +134,7 @@ class _TestScreenState extends State<TestScreen> {
                           padding: const EdgeInsets.only(
                               left: 20.0, top: 20.0, right: 7.0, bottom: 6.0),
                           child: InkWell(
-                            onTap: () => answerClick(0),
+                            onTap: () => answerClick(context, 0),
                             borderRadius: BorderRadius.circular(15.0),
                             child: AnswerSquare(
                                 _questionsList[iterator].answers[0].toString(),
@@ -144,7 +147,7 @@ class _TestScreenState extends State<TestScreen> {
                           padding: const EdgeInsets.only(
                               left: 7.0, top: 20.0, right: 20.0, bottom: 6.0),
                           child: InkWell(
-                            onTap: () => answerClick(1),
+                            onTap: () => answerClick(context, 1),
                             borderRadius: BorderRadius.circular(15.0),
                             child: AnswerSquare(
                                 _questionsList[iterator].answers[1].toString(),
@@ -163,7 +166,7 @@ class _TestScreenState extends State<TestScreen> {
                           padding: const EdgeInsets.only(
                               left: 20.0, top: 20.0, right: 7.0, bottom: 6.0),
                           child: InkWell(
-                            onTap: () => answerClick(2),
+                            onTap: () => answerClick(context, 2),
                             borderRadius: BorderRadius.circular(15.0),
                             child: AnswerSquare(
                                 _questionsList[iterator].answers[2].toString(),
@@ -176,7 +179,7 @@ class _TestScreenState extends State<TestScreen> {
                           padding: const EdgeInsets.only(
                               left: 7.0, top: 20.0, right: 20.0, bottom: 6.0),
                           child: InkWell(
-                            onTap: () => answerClick(3),
+                            onTap: () => answerClick(context, 3),
                             borderRadius: BorderRadius.circular(15.0),
                             child: AnswerSquare(
                                 _questionsList[iterator].answers[3].toString(),
