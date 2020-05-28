@@ -3,7 +3,7 @@ import '../funcs/funcs.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:multitables/datastore/constants.dart';
+import 'package:multitables/datastore/progress_dao.dart';
 import 'package:multitables/models/test_group.dart';
 import 'package:multitables/screens/test_screen.dart';
 
@@ -23,7 +23,7 @@ class _ListItemState extends State<ListItem> {
 
   @override
   void initState() {
-    _box = Hive.box(hiveProgressBox);
+    _box = Hive.box(HIVE_PROGRESS_BOX);
     super.initState();
   }
 
@@ -87,11 +87,7 @@ class _ListItemState extends State<ListItem> {
                           Padding(
                             padding: const EdgeInsets.only(top: 8.0),
                             child: Text(
-                              widget.testGroup.title +
-                                  ' progress:' +
-                                  (_box.get(widget.testGroup.id,
-                                          defaultValue: 0))
-                                      .toString(),
+                              widget.testGroup.title,
                               overflow: TextOverflow.clip,
                               style: GoogleFonts.lato(
                                 textStyle: TextStyle(
@@ -103,12 +99,14 @@ class _ListItemState extends State<ListItem> {
                             ),
                           ),
                           ValueListenableBuilder(
-                            valueListenable: Hive.box(hiveProgressBox)
+                            valueListenable: Hive.box(HIVE_PROGRESS_BOX)
                                 .listenable(keys: [widget.testGroup.id]),
                             builder: (context, box, w) {
                               return Text(
-                                (_box.get(widget.testGroup.id, defaultValue: 0))
-                                    .toString(),
+                                'Progress = ' +
+                                    (_box.get(widget.testGroup.id,
+                                            defaultValue: 0))
+                                        .toString(),
                               );
                             },
                           )

@@ -8,11 +8,11 @@ import 'screens/test_screen.dart';
 import 'screens/test_results_screen.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:multitables/datastore/constants.dart';
+import 'package:multitables/datastore/progress_dao.dart';
 
 void main() async {
   await Hive.initFlutter();
-  await Hive.openBox(hiveProgressBox);
+  await Hive.openBox(HIVE_PROGRESS_BOX);
   runApp(MyApp());
 }
 
@@ -31,7 +31,6 @@ class MyApp extends StatelessWidget {
           ExamScreen.routeName: (ctx) => ExamScreen(),
           StatsScreen.routeName: (ctx) => StatsScreen(),
           TestResultsScreen.routeName: (ctx) => TestResultsScreen(),
-//          TestScreen.routeName: (ctx) => TestScreen(),
         },
         onGenerateRoute: (RouteSettings settings) {
           var routes = <String, WidgetBuilder>{

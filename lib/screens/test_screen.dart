@@ -5,7 +5,7 @@ import 'package:multitables/models/test_group.dart';
 import 'package:hive/hive.dart';
 import 'package:multitables/models/test_results.dart';
 import 'package:multitables/screens/test_results_screen.dart';
-import 'package:multitables/datastore/constants.dart';
+import 'package:multitables/datastore/progress_dao.dart';
 import 'package:multitables/models/problem.dart';
 import 'package:multitables/funcs/question_generator.dart';
 import 'dart:io';
@@ -22,16 +22,15 @@ class TestScreen extends StatefulWidget {
 }
 
 class _TestScreenState extends State<TestScreen> {
-  Box _box;
   List<Problem> _questionsList;
   int iterator;
   TestGroup testGroup;
   List<Color> buttonColors;
   bool _isButtonTapped = false;
+  int correctAnswersCount = 0;
 
   @override
   void initState() {
-    _box = Hive.box(hiveProgressBox);
     super.initState();
     testGroup = widget.testGroup;
     _questionsList = generateClosedTest(
@@ -48,13 +47,14 @@ class _TestScreenState extends State<TestScreen> {
         _questionsList[iterator].givenAnswer = givenAnswer;
         if (givenAnswer == _questionsList[iterator].correctAnswer) {
           buttonColors[index] = Colors.green;
+          correctAnswersCount++;
         } else {
           buttonColors[index] = Colors.red;
         }
 
         _isButtonTapped = true;
         if (iterator < _questionsList.length - 1) {
-          Future.delayed(const Duration(milliseconds: 1000), () {
+          Future.delayed(const Duration(milliseconds: 500), () {
             setState(() {
               buttonColors[index] = Colors.white;
               _isButtonTapped = false;
@@ -62,7 +62,18 @@ class _TestScreenState extends State<TestScreen> {
             });
           });
         } else {
-          Future.delayed(const Duration(milliseconds: 1000), () {
+          Future.delayed(const Duration(milliseconds: 500), () {
+            // update score of test group
+            double previousScore = getProgress(widget.testGroup.id);
+            if (previousScore <
+                correctAnswersCount / widget.testGroup.itemsCount) {
+              updateProgress(widget.testGroup.id,
+                  correctAnswersCount / widget.testGroup.itemsCount);
+            }
+            // increment total and today stats counters
+            updateSolvedCounters(correctAnswersCount,
+                widget.testGroup.itemsCount - correctAnswersCount);
+
             TestResults tr =
                 TestResults(retryPath: '/', testData: _questionsList);
             Navigator.of(ctx).pushReplacementNamed(TestResultsScreen.routeName,
