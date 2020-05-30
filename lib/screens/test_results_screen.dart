@@ -164,7 +164,7 @@ class TestResultsScreen extends StatelessWidget {
                 top: 10.0, bottom: 3.0, right: 15.0, left: 15.0),
             child: StyledButton(
               onPressed: _showDialog,
-              text: 'Show answer list',
+              text: 'Show answers',
               light: true,
             ),
           ),
