@@ -28,6 +28,7 @@ class _TestScreenState extends State<TestScreen> {
   List<Color> buttonColors;
   bool _isButtonTapped = false;
   int correctAnswersCount = 0;
+  int totalQNumber = 10;
 
   @override
   void initState() {
@@ -38,6 +39,7 @@ class _TestScreenState extends State<TestScreen> {
     iterator = 0;
     buttonColors = [Colors.white, Colors.white, Colors.white, Colors.white];
     _isButtonTapped = false;
+    totalQNumber = _questionsList.length;
   }
 
   void answerClick(BuildContext ctx, int index) {
@@ -74,8 +76,8 @@ class _TestScreenState extends State<TestScreen> {
             updateSolvedCounters(correctAnswersCount,
                 widget.testGroup.itemsCount - correctAnswersCount);
 
-            TestResults tr =
-                TestResults(retryPath: '/', testData: _questionsList);
+            TestResults tr = TestResults(
+                testGroup: widget.testGroup, testData: _questionsList);
             Navigator.of(ctx).pushReplacementNamed(TestResultsScreen.routeName,
                 arguments: tr);
           });
@@ -106,7 +108,7 @@ class _TestScreenState extends State<TestScreen> {
         children: <Widget>[
           Center(
             child: Text(
-              '${iterator + 1}  of  10',
+              '${iterator + 1}  of $totalQNumber',
               style: GoogleFonts.lato(
                 textStyle: TextStyle(
                   fontWeight: FontWeight.w600,

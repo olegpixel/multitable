@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:multitables/models/problem.dart';
 import 'dart:math';
 
@@ -7,7 +6,6 @@ const ANSWERS_COUNT = 4;
 // Step 1: add response + answerCount-1 into array
 // Step 2: shuffle array
 Problem generateAnswerVariants(int a, int b) {
-  int res = a * b;
   var random = new Random();
   List<int> answers = [a * b];
 

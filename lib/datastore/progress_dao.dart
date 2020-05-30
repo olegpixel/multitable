@@ -1,5 +1,4 @@
 import 'package:hive/hive.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:multitables/datastore/test_groups.dart';
 
 const HIVE_PROGRESS_BOX = 'HIVE_PROGRESS_BOX';

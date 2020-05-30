@@ -1,14 +1,12 @@
-import 'package:flutter/material.dart';
 import 'package:multitables/models/problem.dart';
+import 'package:multitables/models/test_group.dart';
 
 class TestResults {
-  final String closePath;
-  final String retryPath;
+  final TestGroup testGroup;
   final List<Problem> testData;
 
   const TestResults({
-    this.closePath,
-    this.retryPath,
+    this.testGroup,
     this.testData,
   });
 }

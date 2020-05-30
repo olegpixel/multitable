@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import '../funcs/funcs.dart';
-import 'package:google_fonts/google_fonts.dart';
 import '../widgets/list_item.dart';
 import '../widgets/header.dart';
 import 'package:multitables/datastore/test_groups.dart';

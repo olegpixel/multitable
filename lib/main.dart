@@ -9,6 +9,7 @@ import 'screens/test_results_screen.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:multitables/datastore/progress_dao.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 void main() async {
   await Hive.initFlutter();
@@ -23,6 +24,9 @@ class MyApp extends StatelessWidget {
         title: 'Flutter Demo',
         theme: ThemeData(
           primarySwatch: Colors.blue,
+//          textTheme: GoogleFonts.robotoTextTheme(
+//            Theme.of(context).textTheme,
+//          ),
         ),
         routes: {
           '/': (ctx) => HomeScreen(),

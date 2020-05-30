@@ -11,6 +11,15 @@ const PRACTICE_TEST_GROUPS = const [
 //    isTimed: false,
 //  ),
   TestGroup(
+    id: 'test-practice-1',
+    title: 'Number 1',
+    description: 'Multiply number 1',
+    problemsClass: [1],
+    iconImage: '',
+    itemsCount: 1,
+    isTimed: false,
+  ),
+  TestGroup(
     id: 'practice-1',
     title: 'Number 1',
     description: 'Multiply number 1',

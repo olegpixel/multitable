@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../funcs/funcs.dart';
 
 class ExamScreen extends StatelessWidget {
   static const routeName = '/exam';
