@@ -21,6 +21,7 @@ class PracticeScreen extends StatelessWidget {
               bgColor: '#FFEABA',
             ),
             Container(
+              margin: const EdgeInsets.only(bottom: 15.0),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.stretch,

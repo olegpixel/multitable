@@ -6,6 +6,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:multitables/datastore/progress_dao.dart';
 import 'package:multitables/models/test_group.dart';
 import 'package:multitables/screens/test_screen.dart';
+import 'package:percent_indicator/percent_indicator.dart';
 
 class ListItem extends StatefulWidget {
   final TestGroup testGroup;
@@ -35,6 +36,7 @@ class _ListItemState extends State<ListItem> {
   Widget build(BuildContext context) {
     return Container(
       child: Container(
+        width: double.infinity,
         margin:
             EdgeInsets.only(left: 20.0, top: 10.0, right: 20.0, bottom: 8.0),
         height: 115.0,
@@ -42,6 +44,7 @@ class _ListItemState extends State<ListItem> {
           onTap: () => selectCategory(context, widget.testGroup),
           borderRadius: BorderRadius.circular(8.0),
           child: Container(
+            width: double.infinity,
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(8.0),
@@ -55,66 +58,143 @@ class _ListItemState extends State<ListItem> {
               ],
             ),
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     Padding(
-                      padding: const EdgeInsets.all(15.0),
-                      child: Container(
+                      padding: const EdgeInsets.only(
+                          top: 5.0, left: 15.0, bottom: 10.0, right: 10.0),
+                      child: Image(
+                        image: AssetImage(
+                          'assets/images/' + widget.testGroup.iconImage,
+                        ),
                         width: 67.0,
                         height: 67.0,
-                        decoration: BoxDecoration(
-                          color: hexToColor('#5F4C9E'),
-                          borderRadius: BorderRadius.circular(8.0),
-                        ),
                       ),
                     ),
-                    Container(
+                    Expanded(
+                      flex: 1,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Text(
                             widget.testGroup.title,
                             overflow: TextOverflow.clip,
-                            style: GoogleFonts.lato(
-                              textStyle: TextStyle(
-                                fontWeight: FontWeight.w700,
-                                color: hexToColor('#3D3D74'),
-                                fontSize: 15.0,
-                              ),
+                            style: TextStyle(
+                              fontWeight: FontWeight.w800,
+                              color: hexToColor('#3D3D74'),
+                              fontSize: 17.0,
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.only(top: 8.0),
+                            padding:
+                                const EdgeInsets.only(top: 8.0, bottom: 8.0),
                             child: Text(
-                              widget.testGroup.title,
+                              widget.testGroup.itemsCount.toString() +
+                                  ' questions',
                               overflow: TextOverflow.clip,
                               style: GoogleFonts.lato(
                                 textStyle: TextStyle(
-                                  fontWeight: FontWeight.w700,
-                                  color: hexToColor('#999999'),
-                                  fontSize: 11.0,
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.grey,
+                                  fontSize: 13.0,
                                 ),
                               ),
                             ),
                           ),
-                          ValueListenableBuilder(
-                            valueListenable: Hive.box(HIVE_PROGRESS_BOX)
-                                .listenable(keys: [widget.testGroup.id]),
-                            builder: (context, box, w) {
-                              return Text(
-                                'Progress = ' +
-                                    (_box.get(widget.testGroup.id,
-                                            defaultValue: 0))
-                                        .toString(),
-                              );
-                            },
-                          )
                         ],
+                      ),
+                    ),
+                    Container(
+                      margin: const EdgeInsets.only(right: 15.0, bottom: 5.0),
+                      child: ValueListenableBuilder(
+                        valueListenable: Hive.box(HIVE_PROGRESS_BOX)
+                            .listenable(keys: [widget.testGroup.id]),
+                        builder: (context, box, w) {
+                          double percent =
+                              _box.get(widget.testGroup.id, defaultValue: 0.0);
+                          Widget c;
+                          if (percent > 0.99) {
+                            c = CircleAvatar(
+                              radius: 24.0,
+                              child: Icon(
+                                Icons.done,
+                                color: Colors.white,
+                                size: 36.0,
+                              ),
+                              backgroundColor: hexToColor('#4CAF50'),
+                            );
+                          } else if (percent > 0) {
+                            c = CircleAvatar(
+                              radius: 24.0,
+                              child: Icon(
+                                Icons.priority_high,
+                                color: Colors.white,
+                                size: 36.0,
+                              ),
+                              backgroundColor: hexToColor('#F7AC1A'),
+                            );
+                          } else {
+                            c = Container();
+                          }
+
+                          return c;
+                        },
                       ),
                     ),
                   ],
                 ),
+                Container(
+                  margin: const EdgeInsets.only(left: 10.0, right: 10.0),
+                  child: Row(
+                    children: <Widget>[
+                      Expanded(
+                        child: ValueListenableBuilder(
+                          valueListenable: Hive.box(HIVE_PROGRESS_BOX)
+                              .listenable(keys: [widget.testGroup.id]),
+                          builder: (context, box, w) {
+                            return new LinearPercentIndicator(
+                              animation: true,
+                              animationDuration: 700,
+                              lineHeight: 12.0,
+                              percent: _box.get(widget.testGroup.id,
+                                  defaultValue: 0.0),
+                              backgroundColor: hexToColor('#E6E6E6'),
+                              linearStrokeCap: LinearStrokeCap.roundAll,
+                              progressColor: hexToColor('#F7AC1A'),
+                            );
+                          },
+                        ),
+                      ),
+                      ValueListenableBuilder(
+                        valueListenable: Hive.box(HIVE_PROGRESS_BOX)
+                            .listenable(keys: [widget.testGroup.id]),
+                        builder: (context, box, w) {
+                          double percent =
+                              _box.get(widget.testGroup.id, defaultValue: 0.0);
+                          Color c = Colors.grey;
+                          if (percent > 0.99) {
+                            c = hexToColor('#4CAF50');
+                          } else if (percent > 0) {
+                            c = hexToColor('#F7AC1A');
+                          }
+                          return Text(
+                            (percent * 100).round().toString() + ' %',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              color: c,
+                              fontSize: 16.0,
+                            ),
+                          );
+                        },
+                      ),
+                    ],
+                  ),
+                )
               ],
             ),
           ),
