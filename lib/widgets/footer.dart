@@ -55,9 +55,9 @@ class Footer extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
-          MenuIcon('Home', Icons.home, hexToColor('#666666')),
-          MenuIcon('Settings', Icons.settings, hexToColor('#666666')),
+//          MenuIcon('Home', Icons.home, hexToColor('#666666')),
           MenuIcon('Language', Icons.language, hexToColor('#666666')),
+          MenuIcon('Settings', Icons.settings, hexToColor('#666666')),
           MenuIcon('Rate Us', Icons.star, hexToColor('#FF8A5B')),
         ],
       ),
