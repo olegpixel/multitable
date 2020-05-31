@@ -45,7 +45,7 @@ class _TablesBodyState extends State<TablesBody> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: hexToColor('#F6F7FC'),
+      color: const Color(0xffF6F7FC),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -53,7 +53,7 @@ class _TablesBodyState extends State<TablesBody> {
           Expanded(
             child: Container(
               margin: EdgeInsets.only(
-                  left: 20.0, top: 0.0, right: 20.0, bottom: 20.0),
+                  left: 20.0, top: 0.0, right: 20.0, bottom: 5.0),
               height: 115.0,
               child: Container(
                 decoration: BoxDecoration(
@@ -61,10 +61,10 @@ class _TablesBodyState extends State<TablesBody> {
                   borderRadius: BorderRadius.circular(8.0),
                   boxShadow: [
                     BoxShadow(
-                      color: hexToColor("#c3c3c3").withOpacity(0.5),
-                      spreadRadius: 4,
-                      blurRadius: 8,
-                      offset: Offset(0, -2), // changes position of shadow
+                      color: const Color(0xffc3c3c3).withOpacity(0.5),
+                      spreadRadius: 2,
+                      blurRadius: 3,
+                      offset: Offset(0, 2), // changes position of shadow
                     ),
                   ],
                 ),
@@ -75,10 +75,10 @@ class _TablesBodyState extends State<TablesBody> {
           Container(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     NumberIcon(1, _handelTap, 1 == _selectedNumber),
                     NumberIcon(2, _handelTap, 2 == _selectedNumber),
@@ -87,7 +87,7 @@ class _TablesBodyState extends State<TablesBody> {
                   ],
                 ),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     NumberIcon(5, _handelTap, 5 == _selectedNumber),
                     NumberIcon(6, _handelTap, 6 == _selectedNumber),
@@ -96,7 +96,7 @@ class _TablesBodyState extends State<TablesBody> {
                   ],
                 ),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     NumberIcon(9, _handelTap, 9 == _selectedNumber),
                     NumberIcon(10, _handelTap, 10 == _selectedNumber),
@@ -106,23 +106,7 @@ class _TablesBodyState extends State<TablesBody> {
                 ),
               ],
             ),
-            height: 240.0,
-            width: double.infinity,
-            decoration: BoxDecoration(
-              color: hexToColor('#CCCED3'),
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(25),
-                topRight: Radius.circular(25),
-              ),
-              boxShadow: [
-                BoxShadow(
-                  color: hexToColor("#999999").withOpacity(0.18),
-                  spreadRadius: 5,
-                  blurRadius: 15,
-                  offset: Offset(0, -3), // changes position of shadow
-                ),
-              ],
-            ),
+            height: 250.0,
           )
         ],
       ),
@@ -148,46 +132,22 @@ class TableText extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
             Expanded(
-              child: Row(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      ...odds
-                          .map((i) => new Text(
-                                '$_selectedNumber x $i',
-                                overflow: TextOverflow.clip,
-                                style: GoogleFonts.lato(
-                                  textStyle: TextStyle(
-                                    fontWeight: FontWeight.w700,
-                                    color: hexToColor('#3D3D74'),
-                                    fontSize: 27.0,
-                                  ),
-                                ),
-                              ))
-                          .toList(),
-                    ],
-                  ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: <Widget>[
-                      ...odds
-                          .map((i) => new Text(
-                                ' = ' + (_selectedNumber * i).toString(),
-                                overflow: TextOverflow.clip,
-                                style: GoogleFonts.lato(
-                                  textStyle: TextStyle(
-                                    fontWeight: FontWeight.w700,
-                                    color: hexToColor('#3D3D74'),
-                                    fontSize: 27.0,
-                                  ),
-                                ),
-                              ))
-                          .toList(),
-                    ],
-                  ),
+                  ...odds
+                      .map((i) => new Text(
+                            '$_selectedNumber \u00D7 $i = ' +
+                                (_selectedNumber * i).toString(),
+                            overflow: TextOverflow.clip,
+                            style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              color: const Color(0xff3D3D74),
+                              fontSize: 27.0,
+                            ),
+                          ))
+                      .toList(),
                 ],
               ),
             )
@@ -203,15 +163,13 @@ class TableText extends StatelessWidget {
                 children: <Widget>[
                   ...evens
                       .map((i) => new Text(
-                            '$_selectedNumber x $i = ' +
+                            '$_selectedNumber \u00D7 $i = ' +
                                 (_selectedNumber * i).toString(),
                             overflow: TextOverflow.clip,
-                            style: GoogleFonts.lato(
-                              textStyle: TextStyle(
-                                fontWeight: FontWeight.w700,
-                                color: hexToColor('#3D3D74'),
-                                fontSize: 27.0,
-                              ),
+                            style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              color: const Color(0xff3D3D74),
+                              fontSize: 27.0,
                             ),
                           ))
                       .toList(),
@@ -235,6 +193,7 @@ class NumberIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FlatButton(
+      padding: EdgeInsets.all(0),
       onPressed: () => tapHandler(number),
       child: Container(
         child: Padding(
@@ -242,12 +201,10 @@ class NumberIcon extends StatelessWidget {
           child: Center(
             child: Text(
               number.toString(),
-              style: GoogleFonts.lato(
-                textStyle: TextStyle(
-                  fontWeight: FontWeight.w700,
-                  color: (this.selected ? Colors.white : hexToColor('#4785EB')),
-                  fontSize: 21.0,
-                ),
+              style: TextStyle(
+                fontWeight: FontWeight.w400,
+                color: const Color(0xff3D3D74),
+                fontSize: 30.0,
               ),
             ),
           ),
@@ -255,14 +212,14 @@ class NumberIcon extends StatelessWidget {
         width: 64,
         height: 64,
         decoration: BoxDecoration(
-          color: (this.selected ? hexToColor('#3D3D74') : Colors.white),
-          borderRadius: BorderRadius.all(Radius.circular(7)),
+          color: (this.selected ? const Color(0xffE3F0FF) : Colors.white),
+          borderRadius: BorderRadius.all(Radius.circular(40)),
           boxShadow: [
             BoxShadow(
-              color: hexToColor("#999999").withOpacity(0.18),
-              spreadRadius: 5,
-              blurRadius: 15,
-              offset: Offset(0, 1), // changes position of shadow
+              color: const Color(0xff999999).withOpacity(0.3),
+              spreadRadius: 2,
+              blurRadius: 2,
+              offset: Offset(0, 2), // changes position of shadow
             ),
           ],
         ),

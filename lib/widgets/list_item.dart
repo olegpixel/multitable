@@ -6,7 +6,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:multitables/datastore/progress_dao.dart';
 import 'package:multitables/models/test_group.dart';
 import 'package:multitables/screens/test_screen.dart';
-import 'package:percent_indicator/percent_indicator.dart';
+import 'package:multitables/widgets/linear_percent_indicator.dart';
 
 class ListItem extends StatefulWidget {
   final TestGroup testGroup;
@@ -163,9 +163,9 @@ class _ListItemState extends State<ListItem> {
                               lineHeight: 12.0,
                               percent: _box.get(widget.testGroup.id,
                                   defaultValue: 0.0),
-                              backgroundColor: hexToColor('#E6E6E6'),
+                              backgroundColor: const Color(0xFFE6E6E6),
                               linearStrokeCap: LinearStrokeCap.roundAll,
-                              progressColor: hexToColor('#F7AC1A'),
+                              progressColor: const Color(0xFFF7AC1A),
                             );
                           },
                         ),
@@ -178,9 +178,9 @@ class _ListItemState extends State<ListItem> {
                               _box.get(widget.testGroup.id, defaultValue: 0.0);
                           Color c = Colors.grey;
                           if (percent > 0.99) {
-                            c = hexToColor('#4CAF50');
+                            c = const Color(0xFF4CAF50);
                           } else if (percent > 0) {
-                            c = hexToColor('#F7AC1A');
+                            c = const Color(0xFFF7AC1A);
                           }
                           return Text(
                             (percent * 100).round().toString() + ' %',

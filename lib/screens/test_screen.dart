@@ -48,10 +48,10 @@ class _TestScreenState extends State<TestScreen> {
         int givenAnswer = _questionsList[iterator].answers[index];
         _questionsList[iterator].givenAnswer = givenAnswer;
         if (givenAnswer == _questionsList[iterator].correctAnswer) {
-          buttonColors[index] = Colors.green;
+          buttonColors[index] = Color(0xFF0EAD69);
           correctAnswersCount++;
         } else {
-          buttonColors[index] = Colors.red;
+          buttonColors[index] = Color(0xFFE24C4B);
         }
 
         _isButtonTapped = true;
@@ -106,11 +106,12 @@ class _TestScreenState extends State<TestScreen> {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          Center(
-            child: Text(
-              '${iterator + 1}  of $totalQNumber',
-              style: GoogleFonts.lato(
-                textStyle: TextStyle(
+          Padding(
+            padding: const EdgeInsets.only(top: 4.0, bottom: 14.0),
+            child: Center(
+              child: Text(
+                '${iterator + 1}  of  $totalQNumber',
+                style: TextStyle(
                   fontWeight: FontWeight.w600,
                   color: hexToColor('#888992'),
                   fontSize: 19.0,
@@ -145,7 +146,7 @@ class _TestScreenState extends State<TestScreen> {
                       Expanded(
                         child: Padding(
                           padding: const EdgeInsets.only(
-                              left: 20.0, top: 20.0, right: 7.0, bottom: 6.0),
+                              left: 30.0, top: 20.0, right: 15.0, bottom: 6.0),
                           child: InkWell(
                             onTap: () => answerClick(context, 0),
                             borderRadius: BorderRadius.circular(15.0),
@@ -158,7 +159,7 @@ class _TestScreenState extends State<TestScreen> {
                       Expanded(
                         child: Padding(
                           padding: const EdgeInsets.only(
-                              left: 7.0, top: 20.0, right: 20.0, bottom: 6.0),
+                              left: 15.0, top: 20.0, right: 30.0, bottom: 6.0),
                           child: InkWell(
                             onTap: () => answerClick(context, 1),
                             borderRadius: BorderRadius.circular(15.0),
@@ -177,7 +178,7 @@ class _TestScreenState extends State<TestScreen> {
                       Expanded(
                         child: Padding(
                           padding: const EdgeInsets.only(
-                              left: 20.0, top: 20.0, right: 7.0, bottom: 6.0),
+                              left: 30.0, top: 20.0, right: 15.0, bottom: 6.0),
                           child: InkWell(
                             onTap: () => answerClick(context, 2),
                             borderRadius: BorderRadius.circular(15.0),
@@ -190,7 +191,7 @@ class _TestScreenState extends State<TestScreen> {
                       Expanded(
                         child: Padding(
                           padding: const EdgeInsets.only(
-                              left: 7.0, top: 20.0, right: 20.0, bottom: 6.0),
+                              left: 15.0, top: 20.0, right: 30.0, bottom: 6.0),
                           child: InkWell(
                             onTap: () => answerClick(context, 3),
                             borderRadius: BorderRadius.circular(15.0),
@@ -231,8 +232,8 @@ class AnswerSquare extends StatelessWidget {
           BoxShadow(
             color: hexToColor("#004080").withOpacity(0.1),
             spreadRadius: 3,
-            blurRadius: 8,
-            offset: Offset(0, 0), // changes position of shadow
+            blurRadius: 2,
+            offset: Offset(0, 2), // changes position of shadow
           ),
         ],
       ),
@@ -240,13 +241,11 @@ class AnswerSquare extends StatelessWidget {
         child: Text(
           answerText,
           overflow: TextOverflow.clip,
-          style: GoogleFonts.titilliumWeb(
-            textStyle: TextStyle(
-              fontWeight: FontWeight.w700,
-              color: hexToColor('#3D3D74'),
-              fontSize: 53.0,
-              letterSpacing: 1.5,
-            ),
+          style: TextStyle(
+            fontWeight: FontWeight.w700,
+            color: hexToColor('#3D3D74'),
+            fontSize: 63.0,
+            letterSpacing: 1.5,
           ),
         ),
       ),

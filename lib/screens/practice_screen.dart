@@ -15,9 +15,10 @@ class PracticeScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             Header(
-              title: 'Tables',
-              description: 'Practice and learn',
-              image: 'assets/images/square1.png',
+              title: 'Practice',
+              description:
+                  'Select one of the multiplication table you wish to practice.',
+              image: 'assets/images/clipboard.png',
               bgColor: '#FFEABA',
             ),
             Container(

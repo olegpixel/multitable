@@ -48,7 +48,7 @@ const PRACTICE_TEST_GROUPS = const [
   ),
   TestGroup(
     id: 'practice-123',
-    title: 'Numbers 1 - 3',
+    title: 'Numbers 1 to 3',
     description: 'Multiply number 1, 2, 3',
     problemsClass: [1, 2, 3],
     iconImage: 'one-three.png',
@@ -75,7 +75,7 @@ const PRACTICE_TEST_GROUPS = const [
   ),
   TestGroup(
     id: 'practice-2345',
-    title: 'Numbers 2 - 5',
+    title: 'Numbers 2 to 5',
     description: 'Multiply number 2, 3, 4, 5',
     problemsClass: [2, 3, 4, 5],
     iconImage: 'two-five.png',
@@ -129,7 +129,7 @@ const PRACTICE_TEST_GROUPS = const [
   ),
   TestGroup(
     id: 'practice-12345678910',
-    title: 'Numbers 1 - 10',
+    title: 'Numbers 1 to 10',
     description: 'Multiply number from 1 to 10',
     problemsClass: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
     iconImage: 'one-ten.png',
@@ -156,7 +156,7 @@ const PRACTICE_TEST_GROUPS = const [
   ),
   TestGroup(
     id: 'practice-123456789101112',
-    title: 'Numbers 1 - 12',
+    title: 'Numbers 1 to 12',
     description: 'Multiply number from 1 to 12',
     problemsClass: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
     iconImage: 'one-twelve.png',

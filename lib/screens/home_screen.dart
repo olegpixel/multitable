@@ -29,38 +29,38 @@ class HomeScreen extends StatelessWidget {
                     children: <Widget>[
                       SquareMenuItem(
                         title: 'Tables',
-                        backgroundImage: 'assets/images/sq1.png',
+                        backgroundImage: 'assets/images/sq2.png',
                         iconImage: Padding(
                           padding:
-                              const EdgeInsets.only(bottom: 10.0, right: 15.0),
+                              const EdgeInsets.only(bottom: 10.0, right: 10.0),
                           child: Image(
                             image: AssetImage(
-                              'assets/images/034-board.png',
+                              'assets/images/book.png',
                             ),
-                            width: 104.0,
-                            height: 104.0,
+                            width: 110.0,
+                            height: 110.0,
                           ),
                         ),
-                        backgroundColor: '#F9CF72',
+                        backgroundColor: '#93d296',
                         pathTo: TablesScreen.routeName,
                         margins: EdgeInsets.only(
                             left: 20.0, top: 20.0, right: 7.0, bottom: 6.0),
                       ),
                       SquareMenuItem(
                         title: 'Practice',
-                        backgroundImage: 'assets/images/sq2.png',
+                        backgroundImage: 'assets/images/sq1.png',
                         iconImage: Padding(
                           padding:
-                              const EdgeInsets.only(bottom: 15.0, right: 15.0),
+                              const EdgeInsets.only(bottom: 10.0, right: 10.0),
                           child: Image(
                             image: AssetImage(
-                              'assets/images/satisfaction.png',
+                              'assets/images/clipboard.png',
                             ),
-                            width: 100.0,
-                            height: 100.0,
+                            width: 110.0,
+                            height: 110.0,
                           ),
                         ),
-                        backgroundColor: '#93d296',
+                        backgroundColor: '#F9CF72',
                         pathTo: PracticeScreen.routeName,
                         margins: EdgeInsets.only(
                             left: 7.0, top: 20.0, right: 20.0, bottom: 6.0),
@@ -78,13 +78,13 @@ class HomeScreen extends StatelessWidget {
                         backgroundImage: 'assets/images/sq3.png',
                         iconImage: Padding(
                           padding:
-                              const EdgeInsets.only(bottom: 3.0, right: 15.0),
+                              const EdgeInsets.only(bottom: 10.0, right: 10.0),
                           child: Image(
                             image: AssetImage(
-                              'assets/images/049-cap.png',
+                              'assets/images/graduation-cap.png',
                             ),
-                            width: 110.0,
-                            height: 110.0,
+                            width: 115.0,
+                            height: 115.0,
                           ),
                         ),
                         backgroundColor: '#B3EEFA',
@@ -97,13 +97,13 @@ class HomeScreen extends StatelessWidget {
                         backgroundImage: 'assets/images/sq4.png',
                         iconImage: Padding(
                           padding:
-                              const EdgeInsets.only(bottom: 15.0, right: 15.0),
+                              const EdgeInsets.only(bottom: 10.0, right: 10.0),
                           child: Image(
                             image: AssetImage(
-                              'assets/images/020-calendar.png',
+                              'assets/images/monitoring.png',
                             ),
-                            width: 100.0,
-                            height: 100.0,
+                            width: 110.0,
+                            height: 110.0,
                           ),
                         ),
                         backgroundColor: '#FFD5DF',

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
-import 'dart:math';
 import '../widgets/header.dart';
 import 'package:multitables/datastore/progress_dao.dart';
 
@@ -63,7 +62,7 @@ class StatsScreen extends StatelessWidget {
             Header(
               title: 'Your progress',
               description: 'Practice and learn',
-              image: 'assets/images/square1.png',
+              image: 'assets/images/elearning_stat.png',
               bgColor: '#FFEABA',
             ),
             Container(
