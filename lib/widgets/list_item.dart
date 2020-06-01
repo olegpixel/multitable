@@ -120,7 +120,7 @@ class _ListItemState extends State<ListItem> {
                           Widget c;
                           if (percent > 0.99) {
                             c = CircleAvatar(
-                              radius: 24.0,
+                              radius: 20.0,
                               child: Icon(
                                 Icons.done,
                                 color: Colors.white,
@@ -130,7 +130,7 @@ class _ListItemState extends State<ListItem> {
                             );
                           } else if (percent > 0) {
                             c = CircleAvatar(
-                              radius: 24.0,
+                              radius: 20.0,
                               child: Icon(
                                 Icons.priority_high,
                                 color: Colors.white,

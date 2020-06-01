@@ -61,7 +61,7 @@ Problem generateAnswerVariants(int a, int b) {
     y: b,
     correctAnswer: a * b,
     answers: answers,
-    questionString: '$a x $b = ?',
+    questionString: '$a \u00D7 $b = ?',
   );
 }
 

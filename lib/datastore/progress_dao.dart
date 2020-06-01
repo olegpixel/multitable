@@ -68,23 +68,22 @@ UserLevel getCurrentUserLevel() {
   return USER_LEVELS[ind - 2];
 }
 
-void updateCountersAndXP(int rght, int wrng, int xpToAdd) async {
+void updateCountersAndXP(int right, int wrong, int xp) async {
   var now = new DateTime.now().toLocal();
   String postfix =
       now.year.toString() + now.month.toString() + now.day.toString();
-  if (rght > 0) {
-    int current = progressBox.get(TOTAL_SOLVED_KEY);
-    progressBox.put(TOTAL_SOLVED_KEY, current + rght);
-    int todayCurrent =
+  if (right > 0) {
+    int current = progressBox.get(TOTAL_SOLVED_KEY, defaultValue: 0);
+    progressBox.put(TOTAL_SOLVED_KEY, current + right);
+    int todayRight =
         progressBox.get(DATED_SOLVED_PREFIX_KEY + postfix, defaultValue: 0);
-    progressBox.put(DATED_SOLVED_PREFIX_KEY + postfix, todayCurrent + rght);
-    // add XP
-    addXP(xpToAdd);
+    progressBox.put(DATED_SOLVED_PREFIX_KEY + postfix, todayRight + right);
+    addXP(xp);
   }
-  if (wrng > 0) {
-    int todayWrongCurrent =
+  if (wrong > 0) {
+    int todayWrong =
         progressBox.get(DATED_WRONG_PREFIX_KEY + postfix, defaultValue: 0);
-    progressBox.put(DATED_WRONG_PREFIX_KEY + postfix, todayWrongCurrent + wrng);
+    progressBox.put(DATED_WRONG_PREFIX_KEY + postfix, todayWrong + wrong);
   }
   // TODO: delete older than 1 month
 }
@@ -118,7 +117,6 @@ List<dynamic> getLastWeekProgress() {
         [weekdayNumberToString(weekday), wrong.toDouble(), right.toDouble()]);
   }
   resp = resp.reversed.toList();
-  print(resp);
   return resp;
 }
 

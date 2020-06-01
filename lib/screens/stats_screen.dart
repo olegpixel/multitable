@@ -13,34 +13,46 @@ class StatsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<dynamic> tmp = getLastWeekProgress();
+    List<dynamic> lastWeekProgress = getLastWeekProgress();
     double maxY = [
-      tmp[0][1],
-      tmp[0][2],
-      tmp[1][1],
-      tmp[1][2],
-      tmp[2][1],
-      tmp[2][2],
-      tmp[3][1],
-      tmp[3][2],
-      tmp[4][1],
-      tmp[4][2],
-      tmp[5][1],
-      tmp[5][2],
-      tmp[6][1],
-      tmp[6][2]
+      lastWeekProgress[0][1],
+      lastWeekProgress[0][2],
+      lastWeekProgress[1][1],
+      lastWeekProgress[1][2],
+      lastWeekProgress[2][1],
+      lastWeekProgress[2][2],
+      lastWeekProgress[3][1],
+      lastWeekProgress[3][2],
+      lastWeekProgress[4][1],
+      lastWeekProgress[4][2],
+      lastWeekProgress[5][1],
+      lastWeekProgress[5][2],
+      lastWeekProgress[6][1],
+      lastWeekProgress[6][2]
     ].reduce((curr, next) => curr > next ? curr : next);
+
+    int totalLastWeekSolved = 0;
+    for (final p in lastWeekProgress) {
+      totalLastWeekSolved += (p[2]).toInt();
+    }
 
     int segment = (maxY / 10).round().toInt();
     maxY += segment;
 
-    final barGroup1 = makeGroupData(0, tmp[0][1], tmp[0][2]);
-    final barGroup2 = makeGroupData(1, tmp[1][1], tmp[1][2]);
-    final barGroup3 = makeGroupData(2, tmp[2][1], tmp[2][2]);
-    final barGroup4 = makeGroupData(3, tmp[3][1], tmp[3][2]);
-    final barGroup5 = makeGroupData(4, tmp[4][1], tmp[4][2]);
-    final barGroup6 = makeGroupData(5, tmp[5][1], tmp[5][2]);
-    final barGroup7 = makeGroupData(6, tmp[6][1], tmp[6][2]);
+    final barGroup1 =
+        makeGroupData(0, lastWeekProgress[0][1], lastWeekProgress[0][2]);
+    final barGroup2 =
+        makeGroupData(1, lastWeekProgress[1][1], lastWeekProgress[1][2]);
+    final barGroup3 =
+        makeGroupData(2, lastWeekProgress[2][1], lastWeekProgress[2][2]);
+    final barGroup4 =
+        makeGroupData(3, lastWeekProgress[3][1], lastWeekProgress[3][2]);
+    final barGroup5 =
+        makeGroupData(4, lastWeekProgress[4][1], lastWeekProgress[4][2]);
+    final barGroup6 =
+        makeGroupData(5, lastWeekProgress[5][1], lastWeekProgress[5][2]);
+    final barGroup7 =
+        makeGroupData(6, lastWeekProgress[6][1], lastWeekProgress[6][2]);
 
     rawBarGroups = [
       barGroup1,
@@ -62,11 +74,67 @@ class StatsScreen extends StatelessWidget {
           children: <Widget>[
             Header(
               title: 'Your progress',
-              description: 'Practice and learn',
+              description: 'Check your progress in learning times tables.',
               image: 'assets/images/elearning_stat.png',
               bgColor: '#FFEABA',
             ),
-            Text('Your XP: '),
+            Padding(
+              padding: const EdgeInsets.only(left: 20.0, top: 10.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  RichText(
+                    text: TextSpan(
+                      style: TextStyle(
+                        fontWeight: FontWeight.w400,
+                        color: Color(0xff3D3D74),
+                        fontSize: 19.0,
+                      ),
+                      children: <TextSpan>[
+                        TextSpan(text: 'Your XP: '),
+                        TextSpan(
+                            text: getXP().toString() + ' points',
+                            style: TextStyle(fontWeight: FontWeight.bold)),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 15.0, bottom: 15.0),
+                    child: RichText(
+                      text: TextSpan(
+                        style: TextStyle(
+                          fontWeight: FontWeight.w400,
+                          color: Color(0xff3D3D74),
+                          fontSize: 19.0,
+                        ),
+                        children: <TextSpan>[
+                          TextSpan(text: 'Solved last 7 days: '),
+                          TextSpan(
+                              text:
+                                  totalLastWeekSolved.toString() + ' problems',
+                              style: TextStyle(fontWeight: FontWeight.bold)),
+                        ],
+                      ),
+                    ),
+                  ),
+                  RichText(
+                    text: TextSpan(
+                      style: TextStyle(
+                        fontWeight: FontWeight.w400,
+                        color: Color(0xff3D3D74),
+                        fontSize: 19.0,
+                      ),
+                      children: <TextSpan>[
+                        TextSpan(text: 'Solved total: '),
+                        TextSpan(
+                            text: getTotalCounter().toString() + ' problems',
+                            style: TextStyle(fontWeight: FontWeight.bold)),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
             Container(
               child: AspectRatio(
                 aspectRatio: 1,
@@ -82,18 +150,18 @@ class StatsScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.start,
                       mainAxisSize: MainAxisSize.max,
                       children: <Widget>[
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisSize: MainAxisSize.min,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: <Widget>[
-                            const Text(
-                              'Your progress for the last 7 days:',
-                              style: TextStyle(
-                                  color: Color(0xff3D3D74), fontSize: 21),
-                            ),
-                          ],
-                        ),
+//                        Row(
+//                          crossAxisAlignment: CrossAxisAlignment.center,
+//                          mainAxisSize: MainAxisSize.min,
+//                          mainAxisAlignment: MainAxisAlignment.start,
+//                          children: <Widget>[
+//                            const Text(
+//                              'Your progress for the last 7 days:',
+//                              style: TextStyle(
+//                                  color: Color(0xff3D3D74), fontSize: 21),
+//                            ),
+//                          ],
+//                        ),
                         const SizedBox(
                           height: 18,
                         ),
@@ -120,7 +188,7 @@ class StatsScreen extends StatelessWidget {
                                         fontSize: 15),
                                     margin: 12,
                                     getTitles: (double value) {
-                                      return tmp[value.toInt()][0];
+                                      return lastWeekProgress[value.toInt()][0];
                                     },
                                   ),
                                   leftTitles: SideTitles(
@@ -168,6 +236,44 @@ class StatsScreen extends StatelessWidget {
                         ),
                         const SizedBox(
                           height: 12,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Container(
+                              child: Row(
+                                children: <Widget>[
+                                  Container(
+                                    margin: const EdgeInsets.only(right: 6.0),
+                                    color: const Color(0xffE24C4B),
+                                    width: 12.0,
+                                    height: 12.0,
+                                  ),
+                                  Text(
+                                    'Wrong',
+                                    style: TextStyle(
+                                      color: Color(0xff3D3D74),
+                                      fontSize: 14.0,
+                                    ),
+                                  ),
+                                  Container(
+                                    margin: const EdgeInsets.only(
+                                        left: 12.0, right: 6.0),
+                                    color: const Color(0xff4CAF50),
+                                    width: 12.0,
+                                    height: 12.0,
+                                  ),
+                                  Text(
+                                    'Correct',
+                                    style: TextStyle(
+                                      color: Color(0xff3D3D74),
+                                      fontSize: 14.0,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
                         ),
                       ],
                     ),

@@ -5,6 +5,7 @@ import 'package:multitables/models/problem.dart';
 import 'package:multitables/widgets/striked_text.dart';
 import 'package:multitables/widgets/styled_button.dart';
 import 'package:multitables/screens/test_screen.dart';
+import 'package:multitables/datastore/lang.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
 class TestResultsScreen extends StatelessWidget {
@@ -186,7 +187,7 @@ class TestResultsScreen extends StatelessWidget {
               ),
             ),
           ),
-          ...resultText(),
+          ...resultText(percentage),
           Spacer(
             flex: 1,
           ),
@@ -232,10 +233,24 @@ AssetImage starsRating(double percent) {
   }
 }
 
-List<Widget> resultText() {
+List<Widget> resultText(double percent) {
+  String title;
+  String desc;
+
+  if (percent > 0.99) {
+    title = getRandomElement(LANG['ENGLISH']['test-results-great']);
+    desc = '';
+  } else if (percent > 0.6) {
+    title = getRandomElement(LANG['ENGLISH']['test-results-good']);
+    desc = '';
+  } else {
+    title = getRandomElement(LANG['ENGLISH']['test-results-bad']);
+    desc = '';
+  }
+
   return [
     Text(
-      'Don’t Give Up!',
+      title,
       style: TextStyle(
         fontSize: 18.0,
         fontWeight: FontWeight.w700,
@@ -259,4 +274,5 @@ List<Widget> resultText() {
       ),
     ),
   ];
+
 }
