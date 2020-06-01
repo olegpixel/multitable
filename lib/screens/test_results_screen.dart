@@ -17,6 +17,7 @@ class TestResultsScreen extends StatelessWidget {
     int totalNumber = args.testData.length;
     double percentage = 0;
     List<Widget> answersList = [];
+    int xp = args.xp;
 
     for (Problem pr in args.testData) {
       if (pr.correctAnswer == pr.givenAnswer) {
@@ -71,12 +72,6 @@ class TestResultsScreen extends StatelessWidget {
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(10.0))),
             actions: <Widget>[
-//              FlatButton(
-//                child: Text('Close'),
-//                onPressed: () {
-//                  Navigator.of(context).pop();
-//                },
-//              ),
               StyledButton(
                 onPressed: () {
                   Navigator.of(context).pop();
@@ -117,31 +112,67 @@ class TestResultsScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
-                  Container(
-                    margin: EdgeInsets.all(0.0),
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: hexToColor('#599BF0'),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(22.0),
-                      child: new CircularPercentIndicator(
-                        radius: 120.0,
-                        lineWidth: 13.0,
-                        animation: true,
-                        percent: correctNumber / totalNumber,
-                        center: new Text(
-                          '$correctNumber of $totalNumber',
-                          style: new TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20.0,
-                              color: Colors.white),
+                  Stack(
+                    children: <Widget>[
+                      Center(
+                        child: Container(
+                          margin: EdgeInsets.all(0.0),
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: hexToColor('#599BF0'),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(22.0),
+                            child: new CircularPercentIndicator(
+                              radius: 140.0,
+                              lineWidth: 13.0,
+                              animation: true,
+                              percent: correctNumber / totalNumber,
+                              center: new Text(
+                                '$correctNumber of $totalNumber',
+                                style: new TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 20.0,
+                                    color: Colors.white),
+                              ),
+                              circularStrokeCap: CircularStrokeCap.round,
+                              progressColor: hexToColor('#E3F0FF'),
+                              backgroundColor: hexToColor('#4785EB'),
+                            ),
+                          ),
                         ),
-                        circularStrokeCap: CircularStrokeCap.round,
-                        progressColor: hexToColor('#E3F0FF'),
-                        backgroundColor: hexToColor('#4785EB'),
                       ),
-                    ),
+                      Center(
+                        child: Container(
+                          margin: const EdgeInsets.only(top: 139.0),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(30.0),
+                            color: Colors.white,
+                            boxShadow: [
+                              BoxShadow(
+                                color: hexToColor("#004080").withOpacity(0.1),
+                                spreadRadius: 3,
+                                blurRadius: 2,
+                                offset:
+                                    Offset(0, 2), // changes position of shadow
+                              ),
+                            ],
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              '+ $xp XP',
+                              overflow: TextOverflow.clip,
+                              style: TextStyle(
+                                fontWeight: FontWeight.w800,
+                                color: Color(0xffE24C4B),
+                                fontSize: 16.0,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                   Padding(
                     padding: const EdgeInsets.only(bottom: 45.0),

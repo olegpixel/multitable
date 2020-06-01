@@ -66,18 +66,28 @@ class _TestScreenState extends State<TestScreen> {
         } else {
           Future.delayed(const Duration(milliseconds: 500), () {
             // update score of test group
-            double previousScore = getProgress(widget.testGroup.id);
+            double previousScore = getGroupProgress(widget.testGroup.id);
             if (previousScore <
                 correctAnswersCount / widget.testGroup.itemsCount) {
-              updateProgress(widget.testGroup.id,
+              updateGroupProgress(widget.testGroup.id,
                   correctAnswersCount / widget.testGroup.itemsCount);
             }
+
+            int xpToAdd = (correctAnswersCount * widget.testGroup.coefficient)
+                .floor()
+                .toInt();
+            if (widget.testGroup.itemsCount - correctAnswersCount == 0) {
+              xpToAdd = (xpToAdd * 1.1).floor().toInt();
+            }
+
             // increment total and today stats counters
-            updateSolvedCounters(correctAnswersCount,
-                widget.testGroup.itemsCount - correctAnswersCount);
+            updateCountersAndXP(correctAnswersCount,
+                widget.testGroup.itemsCount - correctAnswersCount, xpToAdd);
 
             TestResults tr = TestResults(
-                testGroup: widget.testGroup, testData: _questionsList);
+                testGroup: widget.testGroup,
+                testData: _questionsList,
+                xp: xpToAdd);
             Navigator.of(ctx).pushReplacementNamed(TestResultsScreen.routeName,
                 arguments: tr);
           });

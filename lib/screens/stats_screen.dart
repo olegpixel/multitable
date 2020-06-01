@@ -31,7 +31,8 @@ class StatsScreen extends StatelessWidget {
       tmp[6][2]
     ].reduce((curr, next) => curr > next ? curr : next);
 
-    print(maxY);
+    int segment = (maxY / 10).round().toInt();
+    maxY += segment;
 
     final barGroup1 = makeGroupData(0, tmp[0][1], tmp[0][2]);
     final barGroup2 = makeGroupData(1, tmp[1][1], tmp[1][2]);
@@ -65,6 +66,7 @@ class StatsScreen extends StatelessWidget {
               image: 'assets/images/elearning_stat.png',
               bgColor: '#FFEABA',
             ),
+            Text('Your XP: '),
             Container(
               child: AspectRatio(
                 aspectRatio: 1,
@@ -72,7 +74,7 @@ class StatsScreen extends StatelessWidget {
                   elevation: 0,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(4)),
-                  color: const Color(0xff2c4260),
+                  color: Colors.transparent,
                   child: Padding(
                     padding: const EdgeInsets.all(16),
                     child: Column(
@@ -86,14 +88,14 @@ class StatsScreen extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: <Widget>[
                             const Text(
-                              'Transactions',
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 22),
+                              'Your progress for the last 7 days:',
+                              style: TextStyle(
+                                  color: Color(0xff3D3D74), fontSize: 21),
                             ),
                           ],
                         ),
                         const SizedBox(
-                          height: 38,
+                          height: 18,
                         ),
                         Expanded(
                           child: Padding(
@@ -102,21 +104,21 @@ class StatsScreen extends StatelessWidget {
                             child: BarChart(
                               BarChartData(
                                 maxY: maxY,
-                                barTouchData: BarTouchData(
-                                  touchTooltipData: BarTouchTooltipData(
-                                    tooltipBgColor: Colors.grey,
-                                    getTooltipItem: (_a, _b, _c, _d) => null,
-                                  ),
-                                ),
+//                                barTouchData: BarTouchData(
+//                                  touchTooltipData: BarTouchTooltipData(
+//                                    tooltipBgColor: Colors.grey,
+//                                    getTooltipItem: (_a, _b, _c, _d) => null,
+//                                  ),
+//                                ),
                                 titlesData: FlTitlesData(
                                   show: true,
                                   bottomTitles: SideTitles(
                                     showTitles: true,
                                     textStyle: TextStyle(
-                                        color: const Color(0xff7589a2),
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 14),
-                                    margin: 20,
+                                        color: const Color(0xff3D3D74),
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 15),
+                                    margin: 12,
                                     getTitles: (double value) {
                                       return tmp[value.toInt()][0];
                                     },
@@ -124,13 +126,13 @@ class StatsScreen extends StatelessWidget {
                                   leftTitles: SideTitles(
                                     showTitles: true,
                                     textStyle: TextStyle(
-                                        color: const Color(0xff7589a2),
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 14),
-                                    margin: 32,
+                                        color: const Color(0xff3D3D74),
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 15),
+                                    margin: 12,
                                     reservedSize: 14,
                                     getTitles: (value) {
-                                      if (value % 10 == 0) {
+                                      if (value % (segment * 2) == 0) {
                                         return value.toInt().toString();
                                       } else {
                                         return '';
@@ -138,8 +140,26 @@ class StatsScreen extends StatelessWidget {
                                     },
                                   ),
                                 ),
+                                gridData: FlGridData(
+                                    show: true,
+                                    drawVerticalLine: true,
+                                    checkToShowHorizontalLine: (value) {
+                                      if (value % segment == 0) {
+                                        return true;
+                                      } else {
+                                        return false;
+                                      }
+                                      return true;
+                                    }),
                                 borderData: FlBorderData(
-                                  show: false,
+                                  show: true,
+                                  border: const Border(
+                                    left: BorderSide(color: Colors.blueGrey),
+                                    top: BorderSide(color: Colors.transparent),
+                                    bottom: BorderSide(color: Colors.blueGrey),
+                                    right:
+                                        BorderSide(color: Colors.transparent),
+                                  ),
                                 ),
                                 barGroups: showingBarGroups,
                               ),
@@ -166,12 +186,12 @@ BarChartGroupData makeGroupData(int x, double y1, double y2) {
   return BarChartGroupData(barsSpace: 4, x: x, barRods: [
     BarChartRodData(
       y: y1,
-      color: const Color(0xffff5182),
+      color: const Color(0xffE24C4B),
       width: 7.0,
     ),
     BarChartRodData(
       y: y2,
-      color: const Color(0xff53fdd7),
+      color: const Color(0xff4CAF50),
       width: 7.0,
     ),
   ]);

@@ -3,14 +3,14 @@ import 'dart:math';
 
 const ANSWERS_COUNT = 4;
 
-// Step 1: add response + answerCount-1 into array
+// Step 1: add response + answerCount - 1 into array
 // Step 2: shuffle array
 Problem generateAnswerVariants(int a, int b) {
   var random = new Random();
   List<int> answers = [a * b];
 
   void checkUniquenessAndAdd(int toAdd) {
-    if (toAdd < 0) {
+    if (toAdd <= 0) {
       return;
     }
     for (final i in answers) {

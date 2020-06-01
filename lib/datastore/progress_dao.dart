@@ -1,29 +1,74 @@
 import 'package:hive/hive.dart';
 import 'package:multitables/datastore/test_groups.dart';
+import 'package:multitables/datastore/user_levels.dart';
+import 'package:multitables/models/user_level.dart';
 
 const HIVE_PROGRESS_BOX = 'HIVE_PROGRESS_BOX';
 const TOTAL_SOLVED_KEY = 'TOTAL_SOLVED_KEY';
+const XP_NUMBER_KEY = 'XP_NUMBER_KEY';
 const DATED_SOLVED_PREFIX_KEY = 'DATED_SOLVED_PREFIX_KEY';
 const DATED_WRONG_PREFIX_KEY = 'DATED_WRONG_PREFIX_KEY';
 
 var progressBox = Hive.box(HIVE_PROGRESS_BOX);
 
 // progress of a specific test group
-double getProgress(String groupName) {
+double getGroupProgress(String groupName) {
   return progressBox.get(groupName, defaultValue: 0.0);
 }
 
-void updateProgress(String groupName, double newValue) {
+void updateGroupProgress(String groupName, double newValue) {
   progressBox.put(groupName, newValue);
 }
 
 // how many problems have been solved in total
-int getTotalCounter(String groupName) {
-  return progressBox.get(groupName, defaultValue: 0);
+int getTotalCounter() {
+  return progressBox.get(TOTAL_SOLVED_KEY, defaultValue: 0);
 }
 
-void updateSolvedCounters(int rght, int wrng) async {
-  progressBox.put(TOTAL_SOLVED_KEY, rght);
+void clearTotalCounter() {
+  progressBox.put(TOTAL_SOLVED_KEY, 0);
+}
+
+void clearAllStats() {
+  progressBox.put(TOTAL_SOLVED_KEY, 0);
+  progressBox.put(XP_NUMBER_KEY, 0);
+  for (var i = 0; i < 7; i++) {
+    var date = new DateTime.now().subtract(new Duration(days: i)).toLocal();
+    String postfix =
+        date.year.toString() + date.month.toString() + date.day.toString();
+    progressBox.put(DATED_SOLVED_PREFIX_KEY + postfix, 0);
+    progressBox.put(DATED_WRONG_PREFIX_KEY + postfix, 0);
+  }
+  PRACTICE_TEST_GROUPS.forEach((element) {
+    progressBox.put(element.id, 0.0);
+  });
+  EXAM_TEST_GROUPS.forEach((element) {
+    progressBox.put(element.id, 0.0);
+  });
+}
+
+int getXP() {
+  return progressBox.get(XP_NUMBER_KEY, defaultValue: 0);
+}
+
+void addXP(int add) {
+  int c = progressBox.get(XP_NUMBER_KEY, defaultValue: 0);
+  progressBox.put(XP_NUMBER_KEY, c + add);
+}
+
+// return User Level based on total questions solved
+UserLevel getCurrentUserLevel() {
+  int curCount = getXP();
+  UserLevel level;
+  int ind = 0;
+  do {
+    level = USER_LEVELS[ind];
+    ind++;
+  } while (level.number <= curCount);
+  return USER_LEVELS[ind - 2];
+}
+
+void updateCountersAndXP(int rght, int wrng, int xpToAdd) async {
   var now = new DateTime.now().toLocal();
   String postfix =
       now.year.toString() + now.month.toString() + now.day.toString();
@@ -33,13 +78,15 @@ void updateSolvedCounters(int rght, int wrng) async {
     int todayCurrent =
         progressBox.get(DATED_SOLVED_PREFIX_KEY + postfix, defaultValue: 0);
     progressBox.put(DATED_SOLVED_PREFIX_KEY + postfix, todayCurrent + rght);
+    // add XP
+    addXP(xpToAdd);
   }
   if (wrng > 0) {
     int todayWrongCurrent =
         progressBox.get(DATED_WRONG_PREFIX_KEY + postfix, defaultValue: 0);
     progressBox.put(DATED_WRONG_PREFIX_KEY + postfix, todayWrongCurrent + wrng);
-    // TODO: delete older than 1 month
   }
+  // TODO: delete older than 1 month
 }
 
 // average progress of all test groups
@@ -51,9 +98,6 @@ double getTotalProgress() {
   EXAM_TEST_GROUPS.forEach((element) {
     totalProgress += progressBox.get(element.id, defaultValue: 0.0);
   });
-
-  print(totalProgress);
-  print(PRACTICE_TEST_GROUPS.length + EXAM_TEST_GROUPS.length);
 
   return (totalProgress /
       (PRACTICE_TEST_GROUPS.length + EXAM_TEST_GROUPS.length));

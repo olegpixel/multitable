@@ -8,6 +8,7 @@ class TestGroup {
   final String iconImage;
   final int itemsCount; // how many problems in the test
   final bool isTimed; // enable/disable countdown for test
+  final double coefficient; // coefficient for XP
 
   const TestGroup(
       {@required this.id,
@@ -16,5 +17,6 @@ class TestGroup {
       @required this.problemsClass,
       @required this.iconImage,
       this.itemsCount = 10,
-      this.isTimed = false});
+      this.isTimed = false,
+      this.coefficient = 1.0});
 }

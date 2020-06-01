@@ -27,6 +27,7 @@ const PRACTICE_TEST_GROUPS = const [
     iconImage: 'one.png',
     itemsCount: 10,
     isTimed: false,
+    coefficient: 1.0,
   ),
   TestGroup(
     id: 'practice-2',
@@ -36,6 +37,7 @@ const PRACTICE_TEST_GROUPS = const [
     iconImage: 'two.png',
     itemsCount: 10,
     isTimed: false,
+    coefficient: 1.0,
   ),
   TestGroup(
     id: 'practice-3',
@@ -45,6 +47,7 @@ const PRACTICE_TEST_GROUPS = const [
     iconImage: 'three.png',
     itemsCount: 10,
     isTimed: false,
+    coefficient: 1.0,
   ),
   TestGroup(
     id: 'practice-123',
@@ -54,6 +57,7 @@ const PRACTICE_TEST_GROUPS = const [
     iconImage: 'one-three.png',
     itemsCount: 20,
     isTimed: false,
+    coefficient: 1.1,
   ),
   TestGroup(
     id: 'practice-4',
@@ -63,6 +67,7 @@ const PRACTICE_TEST_GROUPS = const [
     iconImage: 'four.png',
     itemsCount: 10,
     isTimed: false,
+    coefficient: 1.1,
   ),
   TestGroup(
     id: 'practice-5',
@@ -72,6 +77,7 @@ const PRACTICE_TEST_GROUPS = const [
     iconImage: 'five.png',
     itemsCount: 10,
     isTimed: false,
+    coefficient: 1.1,
   ),
   TestGroup(
     id: 'practice-2345',
@@ -81,6 +87,7 @@ const PRACTICE_TEST_GROUPS = const [
     iconImage: 'two-five.png',
     itemsCount: 25,
     isTimed: false,
+    coefficient: 1.2,
   ),
   TestGroup(
     id: 'practice-6',
@@ -90,6 +97,7 @@ const PRACTICE_TEST_GROUPS = const [
     iconImage: 'six.png',
     itemsCount: 10,
     isTimed: false,
+    coefficient: 1.2,
   ),
   TestGroup(
     id: 'practice-7',
@@ -99,6 +107,7 @@ const PRACTICE_TEST_GROUPS = const [
     iconImage: 'seven.png',
     itemsCount: 10,
     isTimed: false,
+    coefficient: 1.2,
   ),
   TestGroup(
     id: 'practice-8',
@@ -108,6 +117,7 @@ const PRACTICE_TEST_GROUPS = const [
     iconImage: 'eight.png',
     itemsCount: 10,
     isTimed: false,
+    coefficient: 1.3,
   ),
   TestGroup(
     id: 'practice-9',
@@ -117,6 +127,7 @@ const PRACTICE_TEST_GROUPS = const [
     iconImage: 'nine.png',
     itemsCount: 10,
     isTimed: false,
+    coefficient: 1.3,
   ),
   TestGroup(
     id: 'practice-10',
@@ -126,6 +137,7 @@ const PRACTICE_TEST_GROUPS = const [
     iconImage: 'ten.png',
     itemsCount: 10,
     isTimed: false,
+    coefficient: 1.3,
   ),
   TestGroup(
     id: 'practice-12345678910',
@@ -135,6 +147,7 @@ const PRACTICE_TEST_GROUPS = const [
     iconImage: 'one-ten.png',
     itemsCount: 30,
     isTimed: false,
+    coefficient: 1.4,
   ),
   TestGroup(
     id: 'practice-11',
@@ -144,6 +157,7 @@ const PRACTICE_TEST_GROUPS = const [
     iconImage: 'eleven.png',
     itemsCount: 10,
     isTimed: false,
+    coefficient: 1.4,
   ),
   TestGroup(
     id: 'practice-12',
@@ -153,6 +167,7 @@ const PRACTICE_TEST_GROUPS = const [
     iconImage: 'twelve.png',
     itemsCount: 10,
     isTimed: false,
+    coefficient: 1.4,
   ),
   TestGroup(
     id: 'practice-123456789101112',
@@ -162,6 +177,7 @@ const PRACTICE_TEST_GROUPS = const [
     iconImage: 'one-twelve.png',
     itemsCount: 30,
     isTimed: false,
+    coefficient: 1.4,
   ),
 ];
 
