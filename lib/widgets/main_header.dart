@@ -44,7 +44,7 @@ class _MainHeaderState extends State<MainHeader> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
-                    'Multiplication Table',
+                    'Multiplication Tables',
                     textAlign: TextAlign.center,
                     overflow: TextOverflow.clip,
                     style: GoogleFonts.titilliumWeb(
@@ -53,6 +53,18 @@ class _MainHeaderState extends State<MainHeader> {
                         color: Colors.white,
                         fontSize: 24.0,
                         letterSpacing: .5,
+                      ),
+                    ),
+                  ),
+                  Text(
+                    'Train Time Tables With Ease',
+                    textAlign: TextAlign.center,
+                    overflow: TextOverflow.clip,
+                    style: GoogleFonts.titilliumWeb(
+                      textStyle: TextStyle(
+                        fontWeight: FontWeight.w400,
+                        color: Colors.white,
+                        fontSize: 15.0,
                       ),
                     ),
                   ),

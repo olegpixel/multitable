@@ -9,22 +9,7 @@ class TablesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        bottomOpacity: 0.0,
-        elevation: 0.0,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: hexToColor('#3D3D74')),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
-        backgroundColor: Colors.transparent,
-        title: Text(
-          'Tables',
-          style: TextStyle(color: hexToColor('#3D3D74')),
-        ),
-      ),
-      body: TablesBody(),
-    );
+    return TablesBody();
   }
 }
 
@@ -34,6 +19,184 @@ class TablesBody extends StatefulWidget {
 }
 
 class _TablesBodyState extends State<TablesBody> {
+  bool _chartSelected = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        bottomOpacity: 0.0,
+        elevation: 0.0,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: hexToColor('#3D3D74')),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        backgroundColor: Colors.transparent,
+        title: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text(
+              'Table',
+              style: TextStyle(
+                color: _chartSelected ? Colors.grey : Color(0xff3D3D74),
+              ),
+            ),
+            Switch(
+              value: _chartSelected,
+              activeColor: Color(0xff4785EB),
+              inactiveThumbColor: Color(0xff4785EB),
+              inactiveTrackColor: Color(0x884785EB),
+              onChanged: (bool newValue) {
+                setState(() {
+                  _chartSelected = newValue;
+                });
+              },
+            ),
+            Text(
+              'Chart',
+              style: TextStyle(
+                color: _chartSelected ? Color(0xff3D3D74) : Colors.grey,
+              ),
+            ),
+          ],
+        ),
+      ),
+      body: _chartSelected ? ChartBody() : TableBody(),
+    );
+  }
+}
+
+class ChartBody extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
+    return Container(
+      margin: const EdgeInsets.only(top: 15.0),
+      height: width > height ? height : width,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+//        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: <Widget>[
+          NumbersColumn(i: 1, firstColumn: true),
+          NumbersColumn(i: 1, firstColumn: false),
+          NumbersColumn(i: 2, firstColumn: false),
+          NumbersColumn(i: 3, firstColumn: false),
+          NumbersColumn(i: 4, firstColumn: false),
+          NumbersColumn(i: 5, firstColumn: false),
+          NumbersColumn(i: 6, firstColumn: false),
+          NumbersColumn(i: 7, firstColumn: false),
+          NumbersColumn(i: 8, firstColumn: false),
+          NumbersColumn(i: 9, firstColumn: false),
+          NumbersColumn(i: 10, firstColumn: false),
+        ],
+      ),
+    );
+  }
+}
+
+class NumbersColumn extends StatelessWidget {
+  final int i;
+  final bool firstColumn;
+  static List<int> intArr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+  NumbersColumn({
+    this.i,
+    this.firstColumn = false,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: Container(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            Expanded(
+              child: Container(
+                decoration: BoxDecoration(
+                  border: Border(
+                    bottom: BorderSide(
+                      width: 1.0,
+                      color: Colors.grey,
+                    ),
+                    right: BorderSide(
+                      width: 1.0,
+                      color: Colors.grey,
+                    ),
+                    top: BorderSide(
+                      width: 1.0,
+                      color: Colors.grey,
+                    ),
+                  ),
+                  color: Color(0xffE3F0FF),
+                ),
+                child: Center(
+                  child: Text(
+                    (i).toString(),
+                    style: TextStyle(
+                      color: Color(0xff3D3D74),
+                      fontWeight: FontWeight.w800,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            ...intArr
+                .map(
+                  (n) => Expanded(
+                    child: Container(
+                      decoration: BoxDecoration(
+                        border: Border(
+                          bottom: BorderSide(
+                            width: 1.0,
+                            color: Colors.grey,
+                          ),
+                          right: BorderSide(
+                            width: 1.0,
+                            color: Colors.grey,
+                          ),
+                        ),
+                        color: () {
+                          if (firstColumn) {
+                            return Color(0xffE3F0FF);
+                          }
+                          if (n == i) {
+                            return Color(0xffD5F4D6);
+                          }
+                          return Colors.white;
+                        }(),
+                      ),
+                      child: Center(
+                        child: Text(
+                          (i * n).toString(),
+                          style: TextStyle(
+                            color: Color(0xff3D3D74),
+                            fontWeight:
+                                firstColumn ? FontWeight.w800 : FontWeight.w500,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                )
+                .toList(),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class TableBody extends StatefulWidget {
+  @override
+  _TableBodyState createState() => _TableBodyState();
+}
+
+class _TableBodyState extends State<TableBody> {
   int _selectedNumber = 1;
 
   void _handelTap(int n) {
@@ -45,7 +208,6 @@ class _TablesBodyState extends State<TablesBody> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: const Color(0xffF6F7FC),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -53,26 +215,24 @@ class _TablesBodyState extends State<TablesBody> {
           Expanded(
             child: Container(
               margin: EdgeInsets.only(
-                  left: 20.0, top: 0.0, right: 20.0, bottom: 5.0),
-              height: 115.0,
+                  left: 10.0, top: 0.0, right: 10.0, bottom: 5.0),
               child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(8.0),
-                  boxShadow: [
-                    BoxShadow(
-                      color: const Color(0xffc3c3c3).withOpacity(0.5),
-                      spreadRadius: 2,
-                      blurRadius: 3,
-                      offset: Offset(0, 2), // changes position of shadow
-                    ),
-                  ],
-                ),
                 child: TableText(_selectedNumber),
               ),
             ),
           ),
           Container(
+            decoration: BoxDecoration(
+              color: Color(0xffE3F0FF), //Colors.white,
+              boxShadow: [
+                BoxShadow(
+                  color: const Color(0xffc3c3c3).withOpacity(0.5),
+                  spreadRadius: 2,
+                  blurRadius: 3,
+                  offset: Offset(0, 2), // changes position of shadow
+                ),
+              ],
+            ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -144,7 +304,7 @@ class TableText extends StatelessWidget {
                             style: TextStyle(
                               fontWeight: FontWeight.w500,
                               color: const Color(0xff3D3D74),
-                              fontSize: 27.0,
+                              fontSize: 24.0,
                             ),
                           ))
                       .toList(),
@@ -169,7 +329,7 @@ class TableText extends StatelessWidget {
                             style: TextStyle(
                               fontWeight: FontWeight.w500,
                               color: const Color(0xff3D3D74),
-                              fontSize: 27.0,
+                              fontSize: 24.0,
                             ),
                           ))
                       .toList(),
@@ -193,6 +353,8 @@ class NumberIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FlatButton(
+      highlightColor: Colors.transparent,
+      splashColor: Colors.transparent,
       padding: EdgeInsets.all(0),
       onPressed: () => tapHandler(number),
       child: Container(
@@ -203,7 +365,7 @@ class NumberIcon extends StatelessWidget {
               number.toString(),
               style: TextStyle(
                 fontWeight: FontWeight.w400,
-                color: const Color(0xff3D3D74),
+                color: (this.selected ? Colors.white : Color(0xff3C8DEF)),
                 fontSize: 30.0,
               ),
             ),
@@ -212,7 +374,7 @@ class NumberIcon extends StatelessWidget {
         width: 64,
         height: 64,
         decoration: BoxDecoration(
-          color: (this.selected ? const Color(0xffE3F0FF) : Colors.white),
+          color: (this.selected ? const Color(0xff3C8DEF) : Colors.white),
           borderRadius: BorderRadius.all(Radius.circular(40)),
           boxShadow: [
             BoxShadow(
