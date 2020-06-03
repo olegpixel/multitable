@@ -16,8 +16,7 @@ class ExamScreen extends StatelessWidget {
           children: <Widget>[
             Header(
               title: 'Exam',
-              description:
-                  'Select one of the multiplication table you wish to practice.',
+              description: 'Check you knowledge and master your skills.',
               image: 'assets/images/elearning_exam.png',
               bgColor: '#FFEABA',
             ),
@@ -27,7 +26,7 @@ class ExamScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
-                  ...PRACTICE_TEST_GROUPS
+                  ...EXAM_TEST_GROUPS
                       .map(
                         (group) => new ListItem(
                           testGroup: group,
