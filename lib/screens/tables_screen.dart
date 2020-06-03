@@ -375,7 +375,7 @@ class NumberIcon extends StatelessWidget {
         height: 64,
         decoration: BoxDecoration(
           color: (this.selected ? const Color(0xff3C8DEF) : Colors.white),
-          borderRadius: BorderRadius.all(Radius.circular(40)),
+          borderRadius: BorderRadius.all(Radius.circular(10)),
           boxShadow: [
             BoxShadow(
               color: const Color(0xff999999).withOpacity(0.3),
