@@ -9,7 +9,7 @@ import 'screens/test_results_screen.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:multitables/datastore/progress_dao.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:multitables/screens/answers_list_screen.dart';
 
 void main() async {
   await Hive.initFlutter();
@@ -24,9 +24,6 @@ class MyApp extends StatelessWidget {
         title: 'Flutter Demo',
         theme: ThemeData(
           primarySwatch: Colors.blue,
-//          textTheme: GoogleFonts.robotoTextTheme(
-//            Theme.of(context).textTheme,
-//          ),
         ),
         routes: {
           '/': (ctx) => HomeScreen(),
@@ -35,6 +32,7 @@ class MyApp extends StatelessWidget {
           ExamScreen.routeName: (ctx) => ExamScreen(),
           StatsScreen.routeName: (ctx) => StatsScreen(),
           TestResultsScreen.routeName: (ctx) => TestResultsScreen(),
+          AnswersListScreen.routeName: (ctx) => AnswersListScreen(),
         },
         onGenerateRoute: (RouteSettings settings) {
           var routes = <String, WidgetBuilder>{

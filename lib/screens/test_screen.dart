@@ -2,13 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:multitables/funcs/funcs.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:multitables/models/test_group.dart';
-import 'package:hive/hive.dart';
 import 'package:multitables/models/test_results.dart';
 import 'package:multitables/screens/test_results_screen.dart';
 import 'package:multitables/datastore/progress_dao.dart';
 import 'package:multitables/models/problem.dart';
 import 'package:multitables/funcs/question_generator.dart';
-import 'dart:io';
 import 'dart:async';
 
 class TestScreen extends StatefulWidget {
@@ -159,7 +157,7 @@ class _TestScreenState extends State<TestScreen> {
                               left: 30.0, top: 20.0, right: 15.0, bottom: 6.0),
                           child: InkWell(
                             onTap: () => answerClick(context, 0),
-                            borderRadius: BorderRadius.circular(15.0),
+                            borderRadius: BorderRadius.circular(30.0),
                             child: AnswerSquare(
                                 _questionsList[iterator].answers[0].toString(),
                                 buttonColors[0]),
@@ -172,7 +170,7 @@ class _TestScreenState extends State<TestScreen> {
                               left: 15.0, top: 20.0, right: 30.0, bottom: 6.0),
                           child: InkWell(
                             onTap: () => answerClick(context, 1),
-                            borderRadius: BorderRadius.circular(15.0),
+                            borderRadius: BorderRadius.circular(30.0),
                             child: AnswerSquare(
                                 _questionsList[iterator].answers[1].toString(),
                                 buttonColors[1]),
@@ -191,7 +189,7 @@ class _TestScreenState extends State<TestScreen> {
                               left: 30.0, top: 20.0, right: 15.0, bottom: 6.0),
                           child: InkWell(
                             onTap: () => answerClick(context, 2),
-                            borderRadius: BorderRadius.circular(15.0),
+                            borderRadius: BorderRadius.circular(30.0),
                             child: AnswerSquare(
                                 _questionsList[iterator].answers[2].toString(),
                                 buttonColors[2]),
@@ -204,7 +202,7 @@ class _TestScreenState extends State<TestScreen> {
                               left: 15.0, top: 20.0, right: 30.0, bottom: 6.0),
                           child: InkWell(
                             onTap: () => answerClick(context, 3),
-                            borderRadius: BorderRadius.circular(15.0),
+                            borderRadius: BorderRadius.circular(30.0),
                             child: AnswerSquare(
                                 _questionsList[iterator].answers[3].toString(),
                                 buttonColors[3]),

@@ -5,6 +5,7 @@ import 'package:multitables/models/problem.dart';
 import 'package:multitables/widgets/striked_text.dart';
 import 'package:multitables/widgets/styled_button.dart';
 import 'package:multitables/screens/test_screen.dart';
+import 'package:multitables/screens/answers_list_screen.dart';
 import 'package:multitables/datastore/lang.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
@@ -17,7 +18,6 @@ class TestResultsScreen extends StatelessWidget {
     int correctNumber = 0;
     int totalNumber = args.testData.length;
     double percentage = 0;
-    List<Widget> answersList = [];
     int xp = args.xp;
 
     for (Problem pr in args.testData) {
@@ -25,65 +25,6 @@ class TestResultsScreen extends StatelessWidget {
         correctNumber++;
       }
       percentage = correctNumber / totalNumber * 1.0;
-      answersList.add(
-        Row(
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(right: 10.0),
-              child: (pr.correctAnswer != pr.givenAnswer)
-                  ? Icon(Icons.close, color: Colors.red)
-                  : Icon(Icons.done, color: Colors.green),
-            ),
-            Text(
-              '${pr.x} x ${pr.y} = ',
-              style: TextStyle(fontSize: 35),
-            ),
-            (pr.correctAnswer != pr.givenAnswer)
-                ? StrikeThroughWidget(
-                    child: Text(
-                      '${pr.givenAnswer}',
-                      style: TextStyle(fontSize: 35),
-                    ),
-                  )
-                : Container(),
-            Text(
-              ' ${pr.correctAnswer}',
-              style: TextStyle(fontSize: 35, color: Colors.green),
-            ),
-          ],
-        ),
-      );
-    }
-
-    void _showDialog() {
-      showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            content: Container(
-              margin: EdgeInsets.all(0.0),
-              child: SingleChildScrollView(
-                child: ListBody(
-                  children: <Widget>[
-                    ...answersList,
-                  ],
-                ),
-              ),
-            ),
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(10.0))),
-            actions: <Widget>[
-              StyledButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                text: 'Close',
-                small: true,
-              )
-            ],
-          );
-        },
-      );
     }
 
     return Scaffold(
@@ -195,7 +136,9 @@ class TestResultsScreen extends StatelessWidget {
             padding: const EdgeInsets.only(
                 top: 10.0, bottom: 3.0, right: 15.0, left: 15.0),
             child: StyledButton(
-              onPressed: _showDialog,
+              onPressed: () => Navigator.of(context).pushNamed(
+                  AnswersListScreen.routeName,
+                  arguments: args.testData),
               text: 'Show answers',
               light: true,
             ),
@@ -274,5 +217,4 @@ List<Widget> resultText(double percent) {
       ),
     ),
   ];
-
 }
