@@ -78,3 +78,22 @@ List<Problem> generateClosedTest(List<int> problemsClass, int itemsCount) {
 
   return resp.sublist(0, itemsCount <= resp.length ? itemsCount : resp.length);
 }
+
+List<Problem> generateOpenTest(List<int> problemsClass, int itemsCount) {
+  List<Problem> resp = [];
+  List<int> oneToTen = [for (var i = 1; i <= 10; i += 1) i];
+
+  for (final prClass in problemsClass) {
+    for (final i in oneToTen) {
+      resp.add(Problem(
+        x: prClass,
+        y: i,
+        correctAnswer: prClass * i,
+        questionString: '$prClass \u00D7 $i = ?',
+      ));
+    }
+  }
+  resp.shuffle();
+
+  return resp.sublist(0, itemsCount <= resp.length ? itemsCount : resp.length);
+}

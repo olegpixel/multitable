@@ -5,6 +5,7 @@ import 'screens/stats_screen.dart';
 import 'screens/exam_screen.dart';
 import 'screens/tables_screen.dart';
 import 'screens/test_screen.dart';
+import 'screens/test_exam_screen.dart';
 import 'screens/test_results_screen.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -37,6 +38,8 @@ class MyApp extends StatelessWidget {
         onGenerateRoute: (RouteSettings settings) {
           var routes = <String, WidgetBuilder>{
             TestScreen.routeName: (ctx) => TestScreen(settings.arguments),
+            TestExamScreen.routeName: (ctx) =>
+                TestExamScreen(settings.arguments),
           };
           WidgetBuilder builder = routes[settings.name];
           return MaterialPageRoute(builder: (ctx) => builder(ctx));

@@ -12,7 +12,7 @@ class Problem {
     @required this.x,
     @required this.y,
     @required this.correctAnswer,
-    @required this.answers,
+    this.answers,
     this.givenAnswer,
     @required this.questionString,
   });

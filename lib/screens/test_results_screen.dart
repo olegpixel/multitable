@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:multitables/funcs/funcs.dart';
 import 'package:multitables/models/test_results.dart';
 import 'package:multitables/models/problem.dart';
-import 'package:multitables/widgets/striked_text.dart';
 import 'package:multitables/widgets/styled_button.dart';
 import 'package:multitables/screens/test_screen.dart';
+import 'package:multitables/screens/test_exam_screen.dart';
 import 'package:multitables/screens/answers_list_screen.dart';
 import 'package:multitables/datastore/lang.dart';
 import 'package:percent_indicator/percent_indicator.dart';
@@ -46,9 +46,7 @@ class TestResultsScreen extends StatelessWidget {
             child: Container(
               decoration: BoxDecoration(
                 image: DecorationImage(
-                    image:
-                        AssetImage('assets/images/test-results-background.png'),
-                    fit: BoxFit.fitHeight),
+                    image: AssetImage('assets/images/test-results-background.png'), fit: BoxFit.fitHeight),
               ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -72,10 +70,7 @@ class TestResultsScreen extends StatelessWidget {
                               percent: correctNumber / totalNumber,
                               center: new Text(
                                 '$correctNumber of $totalNumber',
-                                style: new TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 20.0,
-                                    color: Colors.white),
+                                style: new TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0, color: Colors.white),
                               ),
                               circularStrokeCap: CircularStrokeCap.round,
                               progressColor: hexToColor('#E3F0FF'),
@@ -95,8 +90,7 @@ class TestResultsScreen extends StatelessWidget {
                                 color: hexToColor("#004080").withOpacity(0.1),
                                 spreadRadius: 3,
                                 blurRadius: 2,
-                                offset:
-                                    Offset(0, 2), // changes position of shadow
+                                offset: Offset(0, 2), // changes position of shadow
                               ),
                             ],
                           ),
@@ -133,24 +127,28 @@ class TestResultsScreen extends StatelessWidget {
             flex: 1,
           ),
           Padding(
-            padding: const EdgeInsets.only(
-                top: 10.0, bottom: 3.0, right: 15.0, left: 15.0),
+            padding: const EdgeInsets.only(top: 10.0, bottom: 3.0, right: 15.0, left: 15.0),
             child: StyledButton(
-              onPressed: () => Navigator.of(context).pushNamed(
-                  AnswersListScreen.routeName,
-                  arguments: args.testData),
+              onPressed: () => Navigator.of(context).pushNamed(AnswersListScreen.routeName, arguments: args.testData),
               text: 'Show answers',
               light: true,
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(
-                top: 3.0, bottom: 25.0, right: 15.0, left: 15.0),
+            padding: const EdgeInsets.only(top: 3.0, bottom: 25.0, right: 15.0, left: 15.0),
             child: totalNumber > correctNumber
                 ? StyledButton(
-                    onPressed: () => Navigator.of(context).pushReplacementNamed(
-                        TestScreen.routeName,
-                        arguments: args.testGroup),
+                    onPressed: () => {
+                      if (args.exam)
+                        {
+                          Navigator.of(context)
+                              .pushReplacementNamed(TestExamScreen.routeName, arguments: args.testGroup),
+                        }
+                      else
+                        {
+                          Navigator.of(context).pushReplacementNamed(TestScreen.routeName, arguments: args.testGroup),
+                        }
+                    },
                     text: 'Try again',
                   )
                 : StyledButton(

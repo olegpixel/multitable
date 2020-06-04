@@ -6,6 +6,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:multitables/datastore/progress_dao.dart';
 import 'package:multitables/models/test_group.dart';
 import 'package:multitables/screens/test_screen.dart';
+import 'package:multitables/screens/test_exam_screen.dart';
 import 'package:multitables/widgets/linear_percent_indicator.dart';
 
 class ListItem extends StatefulWidget {
@@ -29,7 +30,11 @@ class _ListItemState extends State<ListItem> {
   }
 
   void selectCategory(BuildContext ctx, TestGroup group) {
-    Navigator.of(ctx).pushNamed(TestScreen.routeName, arguments: group);
+    if (group.withVariants) {
+      Navigator.of(ctx).pushNamed(TestScreen.routeName, arguments: group);
+    } else {
+      Navigator.of(ctx).pushNamed(TestExamScreen.routeName, arguments: group);
+    }
   }
 
   @override
@@ -37,8 +42,7 @@ class _ListItemState extends State<ListItem> {
     return Container(
       child: Container(
         width: double.infinity,
-        margin:
-            EdgeInsets.only(left: 20.0, top: 10.0, right: 20.0, bottom: 8.0),
+        margin: EdgeInsets.only(left: 20.0, top: 10.0, right: 20.0, bottom: 8.0),
         height: 115.0,
         child: InkWell(
           onTap: () => selectCategory(context, widget.testGroup),
@@ -66,8 +70,7 @@ class _ListItemState extends State<ListItem> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     Padding(
-                      padding: const EdgeInsets.only(
-                          top: 5.0, left: 15.0, bottom: 10.0, right: 10.0),
+                      padding: const EdgeInsets.only(top: 5.0, left: 15.0, bottom: 10.0, right: 10.0),
                       child: Image(
                         image: AssetImage(
                           'assets/images/' + widget.testGroup.iconImage,
@@ -91,10 +94,12 @@ class _ListItemState extends State<ListItem> {
                             ),
                           ),
                           Padding(
-                            padding:
-                                const EdgeInsets.only(top: 8.0, bottom: 8.0),
+                            padding: widget.testGroup.withVariants
+                                ? const EdgeInsets.only(top: 8.0, bottom: 8.0)
+                                : const EdgeInsets.only(top: 4.0, bottom: 8.0),
                             child: Text(
-                              widget.testGroup.itemsCount.toString() +
+                              (widget.testGroup.withVariants ? '' : (widget.testGroup.description + '\n')) +
+                                  widget.testGroup.itemsCount.toString() +
                                   ' questions',
                               overflow: TextOverflow.clip,
                               style: GoogleFonts.lato(
@@ -112,11 +117,9 @@ class _ListItemState extends State<ListItem> {
                     Container(
                       margin: const EdgeInsets.only(right: 15.0, bottom: 5.0),
                       child: ValueListenableBuilder(
-                        valueListenable: Hive.box(HIVE_PROGRESS_BOX)
-                            .listenable(keys: [widget.testGroup.id]),
+                        valueListenable: Hive.box(HIVE_PROGRESS_BOX).listenable(keys: [widget.testGroup.id]),
                         builder: (context, box, w) {
-                          double percent =
-                              _box.get(widget.testGroup.id, defaultValue: 0.0);
+                          double percent = _box.get(widget.testGroup.id, defaultValue: 0.0);
                           Widget c;
                           if (percent > 0.99) {
                             c = CircleAvatar(
@@ -154,15 +157,15 @@ class _ListItemState extends State<ListItem> {
                     children: <Widget>[
                       Expanded(
                         child: ValueListenableBuilder(
-                          valueListenable: Hive.box(HIVE_PROGRESS_BOX)
-                              .listenable(keys: [widget.testGroup.id]),
+                          valueListenable: Hive.box(HIVE_PROGRESS_BOX).listenable(keys: [widget.testGroup.id]),
                           builder: (context, box, w) {
+                            double percent = _box.get(widget.testGroup.id, defaultValue: 0.0);
+                            percent = percent > 1 ? 1 : percent;
                             return new LinearPercentIndicator(
                               animation: true,
                               animationDuration: 700,
                               lineHeight: 12.0,
-                              percent: _box.get(widget.testGroup.id,
-                                  defaultValue: 0.0),
+                              percent: percent,
                               backgroundColor: const Color(0xFFE6E6E6),
                               linearStrokeCap: LinearStrokeCap.roundAll,
                               progressColor: const Color(0xFFF7AC1A),
@@ -171,11 +174,10 @@ class _ListItemState extends State<ListItem> {
                         ),
                       ),
                       ValueListenableBuilder(
-                        valueListenable: Hive.box(HIVE_PROGRESS_BOX)
-                            .listenable(keys: [widget.testGroup.id]),
+                        valueListenable: Hive.box(HIVE_PROGRESS_BOX).listenable(keys: [widget.testGroup.id]),
                         builder: (context, box, w) {
-                          double percent =
-                              _box.get(widget.testGroup.id, defaultValue: 0.0);
+                          double percent = _box.get(widget.testGroup.id, defaultValue: 0.0);
+                          percent = percent > 1 ? 1 : percent;
                           Color c = Colors.grey;
                           if (percent > 0.99) {
                             c = const Color(0xFF4CAF50);
@@ -187,7 +189,7 @@ class _ListItemState extends State<ListItem> {
                             style: TextStyle(
                               fontWeight: FontWeight.w500,
                               color: c,
-                              fontSize: 16.0,
+                              fontSize: 14.0,
                             ),
                           );
                         },

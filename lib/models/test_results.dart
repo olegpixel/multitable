@@ -5,10 +5,12 @@ class TestResults {
   final TestGroup testGroup;
   final List<Problem> testData;
   final int xp;
+  final bool exam;
 
   const TestResults({
     this.testGroup,
     this.testData,
     this.xp,
+    this.exam,
   });
 }

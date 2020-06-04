@@ -18,6 +18,7 @@ const PRACTICE_TEST_GROUPS = const [
     iconImage: 'practice-numbers/one.png',
     itemsCount: 1,
     isTimed: false,
+    withVariants: true,
   ),
   TestGroup(
     id: 'practice-1',
@@ -28,6 +29,7 @@ const PRACTICE_TEST_GROUPS = const [
     itemsCount: 10,
     isTimed: false,
     coefficient: 1.0,
+    withVariants: true,
   ),
   TestGroup(
     id: 'practice-2',
@@ -38,6 +40,7 @@ const PRACTICE_TEST_GROUPS = const [
     itemsCount: 10,
     isTimed: false,
     coefficient: 1.0,
+    withVariants: true,
   ),
   TestGroup(
     id: 'practice-3',
@@ -48,6 +51,7 @@ const PRACTICE_TEST_GROUPS = const [
     itemsCount: 10,
     isTimed: false,
     coefficient: 1.0,
+    withVariants: true,
   ),
   TestGroup(
     id: 'practice-123',
@@ -58,6 +62,7 @@ const PRACTICE_TEST_GROUPS = const [
     itemsCount: 20,
     isTimed: false,
     coefficient: 1.1,
+    withVariants: true,
   ),
   TestGroup(
     id: 'practice-4',
@@ -68,6 +73,7 @@ const PRACTICE_TEST_GROUPS = const [
     itemsCount: 10,
     isTimed: false,
     coefficient: 1.1,
+    withVariants: true,
   ),
   TestGroup(
     id: 'practice-5',
@@ -78,6 +84,7 @@ const PRACTICE_TEST_GROUPS = const [
     itemsCount: 10,
     isTimed: false,
     coefficient: 1.1,
+    withVariants: true,
   ),
   TestGroup(
     id: 'practice-2345',
@@ -88,6 +95,7 @@ const PRACTICE_TEST_GROUPS = const [
     itemsCount: 25,
     isTimed: false,
     coefficient: 1.2,
+    withVariants: true,
   ),
   TestGroup(
     id: 'practice-6',
@@ -98,6 +106,7 @@ const PRACTICE_TEST_GROUPS = const [
     itemsCount: 10,
     isTimed: false,
     coefficient: 1.2,
+    withVariants: true,
   ),
   TestGroup(
     id: 'practice-7',
@@ -108,6 +117,7 @@ const PRACTICE_TEST_GROUPS = const [
     itemsCount: 10,
     isTimed: false,
     coefficient: 1.2,
+    withVariants: true,
   ),
   TestGroup(
     id: 'practice-8',
@@ -118,6 +128,7 @@ const PRACTICE_TEST_GROUPS = const [
     itemsCount: 10,
     isTimed: false,
     coefficient: 1.3,
+    withVariants: true,
   ),
   TestGroup(
     id: 'practice-9',
@@ -128,6 +139,7 @@ const PRACTICE_TEST_GROUPS = const [
     itemsCount: 10,
     isTimed: false,
     coefficient: 1.3,
+    withVariants: true,
   ),
   TestGroup(
     id: 'practice-10',
@@ -138,6 +150,7 @@ const PRACTICE_TEST_GROUPS = const [
     itemsCount: 10,
     isTimed: false,
     coefficient: 1.3,
+    withVariants: true,
   ),
   TestGroup(
     id: 'practice-12345678910',
@@ -148,6 +161,7 @@ const PRACTICE_TEST_GROUPS = const [
     itemsCount: 30,
     isTimed: false,
     coefficient: 1.4,
+    withVariants: true,
   ),
   TestGroup(
     id: 'practice-11',
@@ -158,6 +172,7 @@ const PRACTICE_TEST_GROUPS = const [
     itemsCount: 10,
     isTimed: false,
     coefficient: 1.4,
+    withVariants: true,
   ),
   TestGroup(
     id: 'practice-12',
@@ -168,6 +183,7 @@ const PRACTICE_TEST_GROUPS = const [
     itemsCount: 10,
     isTimed: false,
     coefficient: 1.4,
+    withVariants: true,
   ),
   TestGroup(
     id: 'practice-123456789101112',
@@ -178,53 +194,75 @@ const PRACTICE_TEST_GROUPS = const [
     itemsCount: 30,
     isTimed: false,
     coefficient: 1.4,
+    withVariants: true,
   ),
 ];
 
 const EXAM_TEST_GROUPS = [
+//  TestGroup(
+//    id: 'test-exam-0',
+//    title: 'Exam 0',
+//    description: 'Numbers 1 to 5',
+//    problemsClass: [1, 2, 3, 4, 5],
+//    iconImage: 'exam-icons/unicorn.png',
+//    itemsCount: 1,
+//    isTimed: true,
+//    withVariants: false,
+//    coefficient: 1.5,
+//  ),
   TestGroup(
     id: 'test-exam-1',
     title: 'Exam 1',
     description: 'Numbers 1 to 5',
-    problemsClass: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+    problemsClass: [1, 2, 3, 4, 5],
     iconImage: 'exam-icons/unicorn.png',
     itemsCount: 20,
     isTimed: true,
+    withVariants: false,
+    coefficient: 1.5,
   ),
   TestGroup(
     id: 'test-exam-2',
     title: 'Exam 2',
     description: 'Numbers 1 to 10',
     problemsClass: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-    iconImage: 'exam-icons/knight.png',
+    iconImage: 'exam-icons/velociraptor.png',
     itemsCount: 20,
     isTimed: true,
+    withVariants: false,
+    coefficient: 1.6,
   ),
   TestGroup(
     id: 'test-exam-3',
     title: 'Exam 3',
     description: 'Numbers 1 to 10',
     problemsClass: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-    iconImage: 'exam-icons/ninja.png',
+    iconImage: 'exam-icons/knight.png',
     itemsCount: 40,
     isTimed: true,
+    withVariants: false,
+    coefficient: 1.6,
   ),
   TestGroup(
     id: 'test-exam-4',
     title: 'Exam 4',
     description: 'Numbers 1 to 12',
     problemsClass: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
-    iconImage: 'exam-icons/cavities.png',
+    iconImage: 'exam-icons/ninja.png',
     itemsCount: 50,
     isTimed: true,
+    withVariants: false,
+    coefficient: 1.7,
   ),
   TestGroup(
     id: 'test-exam-5',
     title: 'Exam 5',
     description: 'Numbers 1 to 12',
     problemsClass: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
-    iconImage: 'exam-icons/cavities.png',
+    iconImage: 'exam-icons/monster.png',
     itemsCount: 100,
     isTimed: true,
+    withVariants: false,
+    coefficient: 1.7,
   ),
 ];

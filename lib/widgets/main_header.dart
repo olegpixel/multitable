@@ -68,11 +68,22 @@ class _MainHeaderState extends State<MainHeader> {
                       ),
                     ),
                   ),
+                  Text(
+                    'Progress bar - points to next level',
+                    textAlign: TextAlign.center,
+                    overflow: TextOverflow.clip,
+                    style: GoogleFonts.titilliumWeb(
+                      textStyle: TextStyle(
+                        fontWeight: FontWeight.w400,
+                        color: Colors.white,
+                        fontSize: 15.0,
+                      ),
+                    ),
+                  ),
                 ],
               ),
               ValueListenableBuilder(
-                valueListenable: Hive.box(HIVE_PROGRESS_BOX)
-                    .listenable(keys: [TOTAL_SOLVED_KEY]),
+                valueListenable: Hive.box(HIVE_PROGRESS_BOX).listenable(keys: [TOTAL_SOLVED_KEY]),
                 builder: (context, box, w) {
                   UserLevel level = getCurrentUserLevel();
                   return Container(
@@ -80,10 +91,7 @@ class _MainHeaderState extends State<MainHeader> {
                       children: <Widget>[
                         CircleAvatar(
                           radius: 40.0,
-                          child: new Image.asset(
-                              'assets/images/animals/' + level.icon,
-                              width: 76.0,
-                              height: 76.0),
+                          child: new Image.asset('assets/images/animals/' + level.icon, width: 76.0, height: 76.0),
                           backgroundColor: Colors.white,
                         ),
                         Padding(
