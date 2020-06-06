@@ -12,3 +12,13 @@ class UserLevel {
       @required this.icon,
       @required this.number});
 }
+
+class NextLevelPoints {
+  final int current;
+  final int totalLevelPoints;
+
+  const NextLevelPoints({
+    @required this.current,
+    @required this.totalLevelPoints,
+  });
+}

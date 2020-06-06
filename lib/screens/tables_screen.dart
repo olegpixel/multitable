@@ -25,6 +25,7 @@ class _TablesBodyState extends State<TablesBody> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         bottomOpacity: 0.0,
         elevation: 0.0,
         leading: IconButton(

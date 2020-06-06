@@ -83,21 +83,21 @@ class StatsScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  RichText(
-                    text: TextSpan(
-                      style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        color: Color(0xff3D3D74),
-                        fontSize: 19.0,
-                      ),
-                      children: <TextSpan>[
-                        TextSpan(text: 'Your XP: '),
-                        TextSpan(
-                            text: getXP().toString() + ' points',
-                            style: TextStyle(fontWeight: FontWeight.bold)),
-                      ],
-                    ),
-                  ),
+//                  RichText(
+//                    text: TextSpan(
+//                      style: TextStyle(
+//                        fontWeight: FontWeight.w400,
+//                        color: Color(0xff3D3D74),
+//                        fontSize: 19.0,
+//                      ),
+//                      children: <TextSpan>[
+//                        TextSpan(text: 'Your XP: '),
+//                        TextSpan(
+//                            text: getXP().toString() + ' points',
+//                            style: TextStyle(fontWeight: FontWeight.bold)),
+//                      ],
+//                    ),
+//                  ),
                   Padding(
                     padding: const EdgeInsets.only(top: 15.0, bottom: 15.0),
                     child: RichText(

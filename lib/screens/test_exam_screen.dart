@@ -8,6 +8,7 @@ import 'package:multitables/datastore/progress_dao.dart';
 import 'package:multitables/models/problem.dart';
 import 'package:multitables/funcs/question_generator.dart';
 import 'package:multitables/widgets/styled_button.dart';
+import 'package:multitables/models/user_level.dart';
 
 class TestExamScreen extends StatefulWidget {
   static const routeName = '/testexam';
@@ -33,7 +34,8 @@ class _TestExamScreenState extends State<TestExamScreen> {
   void initState() {
     super.initState();
     testGroup = widget.testGroup;
-    _questionsList = generateOpenTest(testGroup.problemsClass, testGroup.itemsCount);
+    _questionsList =
+        generateOpenTest(testGroup.problemsClass, testGroup.itemsCount);
     iterator = 0;
     totalQNumber = _questionsList.length;
     givenAnswer = '';
@@ -90,11 +92,15 @@ class _TestExamScreenState extends State<TestExamScreen> {
           Future.delayed(const Duration(milliseconds: 1000), () {
             // update score of test group
             double previousScore = getGroupProgress(widget.testGroup.id);
-            if (previousScore < correctAnswersCount / widget.testGroup.itemsCount) {
-              updateGroupProgress(widget.testGroup.id, correctAnswersCount / widget.testGroup.itemsCount);
+            if (previousScore <
+                correctAnswersCount / widget.testGroup.itemsCount) {
+              updateGroupProgress(widget.testGroup.id,
+                  correctAnswersCount / widget.testGroup.itemsCount);
             }
 
-            int xpToAdd = (correctAnswersCount * widget.testGroup.coefficient).floor().toInt();
+            int xpToAdd = (correctAnswersCount * widget.testGroup.coefficient)
+                .floor()
+                .toInt();
             print(correctAnswersCount);
             print(widget.testGroup.coefficient);
             print(xpToAdd);
@@ -102,12 +108,27 @@ class _TestExamScreenState extends State<TestExamScreen> {
               xpToAdd = (xpToAdd * 1.1).floor().toInt();
             }
 
+            UserLevel levelBeforeUpdate = getCurrentUserLevel();
             // increment total and today stats counters
-            updateCountersAndXP(correctAnswersCount, widget.testGroup.itemsCount - correctAnswersCount, xpToAdd);
+            updateCountersAndXP(correctAnswersCount,
+                widget.testGroup.itemsCount - correctAnswersCount, xpToAdd);
+            UserLevel levelAfterUpdate = getCurrentUserLevel();
+            bool nextLevelModal = false;
 
-            TestResults tr =
-                TestResults(testGroup: widget.testGroup, testData: _questionsList, xp: xpToAdd, exam: true);
-            Navigator.of(ctx).pushReplacementNamed(TestResultsScreen.routeName, arguments: tr);
+            if (levelBeforeUpdate.id != levelAfterUpdate.id) {
+              nextLevelModal = true;
+            }
+
+            TestResults tr = TestResults(
+              testGroup: widget.testGroup,
+              testData: _questionsList,
+              xp: xpToAdd,
+              exam: true,
+              nextLevelModal: nextLevelModal,
+              level: levelBeforeUpdate,
+            );
+            Navigator.of(ctx).pushReplacementNamed(TestResultsScreen.routeName,
+                arguments: tr);
           });
         }
       }
@@ -187,14 +208,16 @@ class _TestExamScreenState extends State<TestExamScreen> {
               ),
               Center(
                 child: Container(
-                  margin: const EdgeInsets.only(top: 38.0, bottom: 15.0, left: 180.0),
+                  margin: const EdgeInsets.only(
+                      top: 38.0, bottom: 15.0, left: 180.0),
                   child: iconToShow,
                 ),
               ),
             ],
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 10.0, bottom: 15.0, right: 15.0, left: 15.0),
+            padding: const EdgeInsets.only(
+                top: 10.0, bottom: 15.0, right: 15.0, left: 15.0),
             child: StyledButton(
               onPressed: () => _checkAnswer(context),
               text: 'Next',

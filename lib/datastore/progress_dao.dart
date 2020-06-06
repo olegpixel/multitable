@@ -56,6 +56,22 @@ void addXP(int add) {
   progressBox.put(XP_NUMBER_KEY, c + add);
 }
 
+NextLevelPoints getPointsToNextLevel() {
+  int curCount = getXP();
+  UserLevel level;
+  int ind = 0;
+  int pointToLevel = 0;
+  do {
+    level = USER_LEVELS[ind];
+    ind++;
+  } while (level.number <= curCount);
+  NextLevelPoints resp = NextLevelPoints(
+    current: curCount - USER_LEVELS[ind - 2].number,
+    totalLevelPoints: USER_LEVELS[ind - 1].number - USER_LEVELS[ind - 2].number,
+  );
+  return resp;
+}
+
 // return User Level based on total questions solved
 UserLevel getCurrentUserLevel() {
   int curCount = getXP();

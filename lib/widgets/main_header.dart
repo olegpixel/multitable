@@ -57,33 +57,52 @@ class _MainHeaderState extends State<MainHeader> {
                     ),
                   ),
                   Text(
-                    'Train Time Tables With Ease',
+                    'Next level:',
                     textAlign: TextAlign.center,
                     overflow: TextOverflow.clip,
                     style: GoogleFonts.titilliumWeb(
                       textStyle: TextStyle(
                         fontWeight: FontWeight.w400,
                         color: Colors.white,
-                        fontSize: 15.0,
+                        fontSize: 17.0,
                       ),
                     ),
                   ),
-                  Text(
-                    'Progress bar - points to next level',
-                    textAlign: TextAlign.center,
-                    overflow: TextOverflow.clip,
-                    style: GoogleFonts.titilliumWeb(
-                      textStyle: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        color: Colors.white,
-                        fontSize: 15.0,
-                      ),
-                    ),
+                  ValueListenableBuilder(
+                    valueListenable: Hive.box(HIVE_PROGRESS_BOX)
+                        .listenable(keys: [TOTAL_SOLVED_KEY]),
+                    builder: (context, box, w) {
+                      return Padding(
+                        padding: EdgeInsets.only(top: 7.0),
+                        child: () {
+                          NextLevelPoints p = getPointsToNextLevel();
+                          return LinearPercentIndicator(
+                            width: 250.0,
+                            animation: true,
+                            animationDuration: 700,
+                            lineHeight: 18.0,
+                            percent: p.current / p.totalLevelPoints,
+                            backgroundColor: Color(0xffE6E6E6),
+                            center: Text(
+                              "${p.current} / ${p.totalLevelPoints} XP",
+                              style: TextStyle(
+                                fontWeight: FontWeight.w700,
+                                color: Color(0xff3D3D74),
+                                fontSize: 13.0,
+                              ),
+                            ),
+                            linearStrokeCap: LinearStrokeCap.roundAll,
+                            progressColor: Color(0xffF7AC1A),
+                          );
+                        }(),
+                      );
+                    },
                   ),
                 ],
               ),
               ValueListenableBuilder(
-                valueListenable: Hive.box(HIVE_PROGRESS_BOX).listenable(keys: [TOTAL_SOLVED_KEY]),
+                valueListenable: Hive.box(HIVE_PROGRESS_BOX)
+                    .listenable(keys: [TOTAL_SOLVED_KEY]),
                 builder: (context, box, w) {
                   UserLevel level = getCurrentUserLevel();
                   return Container(
@@ -91,7 +110,10 @@ class _MainHeaderState extends State<MainHeader> {
                       children: <Widget>[
                         CircleAvatar(
                           radius: 40.0,
-                          child: new Image.asset('assets/images/animals/' + level.icon, width: 76.0, height: 76.0),
+                          child: new Image.asset(
+                              'assets/images/animals/' + level.icon,
+                              width: 76.0,
+                              height: 76.0),
                           backgroundColor: Colors.white,
                         ),
                         Padding(

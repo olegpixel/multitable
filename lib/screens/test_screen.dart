@@ -7,6 +7,7 @@ import 'package:multitables/screens/test_results_screen.dart';
 import 'package:multitables/datastore/progress_dao.dart';
 import 'package:multitables/models/problem.dart';
 import 'package:multitables/funcs/question_generator.dart';
+import 'package:multitables/models/user_level.dart';
 import 'dart:async';
 
 class TestScreen extends StatefulWidget {
@@ -32,7 +33,8 @@ class _TestScreenState extends State<TestScreen> {
   void initState() {
     super.initState();
     testGroup = widget.testGroup;
-    _questionsList = generateClosedTest(widget.testGroup.problemsClass, widget.testGroup.itemsCount);
+    _questionsList = generateClosedTest(
+        widget.testGroup.problemsClass, widget.testGroup.itemsCount);
     iterator = 0;
     buttonColors = [Colors.white, Colors.white, Colors.white, Colors.white];
     _isButtonTapped = false;
@@ -64,21 +66,40 @@ class _TestScreenState extends State<TestScreen> {
           Future.delayed(const Duration(milliseconds: 500), () {
             // update score of test group
             double previousScore = getGroupProgress(widget.testGroup.id);
-            if (previousScore < correctAnswersCount / widget.testGroup.itemsCount) {
-              updateGroupProgress(widget.testGroup.id, correctAnswersCount / widget.testGroup.itemsCount);
+            if (previousScore <
+                correctAnswersCount / widget.testGroup.itemsCount) {
+              updateGroupProgress(widget.testGroup.id,
+                  correctAnswersCount / widget.testGroup.itemsCount);
             }
 
-            int xpToAdd = (correctAnswersCount * widget.testGroup.coefficient).floor().toInt();
+            int xpToAdd = (correctAnswersCount * widget.testGroup.coefficient)
+                .floor()
+                .toInt();
             if (widget.testGroup.itemsCount - correctAnswersCount == 0) {
               xpToAdd = (xpToAdd * 1.1).floor().toInt();
             }
 
+            UserLevel levelBeforeUpdate = getCurrentUserLevel();
             // increment total and today stats counters
-            updateCountersAndXP(correctAnswersCount, widget.testGroup.itemsCount - correctAnswersCount, xpToAdd);
+            updateCountersAndXP(correctAnswersCount,
+                widget.testGroup.itemsCount - correctAnswersCount, xpToAdd);
+            UserLevel levelAfterUpdate = getCurrentUserLevel();
+            bool nextLevelModal = false;
 
-            TestResults tr =
-                TestResults(testGroup: widget.testGroup, testData: _questionsList, xp: xpToAdd, exam: false);
-            Navigator.of(ctx).pushReplacementNamed(TestResultsScreen.routeName, arguments: tr);
+            if (levelBeforeUpdate.id != levelAfterUpdate.id) {
+              nextLevelModal = true;
+            }
+
+            TestResults tr = TestResults(
+              testGroup: widget.testGroup,
+              testData: _questionsList,
+              xp: xpToAdd,
+              exam: false,
+              nextLevelModal: nextLevelModal,
+              level: levelBeforeUpdate,
+            );
+            Navigator.of(ctx).pushReplacementNamed(TestResultsScreen.routeName,
+                arguments: tr);
           });
         }
       }
@@ -144,21 +165,27 @@ class _TestScreenState extends State<TestScreen> {
                     children: <Widget>[
                       Expanded(
                         child: Padding(
-                          padding: const EdgeInsets.only(left: 30.0, top: 20.0, right: 15.0, bottom: 6.0),
+                          padding: const EdgeInsets.only(
+                              left: 30.0, top: 20.0, right: 15.0, bottom: 6.0),
                           child: InkWell(
                             onTap: () => answerClick(context, 0),
                             borderRadius: BorderRadius.circular(30.0),
-                            child: AnswerSquare(_questionsList[iterator].answers[0].toString(), buttonColors[0]),
+                            child: AnswerSquare(
+                                _questionsList[iterator].answers[0].toString(),
+                                buttonColors[0]),
                           ),
                         ),
                       ),
                       Expanded(
                         child: Padding(
-                          padding: const EdgeInsets.only(left: 15.0, top: 20.0, right: 30.0, bottom: 6.0),
+                          padding: const EdgeInsets.only(
+                              left: 15.0, top: 20.0, right: 30.0, bottom: 6.0),
                           child: InkWell(
                             onTap: () => answerClick(context, 1),
                             borderRadius: BorderRadius.circular(30.0),
-                            child: AnswerSquare(_questionsList[iterator].answers[1].toString(), buttonColors[1]),
+                            child: AnswerSquare(
+                                _questionsList[iterator].answers[1].toString(),
+                                buttonColors[1]),
                           ),
                         ),
                       ),
@@ -170,21 +197,27 @@ class _TestScreenState extends State<TestScreen> {
                     children: <Widget>[
                       Expanded(
                         child: Padding(
-                          padding: const EdgeInsets.only(left: 30.0, top: 20.0, right: 15.0, bottom: 6.0),
+                          padding: const EdgeInsets.only(
+                              left: 30.0, top: 20.0, right: 15.0, bottom: 6.0),
                           child: InkWell(
                             onTap: () => answerClick(context, 2),
                             borderRadius: BorderRadius.circular(30.0),
-                            child: AnswerSquare(_questionsList[iterator].answers[2].toString(), buttonColors[2]),
+                            child: AnswerSquare(
+                                _questionsList[iterator].answers[2].toString(),
+                                buttonColors[2]),
                           ),
                         ),
                       ),
                       Expanded(
                         child: Padding(
-                          padding: const EdgeInsets.only(left: 15.0, top: 20.0, right: 30.0, bottom: 6.0),
+                          padding: const EdgeInsets.only(
+                              left: 15.0, top: 20.0, right: 30.0, bottom: 6.0),
                           child: InkWell(
                             onTap: () => answerClick(context, 3),
                             borderRadius: BorderRadius.circular(30.0),
-                            child: AnswerSquare(_questionsList[iterator].answers[3].toString(), buttonColors[3]),
+                            child: AnswerSquare(
+                                _questionsList[iterator].answers[3].toString(),
+                                buttonColors[3]),
                           ),
                         ),
                       ),
