@@ -57,7 +57,7 @@ class _MainHeaderState extends State<MainHeader> {
                     ),
                   ),
                   Text(
-                    'Next level:',
+                    'Points to next level:',
                     textAlign: TextAlign.center,
                     overflow: TextOverflow.clip,
                     style: GoogleFonts.titilliumWeb(
@@ -69,8 +69,7 @@ class _MainHeaderState extends State<MainHeader> {
                     ),
                   ),
                   ValueListenableBuilder(
-                    valueListenable: Hive.box(HIVE_PROGRESS_BOX)
-                        .listenable(keys: [TOTAL_SOLVED_KEY]),
+                    valueListenable: Hive.box(HIVE_PROGRESS_BOX).listenable(keys: [TOTAL_SOLVED_KEY]),
                     builder: (context, box, w) {
                       return Padding(
                         padding: EdgeInsets.only(top: 7.0),
@@ -101,8 +100,7 @@ class _MainHeaderState extends State<MainHeader> {
                 ],
               ),
               ValueListenableBuilder(
-                valueListenable: Hive.box(HIVE_PROGRESS_BOX)
-                    .listenable(keys: [TOTAL_SOLVED_KEY]),
+                valueListenable: Hive.box(HIVE_PROGRESS_BOX).listenable(keys: [TOTAL_SOLVED_KEY]),
                 builder: (context, box, w) {
                   UserLevel level = getCurrentUserLevel();
                   return Container(
@@ -110,10 +108,7 @@ class _MainHeaderState extends State<MainHeader> {
                       children: <Widget>[
                         CircleAvatar(
                           radius: 40.0,
-                          child: new Image.asset(
-                              'assets/images/animals/' + level.icon,
-                              width: 76.0,
-                              height: 76.0),
+                          child: new Image.asset('assets/images/animals/' + level.icon, width: 76.0, height: 76.0),
                           backgroundColor: Colors.white,
                         ),
                         Padding(

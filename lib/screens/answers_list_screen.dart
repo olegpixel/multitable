@@ -13,31 +13,63 @@ class AnswersListScreen extends StatelessWidget {
 
     for (Problem pr in args) {
       answersList.add(
-        Row(
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(right: 10.0),
-              child: (pr.correctAnswer != pr.givenAnswer)
-                  ? Icon(Icons.close, color: Colors.red)
-                  : Icon(Icons.done, color: Colors.green),
-            ),
-            Text(
-              '${pr.x} x ${pr.y} = ',
-              style: TextStyle(fontSize: 35),
-            ),
-            (pr.correctAnswer != pr.givenAnswer)
-                ? StrikeThroughWidget(
-                    child: Text(
-                      '${pr.givenAnswer}',
+        Padding(
+          padding: const EdgeInsets.only(bottom: 7.0),
+          child: Row(
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.only(right: 10.0),
+                child: (pr.correctAnswer != pr.givenAnswer)
+                    ? Icon(Icons.close, color: Colors.red)
+                    : Icon(Icons.done, color: Colors.green),
+              ),
+              ...(() {
+                if (pr.type == 1) {
+                  return [
+                    Text(
+                      '${pr.x} \u00D7 ${pr.y} = ',
                       style: TextStyle(fontSize: 35),
                     ),
-                  )
-                : Container(),
-            Text(
-              ' ${pr.correctAnswer}',
-              style: TextStyle(fontSize: 35, color: Colors.green),
-            ),
-          ],
+                    (pr.correctAnswer != pr.givenAnswer)
+                        ? StrikeThroughWidget(
+                            child: Text(
+                              '${pr.givenAnswer}',
+                              style: TextStyle(fontSize: 35),
+                            ),
+                          )
+                        : Container(),
+                    Text(
+                      ' ${pr.correctAnswer}',
+                      style: TextStyle(fontSize: 35, color: Colors.green),
+                    ),
+                  ];
+                } else {
+                  return [
+                    Text(
+                      '${pr.x} \u00D7',
+                      style: TextStyle(fontSize: 35),
+                    ),
+                    (pr.correctAnswer != pr.givenAnswer)
+                        ? StrikeThroughWidget(
+                            child: Text(
+                              '${pr.givenAnswer}',
+                              style: TextStyle(fontSize: 35),
+                            ),
+                          )
+                        : Container(),
+                    Text(
+                      ' ${pr.correctAnswer}',
+                      style: TextStyle(fontSize: 35, color: Colors.green),
+                    ),
+                    Text(
+                      ' = ${pr.y}',
+                      style: TextStyle(fontSize: 35),
+                    ),
+                  ];
+                }
+              }()),
+            ],
+          ),
         ),
       );
     }

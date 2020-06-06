@@ -39,20 +39,13 @@ class StatsScreen extends StatelessWidget {
     int segment = (maxY / 10).round().toInt();
     maxY += segment;
 
-    final barGroup1 =
-        makeGroupData(0, lastWeekProgress[0][1], lastWeekProgress[0][2]);
-    final barGroup2 =
-        makeGroupData(1, lastWeekProgress[1][1], lastWeekProgress[1][2]);
-    final barGroup3 =
-        makeGroupData(2, lastWeekProgress[2][1], lastWeekProgress[2][2]);
-    final barGroup4 =
-        makeGroupData(3, lastWeekProgress[3][1], lastWeekProgress[3][2]);
-    final barGroup5 =
-        makeGroupData(4, lastWeekProgress[4][1], lastWeekProgress[4][2]);
-    final barGroup6 =
-        makeGroupData(5, lastWeekProgress[5][1], lastWeekProgress[5][2]);
-    final barGroup7 =
-        makeGroupData(6, lastWeekProgress[6][1], lastWeekProgress[6][2]);
+    final barGroup1 = makeGroupData(0, lastWeekProgress[0][1], lastWeekProgress[0][2]);
+    final barGroup2 = makeGroupData(1, lastWeekProgress[1][1], lastWeekProgress[1][2]);
+    final barGroup3 = makeGroupData(2, lastWeekProgress[2][1], lastWeekProgress[2][2]);
+    final barGroup4 = makeGroupData(3, lastWeekProgress[3][1], lastWeekProgress[3][2]);
+    final barGroup5 = makeGroupData(4, lastWeekProgress[4][1], lastWeekProgress[4][2]);
+    final barGroup6 = makeGroupData(5, lastWeekProgress[5][1], lastWeekProgress[5][2]);
+    final barGroup7 = makeGroupData(6, lastWeekProgress[6][1], lastWeekProgress[6][2]);
 
     rawBarGroups = [
       barGroup1,
@@ -110,8 +103,7 @@ class StatsScreen extends StatelessWidget {
                         children: <TextSpan>[
                           TextSpan(text: 'Solved last 7 days: '),
                           TextSpan(
-                              text:
-                                  totalLastWeekSolved.toString() + ' problems',
+                              text: totalLastWeekSolved.toString() + ' problems',
                               style: TextStyle(fontWeight: FontWeight.bold)),
                         ],
                       ),
@@ -140,8 +132,7 @@ class StatsScreen extends StatelessWidget {
                 aspectRatio: 1,
                 child: Card(
                   elevation: 0,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(4)),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
                   color: Colors.transparent,
                   child: Padding(
                     padding: const EdgeInsets.all(16),
@@ -167,8 +158,7 @@ class StatsScreen extends StatelessWidget {
                         ),
                         Expanded(
                           child: Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 8.0),
+                            padding: const EdgeInsets.symmetric(horizontal: 8.0),
                             child: BarChart(
                               BarChartData(
                                 maxY: maxY,
@@ -183,9 +173,7 @@ class StatsScreen extends StatelessWidget {
                                   bottomTitles: SideTitles(
                                     showTitles: true,
                                     textStyle: TextStyle(
-                                        color: const Color(0xff3D3D74),
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: 15),
+                                        color: const Color(0xff3D3D74), fontWeight: FontWeight.w500, fontSize: 15),
                                     margin: 12,
                                     getTitles: (double value) {
                                       return lastWeekProgress[value.toInt()][0];
@@ -194,10 +182,8 @@ class StatsScreen extends StatelessWidget {
                                   leftTitles: SideTitles(
                                     showTitles: true,
                                     textStyle: TextStyle(
-                                        color: const Color(0xff3D3D74),
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: 15),
-                                    margin: 12,
+                                        color: const Color(0xff3D3D74), fontWeight: FontWeight.w500, fontSize: 15),
+                                    margin: 20,
                                     reservedSize: 14,
                                     getTitles: (value) {
                                       if (value % (segment * 2) == 0) {
@@ -225,8 +211,7 @@ class StatsScreen extends StatelessWidget {
                                     left: BorderSide(color: Colors.blueGrey),
                                     top: BorderSide(color: Colors.transparent),
                                     bottom: BorderSide(color: Colors.blueGrey),
-                                    right:
-                                        BorderSide(color: Colors.transparent),
+                                    right: BorderSide(color: Colors.transparent),
                                   ),
                                 ),
                                 barGroups: showingBarGroups,
@@ -257,8 +242,7 @@ class StatsScreen extends StatelessWidget {
                                     ),
                                   ),
                                   Container(
-                                    margin: const EdgeInsets.only(
-                                        left: 12.0, right: 6.0),
+                                    margin: const EdgeInsets.only(left: 12.0, right: 6.0),
                                     color: const Color(0xff4CAF50),
                                     width: 12.0,
                                     height: 12.0,

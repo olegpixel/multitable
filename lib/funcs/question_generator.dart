@@ -7,7 +7,8 @@ const ANSWERS_COUNT = 4;
 // Step 2: shuffle array
 Problem generateAnswerVariants(int a, int b) {
   var random = new Random();
-  List<int> answers = [a * b];
+  int randInt = random.nextInt(100);
+  List<int> answers = [];
 
   void checkUniquenessAndAdd(int toAdd) {
     if (toAdd <= 0) {
@@ -21,48 +22,89 @@ Problem generateAnswerVariants(int a, int b) {
     answers.add(toAdd);
   }
 
-  while (answers.length < ANSWERS_COUNT) {
-    int randInt = random.nextInt(100);
-    if (randInt < 10) {
-      checkUniquenessAndAdd((a + 1) * b);
-    } else if (randInt < 20) {
-      checkUniquenessAndAdd((b + 1) * a);
-    } else if (randInt < 30) {
-      checkUniquenessAndAdd((a - 1) * b);
-    } else if (randInt < 40) {
-      checkUniquenessAndAdd((b - 1) * a);
-    } else if (randInt < 46) {
-      checkUniquenessAndAdd((a + 2) * b);
-    } else if (randInt < 52) {
-      checkUniquenessAndAdd((b + 2) * a);
-    } else if (randInt < 58) {
-      checkUniquenessAndAdd((a - 2) * b);
-    } else if (randInt < 64) {
-      checkUniquenessAndAdd((b - 2) * a);
-    } else if (randInt < 70) {
-      checkUniquenessAndAdd(a * b + 10);
-    } else if (randInt < 76) {
-      checkUniquenessAndAdd(a * b - 10);
-    } else if (randInt < 82) {
-      checkUniquenessAndAdd(a * b + 1);
-    } else if (randInt < 88) {
-      checkUniquenessAndAdd(a * b - 1);
-    } else if (randInt < 94) {
-      checkUniquenessAndAdd(a * b + 2);
-    } else if (randInt < 100) {
-      checkUniquenessAndAdd(a * b - 2);
+  if (randInt < 65) {
+    // question type - A x B = __
+    answers.add(a * b);
+
+    while (answers.length < ANSWERS_COUNT) {
+      randInt = random.nextInt(100);
+      if (randInt < 10) {
+        checkUniquenessAndAdd((a + 1) * b);
+      } else if (randInt < 20) {
+        checkUniquenessAndAdd((b + 1) * a);
+      } else if (randInt < 30) {
+        checkUniquenessAndAdd((a - 1) * b);
+      } else if (randInt < 40) {
+        checkUniquenessAndAdd((b - 1) * a);
+      } else if (randInt < 46) {
+        checkUniquenessAndAdd((a + 2) * b);
+      } else if (randInt < 52) {
+        checkUniquenessAndAdd((b + 2) * a);
+      } else if (randInt < 58) {
+        checkUniquenessAndAdd((a - 2) * b);
+      } else if (randInt < 64) {
+        checkUniquenessAndAdd((b - 2) * a);
+      } else if (randInt < 70) {
+        checkUniquenessAndAdd(a * b + 10);
+      } else if (randInt < 76) {
+        checkUniquenessAndAdd(a * b - 10);
+      } else if (randInt < 82) {
+        checkUniquenessAndAdd(a * b + 1);
+      } else if (randInt < 88) {
+        checkUniquenessAndAdd(a * b - 1);
+      } else if (randInt < 94) {
+        checkUniquenessAndAdd(a * b + 2);
+      } else if (randInt < 100) {
+        checkUniquenessAndAdd(a * b - 2);
+      }
     }
+
+    answers.shuffle();
+
+    return Problem(
+      x: a,
+      y: b,
+      correctAnswer: a * b,
+      answers: answers,
+      questionString: '$a \u00D7 $b = ?',
+      type: 1,
+    );
+  } else {
+    // question type - A x __ = C
+    answers.add(b);
+
+    while (answers.length < ANSWERS_COUNT) {
+      randInt = random.nextInt(100);
+      if (randInt < 25) {
+        checkUniquenessAndAdd(b + 1);
+      } else if (randInt < 50) {
+        checkUniquenessAndAdd(b - 1);
+      } else if (randInt < 65) {
+        checkUniquenessAndAdd(b + 2);
+      } else if (randInt < 80) {
+        checkUniquenessAndAdd(b - 2);
+      } else if (randInt < 87) {
+        checkUniquenessAndAdd(b + 3);
+      } else if (randInt < 94) {
+        checkUniquenessAndAdd(b - 3);
+      } else if (randInt < 97) {
+        checkUniquenessAndAdd(b - 4);
+      } else if (randInt < 100) {
+        checkUniquenessAndAdd(b + 4);
+      }
+    }
+
+    answers.shuffle();
+
+    return Problem(
+      x: a,
+      y: a * b,
+      correctAnswer: b,
+      answers: answers,
+      questionString: '$a \u00D7 ? = ${a * b}',
+      type: 2,
+    );
   }
-
-  answers.shuffle();
-
-  return Problem(
-    x: a,
-    y: b,
-    correctAnswer: a * b,
-    answers: answers,
-    questionString: '$a \u00D7 $b = ?',
-  );
 }
 
 List<Problem> generateClosedTest(List<int> problemsClass, int itemsCount) {
@@ -82,15 +124,28 @@ List<Problem> generateClosedTest(List<int> problemsClass, int itemsCount) {
 List<Problem> generateOpenTest(List<int> problemsClass, int itemsCount) {
   List<Problem> resp = [];
   List<int> oneToTen = [for (var i = 1; i <= 10; i += 1) i];
+  var random = new Random();
 
   for (final prClass in problemsClass) {
     for (final i in oneToTen) {
-      resp.add(Problem(
-        x: prClass,
-        y: i,
-        correctAnswer: prClass * i,
-        questionString: '$prClass \u00D7 $i = ?',
-      ));
+      int randInt = random.nextInt(100);
+      if (randInt < 65) {
+        resp.add(Problem(
+          x: prClass,
+          y: i,
+          correctAnswer: prClass * i,
+          questionString: '$prClass \u00D7 $i = ?',
+          type: 1,
+        ));
+      } else {
+        resp.add(Problem(
+          x: prClass,
+          y: prClass * i,
+          correctAnswer: i,
+          questionString: '$prClass \u00D7 ? = ${i * prClass}',
+          type: 2,
+        ));
+      }
     }
   }
   resp.shuffle();

@@ -7,6 +7,7 @@ class Problem {
   List<int> answers;
   int givenAnswer;
   String questionString;
+  int type;
 
   Problem({
     @required this.x,
@@ -15,5 +16,6 @@ class Problem {
     this.answers,
     this.givenAnswer,
     @required this.questionString,
+    this.type,
   });
 }
