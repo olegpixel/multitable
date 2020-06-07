@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'screens/home_screen.dart';
 import 'screens/practice_screen.dart';
 import 'screens/stats_screen.dart';
@@ -7,6 +8,7 @@ import 'screens/tables_screen.dart';
 import 'screens/test_screen.dart';
 import 'screens/test_exam_screen.dart';
 import 'screens/test_results_screen.dart';
+import 'package:multitables/localisations/localisations.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:multitables/datastore/progress_dao.dart';
@@ -26,6 +28,15 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
+        localizationsDelegates: [
+          const SpecificLocalizationDelegate(),
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+        ],
+        supportedLocales: [
+          const Locale('en', ''),
+          const Locale('ru', ''),
+        ],
         routes: {
           '/': (ctx) => HomeScreen(),
           TablesScreen.routeName: (ctx) => TablesScreen(),
@@ -38,8 +49,7 @@ class MyApp extends StatelessWidget {
         onGenerateRoute: (RouteSettings settings) {
           var routes = <String, WidgetBuilder>{
             TestScreen.routeName: (ctx) => TestScreen(settings.arguments),
-            TestExamScreen.routeName: (ctx) =>
-                TestExamScreen(settings.arguments),
+            TestExamScreen.routeName: (ctx) => TestExamScreen(settings.arguments),
           };
           WidgetBuilder builder = routes[settings.name];
           return MaterialPageRoute(builder: (ctx) => builder(ctx));

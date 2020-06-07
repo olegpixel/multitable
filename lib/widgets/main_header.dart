@@ -6,6 +6,7 @@ import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:multitables/datastore/progress_dao.dart';
 import 'package:multitables/models/user_level.dart';
+import 'package:multitables/localisations/localisations.dart';
 
 class MainHeader extends StatefulWidget {
   @override
@@ -44,7 +45,7 @@ class _MainHeaderState extends State<MainHeader> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
-                    'Multiplication Tables',
+                    AppLocalizations.of(context).title, // 'Multiplication Tables',
                     textAlign: TextAlign.center,
                     overflow: TextOverflow.clip,
                     style: GoogleFonts.titilliumWeb(
