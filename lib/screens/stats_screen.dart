@@ -37,6 +37,7 @@ class StatsScreen extends StatelessWidget {
     }
 
     int segment = (maxY / 10).round().toInt();
+    segment = segment == 0 ? 1 : segment;
     maxY += segment;
 
     final barGroup1 = makeGroupData(0, lastWeekProgress[0][1], lastWeekProgress[0][2]);
@@ -76,21 +77,6 @@ class StatsScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-//                  RichText(
-//                    text: TextSpan(
-//                      style: TextStyle(
-//                        fontWeight: FontWeight.w400,
-//                        color: Color(0xff3D3D74),
-//                        fontSize: 19.0,
-//                      ),
-//                      children: <TextSpan>[
-//                        TextSpan(text: 'Your XP: '),
-//                        TextSpan(
-//                            text: getXP().toString() + ' points',
-//                            style: TextStyle(fontWeight: FontWeight.bold)),
-//                      ],
-//                    ),
-//                  ),
                   Padding(
                     padding: const EdgeInsets.only(top: 15.0, bottom: 15.0),
                     child: RichText(
@@ -141,18 +127,6 @@ class StatsScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.start,
                       mainAxisSize: MainAxisSize.max,
                       children: <Widget>[
-//                        Row(
-//                          crossAxisAlignment: CrossAxisAlignment.center,
-//                          mainAxisSize: MainAxisSize.min,
-//                          mainAxisAlignment: MainAxisAlignment.start,
-//                          children: <Widget>[
-//                            const Text(
-//                              'Your progress for the last 7 days:',
-//                              style: TextStyle(
-//                                  color: Color(0xff3D3D74), fontSize: 21),
-//                            ),
-//                          ],
-//                        ),
                         const SizedBox(
                           height: 18,
                         ),

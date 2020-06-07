@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
-import '../funcs/funcs.dart';
+import 'package:multitables/funcs/funcs.dart';
+import 'package:multitables/screens/language_screen.dart';
 
 class MenuIcon extends StatelessWidget {
   final String title;
   final IconData icon;
   final Color color;
-  MenuIcon(this.title, this.icon, this.color);
+  final String pathTo;
 
-  void clickHandler(BuildContext ctx) {
-//    Navigator.of(ctx).pushNamed(pathTo);
-  }
+  MenuIcon(this.title, this.icon, this.color, this.pathTo);
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +16,7 @@ class MenuIcon extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
         FlatButton(
-          onPressed: () {},
+          onPressed: () => Navigator.of(context).pushNamed(pathTo),
           child: Padding(
             padding: const EdgeInsets.only(top: 4.0, bottom: 4.0),
             child: Column(
@@ -56,9 +55,9 @@ class Footer extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
 //          MenuIcon('Home', Icons.home, hexToColor('#666666')),
-          MenuIcon('Language', Icons.language, hexToColor('#666666')),
-          MenuIcon('Settings', Icons.settings, hexToColor('#666666')),
-          MenuIcon('Rate Us', Icons.star, hexToColor('#FF8A5B')),
+          MenuIcon('Language', Icons.language, hexToColor('#666666'), LanguageScreen.routeName),
+          MenuIcon('Settings', Icons.settings, hexToColor('#666666'), '/'),
+          MenuIcon('Rate Us', Icons.star, hexToColor('#FF8A5B'), '/'),
         ],
       ),
       height: 60.0,

@@ -17,13 +17,14 @@ dependencies:
   hive_flutter: ^0.3.0+2
   path_provider: ^1.6.9
   fl_chart: ^0.9.4
+  shared_preferences: ^0.5.7+3
+  provider: ^4.1.3
   flutter_localizations:
     sdk: flutter
 
 dev_dependencies:
-#  flutter_test:
-#    sdk: flutter
-  intl_translation: ^0.17.10
+  flutter_test:
+    sdk: flutter
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -40,8 +41,11 @@ flutter:
   assets:
   - assets/images/
   - assets/images/animals/
+  - assets/images/flags/
   - assets/images/exam-icons/
   - assets/images/practice-numbers/
+  - assets/lang/en.json
+  - assets/lang/ru.json
   #  - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

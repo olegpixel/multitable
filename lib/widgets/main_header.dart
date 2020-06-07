@@ -6,7 +6,7 @@ import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:multitables/datastore/progress_dao.dart';
 import 'package:multitables/models/user_level.dart';
-import 'package:multitables/localisations/localisations.dart';
+import 'package:multitables/funcs/localisations.dart';
 
 class MainHeader extends StatefulWidget {
   @override
@@ -44,16 +44,19 @@ class _MainHeaderState extends State<MainHeader> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text(
-                    AppLocalizations.of(context).title, // 'Multiplication Tables',
-                    textAlign: TextAlign.center,
-                    overflow: TextOverflow.clip,
-                    style: GoogleFonts.titilliumWeb(
-                      textStyle: TextStyle(
-                        fontWeight: FontWeight.w700,
-                        color: Colors.white,
-                        fontSize: 24.0,
-                        letterSpacing: .5,
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 6.0),
+                    child: Text(
+                      AppLocalizations.of(context).translate('title'), // 'Multiplication Tables',
+                      textAlign: TextAlign.center,
+                      overflow: TextOverflow.clip,
+                      style: GoogleFonts.titilliumWeb(
+                        textStyle: TextStyle(
+                          fontWeight: FontWeight.w700,
+                          color: Colors.white,
+                          fontSize: 24.0,
+                          letterSpacing: .5,
+                        ),
                       ),
                     ),
                   ),
