@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:multitables/models/test_results.dart';
+import 'package:multitables/funcs/localisations.dart';
 import 'package:multitables/models/problem.dart';
 import 'package:multitables/widgets/striked_text.dart';
 

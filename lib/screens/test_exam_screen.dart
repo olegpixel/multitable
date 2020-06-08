@@ -9,6 +9,7 @@ import 'package:multitables/models/problem.dart';
 import 'package:multitables/funcs/question_generator.dart';
 import 'package:multitables/widgets/styled_button.dart';
 import 'package:multitables/models/user_level.dart';
+import 'package:multitables/funcs/localisations.dart';
 
 class TestExamScreen extends StatefulWidget {
   static const routeName = '/testexam';

@@ -8,6 +8,7 @@ import 'package:multitables/screens/test_exam_screen.dart';
 import 'package:multitables/screens/answers_list_screen.dart';
 import 'package:multitables/datastore/lang.dart';
 import 'package:percent_indicator/percent_indicator.dart';
+import 'package:multitables/funcs/localisations.dart';
 
 class TestResultsScreen extends StatefulWidget {
   static const routeName = '/test-results';
@@ -81,7 +82,7 @@ class _TestResultsScreenState extends State<TestResultsScreen> {
                 Padding(
                   padding: EdgeInsets.all(15.0),
                   child: Text(
-                    args.level.name,
+                    AppLocalizations.of(context).translate('new-level-screen_level"') + ' ' + args.level.name,
                     style: TextStyle(
                       fontSize: 22.0,
                       color: Color(0xff3D3D74),

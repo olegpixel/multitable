@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:multitables/funcs/funcs.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:multitables/models/test_group.dart';
 import 'package:multitables/models/test_results.dart';
@@ -8,6 +7,7 @@ import 'package:multitables/datastore/progress_dao.dart';
 import 'package:multitables/models/problem.dart';
 import 'package:multitables/funcs/question_generator.dart';
 import 'package:multitables/models/user_level.dart';
+import 'package:multitables/funcs/localisations.dart';
 import 'dart:async';
 
 class TestScreen extends StatefulWidget {
@@ -106,13 +106,13 @@ class _TestScreenState extends State<TestScreen> {
         bottomOpacity: 0.0,
         elevation: 0.0,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: hexToColor('#3D3D74')),
+          icon: Icon(Icons.arrow_back, color: Color(0xff3D3D74)),
           onPressed: () => Navigator.of(context).pop(),
         ),
         backgroundColor: Colors.transparent,
         title: Text(
-          testGroup.title,
-          style: TextStyle(color: hexToColor('#3D3D74')),
+          AppLocalizations.of(context).translate(testGroup.id),
+          style: TextStyle(color: Color(0xff3D3D74)),
         ),
       ),
       body: Column(
@@ -123,10 +123,10 @@ class _TestScreenState extends State<TestScreen> {
             padding: const EdgeInsets.only(top: 4.0, bottom: 14.0),
             child: Center(
               child: Text(
-                '${iterator + 1}  of  $totalQNumber',
+                '${iterator + 1}  ' + AppLocalizations.of(context).translate('out-of') + '  $totalQNumber',
                 style: TextStyle(
                   fontWeight: FontWeight.w600,
-                  color: hexToColor('#888992'),
+                  color: Color(0xff888992),
                   fontSize: 19.0,
                 ),
               ),
@@ -138,7 +138,7 @@ class _TestScreenState extends State<TestScreen> {
               style: GoogleFonts.lato(
                 textStyle: TextStyle(
                   fontWeight: FontWeight.w600,
-                  color: hexToColor('#202027'),
+                  color: Color(0xff202027),
                   fontSize: 67.0,
                 ),
               ),
@@ -231,7 +231,7 @@ class AnswerSquare extends StatelessWidget {
         color: bgColor,
         boxShadow: [
           BoxShadow(
-            color: hexToColor("#004080").withOpacity(0.15),
+            color: Color(0xff004080).withOpacity(0.15),
             spreadRadius: 3,
             blurRadius: 2,
             offset: Offset(0, 2), // changes position of shadow
@@ -244,7 +244,7 @@ class AnswerSquare extends StatelessWidget {
           overflow: TextOverflow.clip,
           style: TextStyle(
             fontWeight: FontWeight.w700,
-            color: hexToColor('#3D3D74'),
+            color: Color(0xff3D3D74),
             fontSize: 63.0,
             letterSpacing: 1.5,
           ),

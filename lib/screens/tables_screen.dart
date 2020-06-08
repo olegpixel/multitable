@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import '../funcs/funcs.dart';
-import 'package:google_fonts/google_fonts.dart';
-import '../widgets/list_item.dart';
-import '../widgets/header.dart';
+import 'package:multitables/funcs/localisations.dart';
 
 class TablesScreen extends StatelessWidget {
   static const routeName = '/tables';
@@ -29,7 +26,7 @@ class _TablesBodyState extends State<TablesBody> {
         bottomOpacity: 0.0,
         elevation: 0.0,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: hexToColor('#3D3D74')),
+          icon: Icon(Icons.arrow_back, color: Color(0xff3D3D74)),
           onPressed: () => Navigator.of(context).pop(),
         ),
         backgroundColor: Colors.transparent,
@@ -39,7 +36,7 @@ class _TablesBodyState extends State<TablesBody> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              'Table',
+              AppLocalizations.of(context).translate('table-screen_table'),
               style: TextStyle(
                 color: _chartSelected ? Colors.grey : Color(0xff3D3D74),
               ),
@@ -56,7 +53,7 @@ class _TablesBodyState extends State<TablesBody> {
               },
             ),
             Text(
-              'Chart',
+              AppLocalizations.of(context).translate('table-screen_chart'),
               style: TextStyle(
                 color: _chartSelected ? Color(0xff3D3D74) : Colors.grey,
               ),
@@ -176,8 +173,7 @@ class NumbersColumn extends StatelessWidget {
                           (i * n).toString(),
                           style: TextStyle(
                             color: Color(0xff3D3D74),
-                            fontWeight:
-                                firstColumn ? FontWeight.w800 : FontWeight.w500,
+                            fontWeight: firstColumn ? FontWeight.w800 : FontWeight.w500,
                           ),
                         ),
                       ),
@@ -215,8 +211,7 @@ class _TableBodyState extends State<TableBody> {
         children: <Widget>[
           Expanded(
             child: Container(
-              margin: EdgeInsets.only(
-                  left: 10.0, top: 0.0, right: 10.0, bottom: 5.0),
+              margin: EdgeInsets.only(left: 10.0, top: 0.0, right: 10.0, bottom: 5.0),
               child: Container(
                 child: TableText(_selectedNumber),
               ),
@@ -299,8 +294,7 @@ class TableText extends StatelessWidget {
                 children: <Widget>[
                   ...odds
                       .map((i) => new Text(
-                            '$_selectedNumber \u00D7 $i = ' +
-                                (_selectedNumber * i).toString(),
+                            '$_selectedNumber \u00D7 $i = ' + (_selectedNumber * i).toString(),
                             overflow: TextOverflow.clip,
                             style: TextStyle(
                               fontWeight: FontWeight.w500,
@@ -324,8 +318,7 @@ class TableText extends StatelessWidget {
                 children: <Widget>[
                   ...evens
                       .map((i) => new Text(
-                            '$_selectedNumber \u00D7 $i = ' +
-                                (_selectedNumber * i).toString(),
+                            '$_selectedNumber \u00D7 $i = ' + (_selectedNumber * i).toString(),
                             overflow: TextOverflow.clip,
                             style: TextStyle(
                               fontWeight: FontWeight.w500,

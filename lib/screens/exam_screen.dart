@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import '../widgets/list_item.dart';
-import '../widgets/header.dart';
+import 'package:multitables/widgets/list_item.dart';
+import 'package:multitables/widgets/header.dart';
 import 'package:multitables/datastore/test_groups.dart';
+import 'package:multitables/funcs/localisations.dart';
 
 class ExamScreen extends StatelessWidget {
   static const routeName = '/exam';
@@ -15,8 +16,8 @@ class ExamScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             Header(
-              title: 'Exam',
-              description: 'Check you knowledge and master your skills.',
+              title: AppLocalizations.of(context).translate('exam-screen_title'),
+              description: AppLocalizations.of(context).translate('exam-screen_description'),
               image: 'assets/images/elearning_exam.png',
               bgColor: '#FFEABA',
             ),

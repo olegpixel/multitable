@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:multitables/funcs/funcs.dart';
 import 'package:multitables/screens/language_screen.dart';
+import 'package:multitables/funcs/localisations.dart';
 
 class MenuIcon extends StatelessWidget {
   final String title;
@@ -55,9 +56,12 @@ class Footer extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
 //          MenuIcon('Home', Icons.home, hexToColor('#666666')),
-          MenuIcon('Language', Icons.language, hexToColor('#666666'), LanguageScreen.routeName),
-          MenuIcon('Settings', Icons.settings, hexToColor('#666666'), '/'),
-          MenuIcon('Rate Us', Icons.star, hexToColor('#FF8A5B'), '/'),
+          MenuIcon(AppLocalizations.of(context).translate('home-screen_footer-language'), Icons.language,
+              hexToColor('#666666'), LanguageScreen.routeName),
+          MenuIcon(AppLocalizations.of(context).translate('home-screen_footer-settings'), Icons.settings,
+              hexToColor('#666666'), '/'),
+          MenuIcon(AppLocalizations.of(context).translate('home-screen_footer-rate-us'), Icons.star,
+              hexToColor('#FF8A5B'), '/'),
         ],
       ),
       height: 60.0,

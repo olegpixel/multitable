@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
-import '../widgets/list_item.dart';
-import '../widgets/header.dart';
+import 'package:multitables/widgets/list_item.dart';
+import 'package:multitables/widgets/header.dart';
 import 'package:multitables/datastore/test_groups.dart';
+import 'package:multitables/funcs/localisations.dart';
 
-class PracticeScreen extends StatelessWidget {
+class PracticeScreen extends StatefulWidget {
   static const routeName = '/practice';
 
+  @override
+  _PracticeScreenState createState() => _PracticeScreenState();
+}
+
+class _PracticeScreenState extends State<PracticeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -15,9 +21,8 @@ class PracticeScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             Header(
-              title: 'Practice',
-              description:
-                  'Select one of the multiplication table you wish to practice.',
+              title: AppLocalizations.of(context).translate('practice-screen_title'),
+              description: AppLocalizations.of(context).translate('practice-screen_description'),
               image: 'assets/images/clipboard.png',
               bgColor: '#FFEABA',
             ),

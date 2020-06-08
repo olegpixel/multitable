@@ -54,7 +54,7 @@ class SquareMenuItem extends StatelessWidget {
                     style: GoogleFonts.titilliumWeb(
                       textStyle: TextStyle(
                         fontWeight: FontWeight.w700,
-                        color: hexToColor('#3D3D74'),
+                        color: Color(0xff3D3D74),
                         fontSize: 32.0,
                         letterSpacing: .5,
                       ),

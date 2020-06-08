@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:multitables/funcs/app_lang.dart';
 import 'package:multitables/main.dart';
 import 'package:multitables/models/language.dart';
-import 'package:provider/provider.dart';
+import 'package:multitables/funcs/localisations.dart';
 
 class LanguageScreen extends StatefulWidget {
   static const routeName = '/lang';
@@ -60,7 +60,7 @@ class _LanguageScreenState extends State<LanguageScreen> {
       appBar: AppBar(
         bottomOpacity: 0.0,
         elevation: 0.0,
-        title: Text('Select Language',
+        title: Text(AppLocalizations.of(context).translate('language-screen_title'),
             style: TextStyle(
               color: Color(0xff3D3D74),
             )),

@@ -13,7 +13,7 @@ const PRACTICE_TEST_GROUPS = const [
   TestGroup(
     id: 'test-practice-1',
     title: 'Number 1',
-    description: 'Multiply number 1',
+    description: '',
     problemsClass: [2],
     iconImage: 'practice-numbers/one.png',
     itemsCount: 1,
@@ -23,7 +23,6 @@ const PRACTICE_TEST_GROUPS = const [
   TestGroup(
     id: 'practice-1',
     title: 'Number 1',
-    description: 'Multiply number 1',
     problemsClass: [1],
     iconImage: 'practice-numbers/one.png',
     itemsCount: 10,
@@ -34,7 +33,6 @@ const PRACTICE_TEST_GROUPS = const [
   TestGroup(
     id: 'practice-2',
     title: 'Number 2',
-    description: 'Multiply number 2',
     problemsClass: [2],
     iconImage: 'practice-numbers/two.png',
     itemsCount: 10,
@@ -45,7 +43,6 @@ const PRACTICE_TEST_GROUPS = const [
   TestGroup(
     id: 'practice-3',
     title: 'Number 3',
-    description: 'Multiply number 3',
     problemsClass: [3],
     iconImage: 'practice-numbers/three.png',
     itemsCount: 10,
@@ -56,7 +53,6 @@ const PRACTICE_TEST_GROUPS = const [
   TestGroup(
     id: 'practice-123',
     title: 'Numbers 1 to 3',
-    description: 'Multiply number 1, 2, 3',
     problemsClass: [1, 2, 3],
     iconImage: 'practice-numbers/one-three.png',
     itemsCount: 20,
@@ -67,7 +63,6 @@ const PRACTICE_TEST_GROUPS = const [
   TestGroup(
     id: 'practice-4',
     title: 'Number 4',
-    description: 'Multiply number 4',
     problemsClass: [4],
     iconImage: 'practice-numbers/four.png',
     itemsCount: 10,
@@ -78,7 +73,6 @@ const PRACTICE_TEST_GROUPS = const [
   TestGroup(
     id: 'practice-5',
     title: 'Number 5',
-    description: 'Multiply number 5',
     problemsClass: [5],
     iconImage: 'practice-numbers/five.png',
     itemsCount: 10,
@@ -89,7 +83,6 @@ const PRACTICE_TEST_GROUPS = const [
   TestGroup(
     id: 'practice-2345',
     title: 'Numbers 2 to 5',
-    description: 'Multiply number 2, 3, 4, 5',
     problemsClass: [2, 3, 4, 5],
     iconImage: 'practice-numbers/two-five.png',
     itemsCount: 25,
@@ -100,7 +93,6 @@ const PRACTICE_TEST_GROUPS = const [
   TestGroup(
     id: 'practice-6',
     title: 'Number 6',
-    description: 'Multiply number 6',
     problemsClass: [6],
     iconImage: 'practice-numbers/six.png',
     itemsCount: 10,
@@ -111,7 +103,6 @@ const PRACTICE_TEST_GROUPS = const [
   TestGroup(
     id: 'practice-7',
     title: 'Number 7',
-    description: 'Multiply number 7',
     problemsClass: [7],
     iconImage: 'practice-numbers/seven.png',
     itemsCount: 10,
@@ -122,7 +113,6 @@ const PRACTICE_TEST_GROUPS = const [
   TestGroup(
     id: 'practice-8',
     title: 'Number 8',
-    description: 'Multiply number 8',
     problemsClass: [8],
     iconImage: 'practice-numbers/eight.png',
     itemsCount: 10,
@@ -133,7 +123,6 @@ const PRACTICE_TEST_GROUPS = const [
   TestGroup(
     id: 'practice-9',
     title: 'Number 9',
-    description: 'Multiply number 9',
     problemsClass: [9],
     iconImage: 'practice-numbers/nine.png',
     itemsCount: 10,
@@ -144,7 +133,6 @@ const PRACTICE_TEST_GROUPS = const [
   TestGroup(
     id: 'practice-10',
     title: 'Number 10',
-    description: 'Multiply number 10',
     problemsClass: [10],
     iconImage: 'practice-numbers/ten.png',
     itemsCount: 10,
@@ -155,7 +143,6 @@ const PRACTICE_TEST_GROUPS = const [
   TestGroup(
     id: 'practice-12345678910',
     title: 'Numbers 1 to 10',
-    description: 'Multiply number from 1 to 10',
     problemsClass: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
     iconImage: 'practice-numbers/one-ten.png',
     itemsCount: 30,
@@ -166,7 +153,6 @@ const PRACTICE_TEST_GROUPS = const [
   TestGroup(
     id: 'practice-11',
     title: 'Number 11',
-    description: 'Multiply number 11',
     problemsClass: [11],
     iconImage: 'practice-numbers/eleven.png',
     itemsCount: 10,
@@ -177,7 +163,6 @@ const PRACTICE_TEST_GROUPS = const [
   TestGroup(
     id: 'practice-12',
     title: 'Number 12',
-    description: 'Multiply number 12',
     problemsClass: [12],
     iconImage: 'practice-numbers/twelve.png',
     itemsCount: 10,
@@ -188,7 +173,6 @@ const PRACTICE_TEST_GROUPS = const [
   TestGroup(
     id: 'practice-123456789101112',
     title: 'Numbers 1 to 12',
-    description: 'Multiply number from 1 to 12',
     problemsClass: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
     iconImage: 'practice-numbers/one-twelve.png',
     itemsCount: 30,

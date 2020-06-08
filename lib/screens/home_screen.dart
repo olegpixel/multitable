@@ -1,12 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../widgets/squares.dart';
-import '../widgets/footer.dart';
-import '../widgets/main_header.dart';
-import 'practice_screen.dart';
-import 'stats_screen.dart';
-import 'exam_screen.dart';
-import 'tables_screen.dart';
+import 'package:multitables/widgets/squares.dart';
+import 'package:multitables/widgets/footer.dart';
+import 'package:multitables/widgets/main_header.dart';
+import 'package:multitables/screens/practice_screen.dart';
+import 'package:multitables/screens/stats_screen.dart';
+import 'package:multitables/screens/exam_screen.dart';
+import 'package:multitables/screens/tables_screen.dart';
+import 'package:multitables/funcs/localisations.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
@@ -28,11 +29,10 @@ class HomeScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: <Widget>[
                       SquareMenuItem(
-                        title: 'Tables',
+                        title: AppLocalizations.of(context).translate('home-screen_squares-tables'),
                         backgroundImage: 'assets/images/sq2.png',
                         iconImage: Padding(
-                          padding:
-                              const EdgeInsets.only(bottom: 10.0, right: 10.0),
+                          padding: const EdgeInsets.only(bottom: 10.0, right: 10.0),
                           child: Image(
                             image: AssetImage(
                               'assets/images/book.png',
@@ -43,15 +43,13 @@ class HomeScreen extends StatelessWidget {
                         ),
                         backgroundColor: '#93d296',
                         pathTo: TablesScreen.routeName,
-                        margins: EdgeInsets.only(
-                            left: 20.0, top: 20.0, right: 7.0, bottom: 6.0),
+                        margins: EdgeInsets.only(left: 20.0, top: 20.0, right: 7.0, bottom: 6.0),
                       ),
                       SquareMenuItem(
-                        title: 'Practice',
+                        title: AppLocalizations.of(context).translate('home-screen_squares-practice'),
                         backgroundImage: 'assets/images/sq1.png',
                         iconImage: Padding(
-                          padding:
-                              const EdgeInsets.only(bottom: 10.0, right: 10.0),
+                          padding: const EdgeInsets.only(bottom: 10.0, right: 10.0),
                           child: Image(
                             image: AssetImage(
                               'assets/images/clipboard.png',
@@ -62,8 +60,7 @@ class HomeScreen extends StatelessWidget {
                         ),
                         backgroundColor: '#F9CF72',
                         pathTo: PracticeScreen.routeName,
-                        margins: EdgeInsets.only(
-                            left: 7.0, top: 20.0, right: 20.0, bottom: 6.0),
+                        margins: EdgeInsets.only(left: 7.0, top: 20.0, right: 20.0, bottom: 6.0),
                       ),
                     ],
                   ),
@@ -74,11 +71,10 @@ class HomeScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: <Widget>[
                       SquareMenuItem(
-                        title: 'Exam',
+                        title: AppLocalizations.of(context).translate('home-screen_squares-exam'),
                         backgroundImage: 'assets/images/sq3.png',
                         iconImage: Padding(
-                          padding:
-                              const EdgeInsets.only(bottom: 10.0, right: 10.0),
+                          padding: const EdgeInsets.only(bottom: 10.0, right: 10.0),
                           child: Image(
                             image: AssetImage(
                               'assets/images/graduation-cap.png',
@@ -89,15 +85,13 @@ class HomeScreen extends StatelessWidget {
                         ),
                         backgroundColor: '#B3EEFA',
                         pathTo: ExamScreen.routeName,
-                        margins: EdgeInsets.only(
-                            left: 20.0, top: 6.0, right: 7.0, bottom: 20.0),
+                        margins: EdgeInsets.only(left: 20.0, top: 6.0, right: 7.0, bottom: 20.0),
                       ),
                       SquareMenuItem(
-                        title: 'Progress',
+                        title: AppLocalizations.of(context).translate('home-screen_squares-progress'),
                         backgroundImage: 'assets/images/sq4.png',
                         iconImage: Padding(
-                          padding:
-                              const EdgeInsets.only(bottom: 10.0, right: 10.0),
+                          padding: const EdgeInsets.only(bottom: 10.0, right: 10.0),
                           child: Image(
                             image: AssetImage(
                               'assets/images/monitoring.png',
@@ -108,8 +102,7 @@ class HomeScreen extends StatelessWidget {
                         ),
                         backgroundColor: '#FFD5DF',
                         pathTo: StatsScreen.routeName,
-                        margins: EdgeInsets.only(
-                            left: 7.0, top: 6.0, right: 20.0, bottom: 20.0),
+                        margins: EdgeInsets.only(left: 7.0, top: 6.0, right: 20.0, bottom: 20.0),
                       ),
                     ],
                   ),

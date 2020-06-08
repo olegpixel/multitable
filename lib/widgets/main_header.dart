@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:multitables/funcs/funcs.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:hive/hive.dart';
@@ -28,8 +27,8 @@ class _MainHeaderState extends State<MainHeader> {
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: [
-            hexToColor('#599BF0'),
-            hexToColor('#4785EB'),
+            Color(0xff599BF0),
+            Color(0xff4785EB),
           ],
           begin: Alignment.bottomLeft,
           end: Alignment.topRight,
@@ -47,7 +46,7 @@ class _MainHeaderState extends State<MainHeader> {
                   Padding(
                     padding: const EdgeInsets.only(bottom: 6.0),
                     child: Text(
-                      AppLocalizations.of(context).translate('title'), // 'Multiplication Tables',
+                      AppLocalizations.of(context).translate('home-screen_title'),
                       textAlign: TextAlign.center,
                       overflow: TextOverflow.clip,
                       style: GoogleFonts.titilliumWeb(
@@ -61,7 +60,7 @@ class _MainHeaderState extends State<MainHeader> {
                     ),
                   ),
                   Text(
-                    'Points to next level:',
+                    AppLocalizations.of(context).translate('home-screen_points-to-next-level'),
                     textAlign: TextAlign.center,
                     overflow: TextOverflow.clip,
                     style: GoogleFonts.titilliumWeb(
@@ -118,7 +117,7 @@ class _MainHeaderState extends State<MainHeader> {
                         Padding(
                           padding: const EdgeInsets.only(top: 4.0),
                           child: Text(
-                            '${level.name}',
+                            AppLocalizations.of(context).translate('home-screen_level') + ' ' + level.name,
                             textAlign: TextAlign.center,
                             overflow: TextOverflow.clip,
                             style: TextStyle(

@@ -14,7 +14,7 @@ class TestGroup {
   const TestGroup(
       {@required this.id,
       @required this.title,
-      @required this.description,
+      this.description,
       @required this.problemsClass,
       @required this.iconImage,
       this.itemsCount = 10,

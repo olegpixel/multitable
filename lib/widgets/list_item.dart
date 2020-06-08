@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../funcs/funcs.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -8,6 +7,7 @@ import 'package:multitables/models/test_group.dart';
 import 'package:multitables/screens/test_screen.dart';
 import 'package:multitables/screens/test_exam_screen.dart';
 import 'package:multitables/widgets/linear_percent_indicator.dart';
+import 'package:multitables/funcs/localisations.dart';
 
 class ListItem extends StatefulWidget {
   final TestGroup testGroup;
@@ -54,7 +54,7 @@ class _ListItemState extends State<ListItem> {
               borderRadius: BorderRadius.circular(8.0),
               boxShadow: [
                 BoxShadow(
-                  color: hexToColor("#c3c3c3").withOpacity(0.5),
+                  color: Color(0xffc3c3c3).withOpacity(0.5),
                   spreadRadius: 4,
                   blurRadius: 8,
                   offset: Offset(0, -2), // changes position of shadow
@@ -85,11 +85,11 @@ class _ListItemState extends State<ListItem> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Text(
-                            widget.testGroup.title,
+                            AppLocalizations.of(context).translate(widget.testGroup.id),
                             overflow: TextOverflow.clip,
                             style: TextStyle(
                               fontWeight: FontWeight.w800,
-                              color: hexToColor('#3D3D74'),
+                              color: Color(0xff3D3D74),
                               fontSize: 17.0,
                             ),
                           ),
@@ -98,9 +98,13 @@ class _ListItemState extends State<ListItem> {
                                 ? const EdgeInsets.only(top: 8.0, bottom: 8.0)
                                 : const EdgeInsets.only(top: 4.0, bottom: 8.0),
                             child: Text(
-                              (widget.testGroup.withVariants ? '' : (widget.testGroup.description + '\n')) +
+                              (widget.testGroup.withVariants
+                                      ? ''
+                                      : (AppLocalizations.of(context).translate(widget.testGroup.id + '-description') +
+                                          '\n')) +
                                   widget.testGroup.itemsCount.toString() +
-                                  ' questions',
+                                  ' ' +
+                                  AppLocalizations.of(context).translate('practice-screen_text-questions'),
                               overflow: TextOverflow.clip,
                               style: GoogleFonts.lato(
                                 textStyle: TextStyle(
@@ -129,7 +133,7 @@ class _ListItemState extends State<ListItem> {
                                 color: Colors.white,
                                 size: 36.0,
                               ),
-                              backgroundColor: hexToColor('#4CAF50'),
+                              backgroundColor: Color(0xff4CAF50),
                             );
                           } else if (percent > 0) {
                             c = CircleAvatar(
@@ -139,7 +143,7 @@ class _ListItemState extends State<ListItem> {
                                 color: Colors.white,
                                 size: 36.0,
                               ),
-                              backgroundColor: hexToColor('#F7AC1A'),
+                              backgroundColor: Color(0xffF7AC1A),
                             );
                           } else {
                             c = Container();

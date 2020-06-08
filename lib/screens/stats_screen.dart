@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
-import '../widgets/header.dart';
+import 'package:multitables/widgets/header.dart';
 import 'package:multitables/datastore/progress_dao.dart';
+import 'package:multitables/funcs/localisations.dart';
 
 class StatsScreen extends StatelessWidget {
   static const routeName = '/stats';
