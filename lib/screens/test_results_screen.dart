@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:multitables/funcs/funcs.dart';
 import 'package:multitables/models/test_results.dart';
 import 'package:multitables/models/problem.dart';
 import 'package:multitables/widgets/styled_button.dart';
 import 'package:multitables/screens/test_screen.dart';
 import 'package:multitables/screens/test_exam_screen.dart';
 import 'package:multitables/screens/answers_list_screen.dart';
-import 'package:multitables/datastore/lang.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:multitables/funcs/localisations.dart';
+import 'dart:math';
 
 class TestResultsScreen extends StatefulWidget {
   static const routeName = '/test-results';
@@ -56,7 +55,7 @@ class _TestResultsScreenState extends State<TestResultsScreen> {
                 Padding(
                   padding: EdgeInsets.only(top: 20.0),
                   child: Text(
-                    'Congratulations!',
+                    AppLocalizations.of(context).translate('new-level-modal_title'), //'Congratulations!',
                     style: TextStyle(
                       fontSize: 25.0,
                       color: Color(0xff3D3D74),
@@ -67,7 +66,7 @@ class _TestResultsScreenState extends State<TestResultsScreen> {
                 Padding(
                   padding: EdgeInsets.only(top: 10.0),
                   child: Text(
-                    'New level achieved',
+                    AppLocalizations.of(context).translate('new-level-modal_description'), // 'New level achieved',
                     style: TextStyle(fontSize: 16.0, color: Color(0xff3D3D74)),
                   ),
                 ),
@@ -82,7 +81,7 @@ class _TestResultsScreenState extends State<TestResultsScreen> {
                 Padding(
                   padding: EdgeInsets.all(15.0),
                   child: Text(
-                    AppLocalizations.of(context).translate('new-level-screen_level"') + ' ' + args.level.name,
+                    AppLocalizations.of(context).translate('new-level-screen_level') + ' ' + args.level.name,
                     style: TextStyle(
                       fontSize: 22.0,
                       color: Color(0xff3D3D74),
@@ -186,7 +185,7 @@ class _TestResultsScreenState extends State<TestResultsScreen> {
                               animation: true,
                               percent: correctNumber / totalNumber,
                               center: new Text(
-                                '$correctNumber of $totalNumber',
+                                '$correctNumber ' + AppLocalizations.of(context).translate('out-of') + ' $totalNumber',
                                 style: new TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0, color: Colors.white),
                               ),
                               circularStrokeCap: CircularStrokeCap.round,
@@ -204,7 +203,7 @@ class _TestResultsScreenState extends State<TestResultsScreen> {
                             color: Colors.white,
                             boxShadow: [
                               BoxShadow(
-                                color: hexToColor("#004080").withOpacity(0.1),
+                                color: Color(0xff004080).withOpacity(0.1),
                                 spreadRadius: 3,
                                 blurRadius: 2,
                                 offset: Offset(0, 2), // changes position of shadow
@@ -239,7 +238,7 @@ class _TestResultsScreenState extends State<TestResultsScreen> {
               ),
             ),
           ),
-          ...resultText(percentage),
+          ...resultText(percentage, context),
           Spacer(
             flex: 1,
           ),
@@ -247,7 +246,7 @@ class _TestResultsScreenState extends State<TestResultsScreen> {
             padding: const EdgeInsets.only(top: 10.0, bottom: 3.0, right: 15.0, left: 15.0),
             child: StyledButton(
               onPressed: () => Navigator.of(context).pushNamed(AnswersListScreen.routeName, arguments: args.testData),
-              text: 'Show answers',
+              text: AppLocalizations.of(context).translate('test-results-screen_show-answers'),
               light: true,
             ),
           ),
@@ -266,11 +265,11 @@ class _TestResultsScreenState extends State<TestResultsScreen> {
                           Navigator.of(context).pushReplacementNamed(TestScreen.routeName, arguments: args.testGroup),
                         }
                     },
-                    text: 'Try again',
+                    text: AppLocalizations.of(context).translate('test-results-screen_try-again'),
                   )
                 : StyledButton(
                     onPressed: () => Navigator.of(context).pop(),
-                    text: 'Done',
+                    text: AppLocalizations.of(context).translate('test-results-screen_done'),
                   ),
           ),
         ],
@@ -278,15 +277,6 @@ class _TestResultsScreenState extends State<TestResultsScreen> {
     );
   }
 }
-
-//
-//class TestResultsScreen extends StatelessWidget {
-//  static const routeName = '/test-results';
-//
-//  @override
-//  Widget build(BuildContext context) {
-//
-//}
 
 AssetImage starsRating(double percent) {
   if (percent > 0.99) {
@@ -300,19 +290,31 @@ AssetImage starsRating(double percent) {
   }
 }
 
-List<Widget> resultText(double percent) {
+List<Widget> resultText(double percent, BuildContext context) {
   String title;
   String desc;
 
+  dynamic getRandomElement(String s) {
+    List<dynamic> arr = s.split('|');
+    var i = new Random().nextInt(arr.length);
+    return arr[i];
+  }
+
   if (percent > 0.99) {
-    title = getRandomElement(LANG['ENGLISH']['test-results-great']);
-    desc = '';
+    String titleVars = AppLocalizations.of(context).translate('test-results-screen_title-great');
+    title = getRandomElement(titleVars);
+    String descVars = AppLocalizations.of(context).translate('test-results-screen_desc-great');
+    desc = getRandomElement(descVars);
   } else if (percent > 0.6) {
-    title = getRandomElement(LANG['ENGLISH']['test-results-good']);
-    desc = '';
+    String titleVars = AppLocalizations.of(context).translate('test-results-screen_title-good');
+    title = getRandomElement(titleVars);
+    String descVars = AppLocalizations.of(context).translate('test-results-screen_desc-good');
+    desc = getRandomElement(descVars);
   } else {
-    title = getRandomElement(LANG['ENGLISH']['test-results-bad']);
-    desc = '';
+    String titleVars = AppLocalizations.of(context).translate('test-results-screen_title-bad');
+    title = getRandomElement(titleVars);
+    String descVars = AppLocalizations.of(context).translate('test-results-screen_desc-bad');
+    desc = getRandomElement(descVars);
   }
 
   return [
@@ -321,7 +323,7 @@ List<Widget> resultText(double percent) {
       style: TextStyle(
         fontSize: 18.0,
         fontWeight: FontWeight.w700,
-        color: hexToColor('#3D3D74'),
+        color: Color(0xff3D3D74),
         letterSpacing: 0.3,
       ),
       textAlign: TextAlign.center,
@@ -329,12 +331,12 @@ List<Widget> resultText(double percent) {
     Padding(
       padding: const EdgeInsets.symmetric(horizontal: 35.0),
       child: Text(
-        'Study more next time and get all the answers correct!',
+        desc,
         style: TextStyle(
           fontSize: 17.0,
           height: 1.7,
           fontWeight: FontWeight.w400,
-          color: hexToColor('#999999'),
+          color: Color(0xff999999),
           letterSpacing: 0.3,
         ),
         textAlign: TextAlign.center,

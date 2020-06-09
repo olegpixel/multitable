@@ -87,7 +87,7 @@ class AnswersListScreen extends StatelessWidget {
         ),
         backgroundColor: Colors.transparent,
         title: Text(
-          'Your Answers',
+          AppLocalizations.of(context).translate('answers-list-screen_title'),
           style: TextStyle(color: Color(0xff3D3D74)),
         ),
       ),

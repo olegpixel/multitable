@@ -14,7 +14,7 @@ class StatsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<dynamic> lastWeekProgress = getLastWeekProgress();
+    List<dynamic> lastWeekProgress = getLastWeekProgress(context);
     double maxY = [
       lastWeekProgress[0][1],
       lastWeekProgress[0][2],
@@ -59,6 +59,10 @@ class StatsScreen extends StatelessWidget {
       barGroup7,
     ];
 
+    String problemText(int n) {
+      return ''; //AppLocalizations.of(context).translate('stats-screen_problems');
+    }
+
     showingBarGroups = rawBarGroups;
 
     return Scaffold(
@@ -68,8 +72,8 @@ class StatsScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             Header(
-              title: 'Your progress',
-              description: 'Check your progress in learning times tables.',
+              title: AppLocalizations.of(context).translate('stats-screen_title'),
+              description: AppLocalizations.of(context).translate('stats-screen_description'),
               image: 'assets/images/elearning_stat.png',
               bgColor: '#FFEABA',
             ),
@@ -88,9 +92,12 @@ class StatsScreen extends StatelessWidget {
                           fontSize: 19.0,
                         ),
                         children: <TextSpan>[
-                          TextSpan(text: 'Solved last 7 days: '),
+                          TextSpan(text: AppLocalizations.of(context).translate('stats-screen_solved-total')),
                           TextSpan(
-                              text: totalLastWeekSolved.toString() + ' problems',
+                              text: () {
+                                int tc = getTotalCounter();
+                                return tc.toString() + problemText(tc);
+                              }(),
                               style: TextStyle(fontWeight: FontWeight.bold)),
                         ],
                       ),
@@ -104,9 +111,9 @@ class StatsScreen extends StatelessWidget {
                         fontSize: 19.0,
                       ),
                       children: <TextSpan>[
-                        TextSpan(text: 'Solved total: '),
+                        TextSpan(text: AppLocalizations.of(context).translate('stats-screen_solved-7-days')),
                         TextSpan(
-                            text: getTotalCounter().toString() + ' problems',
+                            text: totalLastWeekSolved.toString() + problemText(totalLastWeekSolved),
                             style: TextStyle(fontWeight: FontWeight.bold)),
                       ],
                     ),
@@ -137,12 +144,6 @@ class StatsScreen extends StatelessWidget {
                             child: BarChart(
                               BarChartData(
                                 maxY: maxY,
-//                                barTouchData: BarTouchData(
-//                                  touchTooltipData: BarTouchTooltipData(
-//                                    tooltipBgColor: Colors.grey,
-//                                    getTooltipItem: (_a, _b, _c, _d) => null,
-//                                  ),
-//                                ),
                                 titlesData: FlTitlesData(
                                   show: true,
                                   bottomTitles: SideTitles(
@@ -210,7 +211,7 @@ class StatsScreen extends StatelessWidget {
                                     height: 12.0,
                                   ),
                                   Text(
-                                    'Wrong',
+                                    AppLocalizations.of(context).translate('stats-screen_chart-wrong'),
                                     style: TextStyle(
                                       color: Color(0xff3D3D74),
                                       fontSize: 14.0,
@@ -223,7 +224,7 @@ class StatsScreen extends StatelessWidget {
                                     height: 12.0,
                                   ),
                                   Text(
-                                    'Correct',
+                                    AppLocalizations.of(context).translate('stats-screen_chart-correct'),
                                     style: TextStyle(
                                       color: Color(0xff3D3D74),
                                       fontSize: 14.0,

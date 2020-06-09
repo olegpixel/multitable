@@ -1,7 +1,9 @@
 import 'package:hive/hive.dart';
+import 'package:flutter/material.dart';
 import 'package:multitables/datastore/test_groups.dart';
 import 'package:multitables/datastore/user_levels.dart';
 import 'package:multitables/models/user_level.dart';
+import 'package:multitables/funcs/localisations.dart';
 
 const HIVE_PROGRESS_BOX = 'HIVE_PROGRESS_BOX';
 const TOTAL_SOLVED_KEY = 'TOTAL_SOLVED_KEY';
@@ -34,8 +36,7 @@ void clearAllStats() {
   progressBox.put(XP_NUMBER_KEY, 0);
   for (var i = 0; i < 7; i++) {
     var date = new DateTime.now().subtract(new Duration(days: i)).toLocal();
-    String postfix =
-        date.year.toString() + date.month.toString() + date.day.toString();
+    String postfix = date.year.toString() + date.month.toString() + date.day.toString();
     progressBox.put(DATED_SOLVED_PREFIX_KEY + postfix, 0);
     progressBox.put(DATED_WRONG_PREFIX_KEY + postfix, 0);
   }
@@ -86,25 +87,23 @@ UserLevel getCurrentUserLevel() {
 
 void updateCountersAndXP(int right, int wrong, int xp) async {
   var now = new DateTime.now().toLocal();
-  String postfix =
-      now.year.toString() + now.month.toString() + now.day.toString();
+  String postfix = now.year.toString() + now.month.toString() + now.day.toString();
   if (right > 0) {
     int current = progressBox.get(TOTAL_SOLVED_KEY, defaultValue: 0);
     progressBox.put(TOTAL_SOLVED_KEY, current + right);
-    int todayRight =
-        progressBox.get(DATED_SOLVED_PREFIX_KEY + postfix, defaultValue: 0);
+    int todayRight = progressBox.get(DATED_SOLVED_PREFIX_KEY + postfix, defaultValue: 0);
     progressBox.put(DATED_SOLVED_PREFIX_KEY + postfix, todayRight + right);
     addXP(xp);
   }
   if (wrong > 0) {
-    int todayWrong =
-        progressBox.get(DATED_WRONG_PREFIX_KEY + postfix, defaultValue: 0);
+    int todayWrong = progressBox.get(DATED_WRONG_PREFIX_KEY + postfix, defaultValue: 0);
     progressBox.put(DATED_WRONG_PREFIX_KEY + postfix, todayWrong + wrong);
   }
   // TODO: delete older than 1 month
 }
 
 // average progress of all test groups
+// outdated
 double getTotalProgress() {
   double totalProgress = 0.0;
   PRACTICE_TEST_GROUPS.forEach((element) {
@@ -114,44 +113,39 @@ double getTotalProgress() {
     totalProgress += progressBox.get(element.id, defaultValue: 0.0);
   });
 
-  return (totalProgress /
-      (PRACTICE_TEST_GROUPS.length + EXAM_TEST_GROUPS.length));
+  return (totalProgress / (PRACTICE_TEST_GROUPS.length + EXAM_TEST_GROUPS.length));
 }
 
-List<dynamic> getLastWeekProgress() {
+List<dynamic> getLastWeekProgress(BuildContext context) {
   List<dynamic> resp = [];
   for (var i = 0; i < 7; i++) {
     var date = new DateTime.now().subtract(new Duration(days: i)).toLocal();
     int weekday = date.weekday;
-    String postfix =
-        date.year.toString() + date.month.toString() + date.day.toString();
-    int right =
-        progressBox.get(DATED_SOLVED_PREFIX_KEY + postfix, defaultValue: 0);
-    int wrong =
-        progressBox.get(DATED_WRONG_PREFIX_KEY + postfix, defaultValue: 0);
-    resp.add(
-        [weekdayNumberToString(weekday), wrong.toDouble(), right.toDouble()]);
+    String postfix = date.year.toString() + date.month.toString() + date.day.toString();
+    int right = progressBox.get(DATED_SOLVED_PREFIX_KEY + postfix, defaultValue: 0);
+    int wrong = progressBox.get(DATED_WRONG_PREFIX_KEY + postfix, defaultValue: 0);
+    resp.add([weekdayNumberToString(weekday, context), wrong.toDouble(), right.toDouble()]);
   }
   resp = resp.reversed.toList();
   return resp;
 }
 
-String weekdayNumberToString(int weekday) {
+String weekdayNumberToString(int weekday, BuildContext context) {
   switch (weekday) {
     case 1:
-      return 'Mon';
+      return AppLocalizations.of(context).translate('week-days-monday');
     case 2:
-      return 'Tue';
+      return AppLocalizations.of(context).translate('week-days-tuesday');
     case 3:
-      return 'Wed';
+      return AppLocalizations.of(context).translate('week-days-wednesday');
     case 4:
-      return 'Thu';
+      return AppLocalizations.of(context).translate('week-days-thursday');
     case 5:
-      return 'Fri';
+      return AppLocalizations.of(context).translate('week-days-friday');
     case 6:
-      return 'Sat';
+      return AppLocalizations.of(context).translate('week-days-saturday');
     case 7:
-      return 'Sun';
+      return AppLocalizations.of(context).translate('week-days-sunday');
     default:
       return '';
   }

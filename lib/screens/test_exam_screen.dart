@@ -136,13 +136,13 @@ class _TestExamScreenState extends State<TestExamScreen> {
         bottomOpacity: 0.0,
         elevation: 0.0,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: hexToColor('#3D3D74')),
+          icon: Icon(Icons.arrow_back, color: Color(0xff3D3D74)),
           onPressed: () => Navigator.of(context).pop(),
         ),
         backgroundColor: Colors.transparent,
         title: Text(
-          testGroup.title,
-          style: TextStyle(color: hexToColor('#3D3D74')),
+          AppLocalizations.of(context).translate(widget.testGroup.id),
+          style: TextStyle(color: Color(0xff3D3D74)),
         ),
       ),
       body: Column(
@@ -153,10 +153,10 @@ class _TestExamScreenState extends State<TestExamScreen> {
             padding: const EdgeInsets.only(top: 4.0, bottom: 14.0),
             child: Center(
               child: Text(
-                '${iterator + 1}  of  $totalQNumber',
+                '${iterator + 1}  ' + AppLocalizations.of(context).translate('out-of') + ' $totalQNumber',
                 style: TextStyle(
                   fontWeight: FontWeight.w600,
-                  color: hexToColor('#888992'),
+                  color: Color(0xff888992),
                   fontSize: 19.0,
                 ),
               ),
@@ -168,7 +168,7 @@ class _TestExamScreenState extends State<TestExamScreen> {
               style: GoogleFonts.lato(
                 textStyle: TextStyle(
                   fontWeight: FontWeight.w600,
-                  color: hexToColor('#202027'),
+                  color: Color(0xff202027),
                   fontSize: 67.0,
                 ),
               ),
@@ -185,7 +185,7 @@ class _TestExamScreenState extends State<TestExamScreen> {
                     givenAnswer,
                     style: TextStyle(
                       fontWeight: FontWeight.w600,
-                      color: hexToColor('#202027'),
+                      color: Color(0xff202027),
                       fontSize: 50.0,
                     ),
                   )),
@@ -212,7 +212,7 @@ class _TestExamScreenState extends State<TestExamScreen> {
             padding: const EdgeInsets.only(top: 10.0, bottom: 15.0, right: 15.0, left: 15.0),
             child: StyledButton(
               onPressed: () => _checkAnswer(context),
-              text: 'Next',
+              text: AppLocalizations.of(context).translate('test-exam-screen_next-button'),
               light: false,
             ),
           ),
