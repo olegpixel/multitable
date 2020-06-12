@@ -75,7 +75,7 @@ class StatsScreen extends StatelessWidget {
               title: AppLocalizations.of(context).translate('stats-screen_title'),
               description: AppLocalizations.of(context).translate('stats-screen_description'),
               image: 'assets/images/elearning_stat.png',
-              bgColor: '#FFEABA',
+              bgColor: 0xffFFEABA,
             ),
             Padding(
               padding: const EdgeInsets.only(left: 20.0, top: 10.0),

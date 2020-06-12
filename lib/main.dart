@@ -8,6 +8,7 @@ import 'screens/test_screen.dart';
 import 'screens/test_exam_screen.dart';
 import 'screens/test_results_screen.dart';
 import 'screens/language_screen.dart';
+import 'screens/settings_screen.dart';
 
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:multitables/funcs/localisations.dart';
@@ -93,6 +94,7 @@ class _MyAppState extends State<MyApp> {
           TestResultsScreen.routeName: (ctx) => TestResultsScreen(),
           AnswersListScreen.routeName: (ctx) => AnswersListScreen(),
           LanguageScreen.routeName: (ctx) => LanguageScreen(),
+          SettingsScreen.routeName: (ctx) => SettingsScreen(),
         },
         onGenerateRoute: (RouteSettings settings) {
           var routes = <String, WidgetBuilder>{

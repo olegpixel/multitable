@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import '../funcs/funcs.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class SquareMenuItem extends StatelessWidget {
   final String title;
   final String backgroundImage;
-  final String backgroundColor;
+  final int backgroundColor;
   final Widget iconImage;
   final String pathTo;
   final EdgeInsets margins;
@@ -36,7 +35,7 @@ class SquareMenuItem extends StatelessWidget {
             height: double.infinity,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15.0),
-              color: hexToColor('$backgroundColor'),
+              color: Color(backgroundColor),
               image: DecorationImage(
                 image: AssetImage("$backgroundImage"),
                 fit: BoxFit.cover,

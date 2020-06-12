@@ -71,5 +71,11 @@
   "week-days-friday": "ПТ",
   "week-days-saturday": "СБ",
   "week-days-sunday": "ВС",
-  "test-exam-screen_next-button": "Далее"
+  "test-exam-screen_next-button": "Далее",
+  "settings-screen_title": "Настройки",
+  "settings-screen_clear-progress": "Сбросить прогресс",
+  "settings-screen_modal-title": "Вы уверены?",
+  "settings-screen_modal-desc": "Данная операция обнулит прогресс, сбросит уровень и удалит статистику.",
+  "settings-screen_modal-button-ok": "Продолжить",
+  "settings-screen_modal-button-cancel": "Отмена"
 }

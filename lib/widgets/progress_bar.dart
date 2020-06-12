@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../funcs/funcs.dart';
 
 class ProgressBar extends StatelessWidget {
   final int progress;
@@ -14,7 +13,7 @@ class ProgressBar extends StatelessWidget {
       margin: EdgeInsets.only(top: 12.0, bottom: 12.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10.0),
-        color: hexToColor('#EEEEEE'),
+        color: Color(0xffEEEEEE),
       ),
       child: Container(
 //        width: 250 / 100 * progress,
@@ -35,7 +34,7 @@ class ProgressBar extends StatelessWidget {
           '$progress%',
           style: TextStyle(
             fontWeight: FontWeight.w500,
-            color: hexToColor('#3D3D74'),
+            color: Color(0xff3D3D74),
             fontSize: 11.0,
           ),
         ),

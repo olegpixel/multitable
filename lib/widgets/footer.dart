@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:multitables/funcs/funcs.dart';
 import 'package:multitables/screens/language_screen.dart';
+import 'package:multitables/screens/settings_screen.dart';
 import 'package:multitables/funcs/localisations.dart';
 
 class MenuIcon extends StatelessWidget {
@@ -57,11 +57,11 @@ class Footer extends StatelessWidget {
         children: <Widget>[
 //          MenuIcon('Home', Icons.home, hexToColor('#666666')),
           MenuIcon(AppLocalizations.of(context).translate('home-screen_footer-language'), Icons.language,
-              hexToColor('#666666'), LanguageScreen.routeName),
+              Color(0xff666666), LanguageScreen.routeName),
           MenuIcon(AppLocalizations.of(context).translate('home-screen_footer-settings'), Icons.settings,
-              hexToColor('#666666'), '/'),
-          MenuIcon(AppLocalizations.of(context).translate('home-screen_footer-rate-us'), Icons.star,
-              hexToColor('#FF8A5B'), '/'),
+              Color(0xff666666), SettingsScreen.routeName),
+//          MenuIcon(AppLocalizations.of(context).translate('home-screen_footer-rate-us'), Icons.star,
+//             Color(0xffFF8A5B), '/'),
         ],
       ),
       height: 60.0,
@@ -74,7 +74,7 @@ class Footer extends StatelessWidget {
         ),
         boxShadow: [
           BoxShadow(
-            color: hexToColor("#999999").withOpacity(0.18),
+            color: Color(0xff999999).withOpacity(0.18),
             spreadRadius: 5,
             blurRadius: 15,
             offset: Offset(0, -3), // changes position of shadow

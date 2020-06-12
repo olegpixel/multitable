@@ -71,5 +71,12 @@
   "week-days-friday": "Fri",
   "week-days-saturday": "Sat",
   "week-days-sunday": "San",
-  "test-exam-screen_next-button": "Next"
+  "test-exam-screen_next-button": "Next",
+  "settings-screen_title": "Settings",
+  "settings-screen_clear-progress": "Reset Progress",
+  "settings-screen_modal-title": "Are you sure?",
+  "settings-screen_modal-desc": "This this delete all your progress, reset your level, all statistics will be deleted.",
+  "settings-screen_modal-button-ok": "Proceed",
+  "settings-screen_modal-button-cancel": "Cancel"
+
 }

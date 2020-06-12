@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:multitables/funcs/funcs.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:multitables/models/test_group.dart';
 import 'package:multitables/models/test_results.dart';

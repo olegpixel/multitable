@@ -23,8 +23,8 @@ class _PracticeScreenState extends State<PracticeScreen> {
             Header(
               title: AppLocalizations.of(context).translate('practice-screen_title'),
               description: AppLocalizations.of(context).translate('practice-screen_description'),
-              image: 'assets/images/clipboard.png',
-              bgColor: '#FFEABA',
+              image: 'assets/images/responsive.png',
+              bgColor: 0xffFFEABA,
             ),
             Container(
               margin: const EdgeInsets.only(bottom: 15.0),

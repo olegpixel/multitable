@@ -19,7 +19,7 @@ class ExamScreen extends StatelessWidget {
               title: AppLocalizations.of(context).translate('exam-screen_title'),
               description: AppLocalizations.of(context).translate('exam-screen_description'),
               image: 'assets/images/elearning_exam.png',
-              bgColor: '#FFEABA',
+              bgColor: 0xffFFEABA,
             ),
             Container(
               margin: const EdgeInsets.only(bottom: 15.0),

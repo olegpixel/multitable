@@ -109,7 +109,8 @@ Problem generateAnswerVariants(int a, int b) {
 
 List<Problem> generateClosedTest(List<int> problemsClass, int itemsCount) {
   List<Problem> resp = [];
-  List<int> oneToTen = [for (var i = 1; i <= 10; i += 1) i];
+  int maxItem = problemsClass.reduce((curr, next) => curr > next ? curr : next);
+  List<int> oneToTen = [for (var i = 1; i <= maxItem; i += 1) i];
 
   for (final prClass in problemsClass) {
     for (final i in oneToTen) {
@@ -123,7 +124,8 @@ List<Problem> generateClosedTest(List<int> problemsClass, int itemsCount) {
 
 List<Problem> generateOpenTest(List<int> problemsClass, int itemsCount) {
   List<Problem> resp = [];
-  List<int> oneToTen = [for (var i = 1; i <= 10; i += 1) i];
+  int maxItem = problemsClass.reduce((curr, next) => curr > next ? curr : next);
+  List<int> oneToTen = [for (var i = 1; i <= maxItem; i += 1) i];
   var random = new Random();
 
   for (final prClass in problemsClass) {
