@@ -47,7 +47,7 @@ class _LanguageScreenState extends State<LanguageScreen> {
     super.initState();
     languageList = [
       Language('English', 'combined-flag.png', 'en', false),
-      Language('Spanish', 'flag-spain.png', 'es', false),
+//      Language('Spanish', 'flag-spain.png', 'es', false),
       Language('Русский', 'flag-ru.png', 'ru', false),
     ];
 
