@@ -21,10 +21,10 @@ class Header extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 0),
+      padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 0),
       margin: const EdgeInsets.only(bottom: 10.0),
       width: double.infinity,
-      height: 145.0,
+      height: 130.0,
       decoration: BoxDecoration(
         color: Color(bgColor),
         borderRadius: BorderRadius.only(bottomLeft: Radius.circular(40)),

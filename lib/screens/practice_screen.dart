@@ -14,35 +14,40 @@ class PracticeScreen extends StatefulWidget {
 class _PracticeScreenState extends State<PracticeScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            Header(
-              title: AppLocalizations.of(context).translate('practice-screen_title'),
-              description: AppLocalizations.of(context).translate('practice-screen_description'),
-              image: 'assets/images/responsive.png',
-              bgColor: 0xffFFEABA,
+    return Container(
+      color: Color(0xffFFEABA),
+      child: SafeArea(
+        child: Scaffold(
+          body: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                Header(
+                  title: AppLocalizations.of(context).translate('practice-screen_title'),
+                  description: AppLocalizations.of(context).translate('practice-screen_description'),
+                  image: 'assets/images/responsive.png',
+                  bgColor: 0xffFFEABA,
+                ),
+                Container(
+                  margin: const EdgeInsets.only(bottom: 15.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: <Widget>[
+                      ...PRACTICE_TEST_GROUPS
+                          .map(
+                            (group) => new ListItem(
+                              testGroup: group,
+                            ),
+                          )
+                          .toList(),
+                    ],
+                  ),
+                ),
+              ],
             ),
-            Container(
-              margin: const EdgeInsets.only(bottom: 15.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: <Widget>[
-                  ...PRACTICE_TEST_GROUPS
-                      .map(
-                        (group) => new ListItem(
-                          testGroup: group,
-                        ),
-                      )
-                      .toList(),
-                ],
-              ),
-            ),
-          ],
+          ),
         ),
       ),
     );

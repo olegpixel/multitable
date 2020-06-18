@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'screens/home_screen.dart';
 import 'screens/practice_screen.dart';
 import 'screens/stats_screen.dart';
@@ -20,9 +21,10 @@ import 'package:multitables/datastore/progress_dao.dart';
 import 'package:multitables/screens/answers_list_screen.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
   await Hive.openBox(HIVE_PROGRESS_BOX);
-
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   runApp(MyApp());
 }
 

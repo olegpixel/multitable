@@ -20,10 +20,16 @@ class _MainHeaderState extends State<MainHeader> {
 
   @override
   Widget build(BuildContext context) {
+    final mediaQuerySize = MediaQuery.of(context);
+    final screenWidth = mediaQuerySize.size.width;
+    final screenHeight = mediaQuerySize.size.height;
+    final hc = screenHeight / 683;
+    final wc = screenWidth / 411;
+
     return Container(
-      padding: const EdgeInsets.fromLTRB(20.0, 40.0, 20.0, 0),
+      padding: EdgeInsets.fromLTRB(20.0 * wc, 10.0 * hc, 20.0 * wc, 0),
       width: double.infinity,
-      height: 155.0,
+      height: 125.0 * hc,
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: [
@@ -33,7 +39,7 @@ class _MainHeaderState extends State<MainHeader> {
           begin: Alignment.bottomLeft,
           end: Alignment.topRight,
         ),
-        borderRadius: BorderRadius.only(bottomLeft: Radius.circular(40)),
+        borderRadius: BorderRadius.only(bottomLeft: Radius.circular(40 * hc)),
       ),
       child: Column(
         children: <Widget>[
@@ -53,21 +59,26 @@ class _MainHeaderState extends State<MainHeader> {
                         textStyle: TextStyle(
                           fontWeight: FontWeight.w700,
                           color: Colors.white,
-                          fontSize: 24.0,
+                          fontSize: 24.0 * wc,
                           letterSpacing: .5,
                         ),
                       ),
                     ),
                   ),
-                  Text(
-                    AppLocalizations.of(context).translate('home-screen_points-to-next-level'),
-                    textAlign: TextAlign.center,
-                    overflow: TextOverflow.clip,
-                    style: GoogleFonts.titilliumWeb(
-                      textStyle: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        color: Colors.white,
-                        fontSize: 17.0,
+                  Container(
+                    width: 240 * wc,
+                    child: SizedBox(
+                      child: Text(
+                        AppLocalizations.of(context).translate('home-screen_points-to-next-level'),
+                        textAlign: TextAlign.left,
+                        overflow: TextOverflow.clip,
+                        style: GoogleFonts.titilliumWeb(
+                          textStyle: TextStyle(
+                            fontWeight: FontWeight.w400,
+                            color: Colors.white,
+                            fontSize: 17.0 * wc,
+                          ),
+                        ),
                       ),
                     ),
                   ),
@@ -79,10 +90,10 @@ class _MainHeaderState extends State<MainHeader> {
                         child: () {
                           NextLevelPoints p = getPointsToNextLevel();
                           return LinearPercentIndicator(
-                            width: 250.0,
+                            width: 250 * wc,
                             animation: true,
                             animationDuration: 700,
-                            lineHeight: 18.0,
+                            lineHeight: 18.0 * hc,
                             percent: p.current / p.totalLevelPoints,
                             backgroundColor: Color(0xffE6E6E6),
                             center: Text(
@@ -90,7 +101,7 @@ class _MainHeaderState extends State<MainHeader> {
                               style: TextStyle(
                                 fontWeight: FontWeight.w700,
                                 color: Color(0xff3D3D74),
-                                fontSize: 13.0,
+                                fontSize: 13.0 * wc,
                               ),
                             ),
                             linearStrokeCap: LinearStrokeCap.roundAll,
@@ -110,8 +121,9 @@ class _MainHeaderState extends State<MainHeader> {
                     child: Column(
                       children: <Widget>[
                         CircleAvatar(
-                          radius: 40.0,
-                          child: new Image.asset('assets/images/animals/' + level.icon, width: 76.0, height: 76.0),
+                          radius: 40.0 * hc,
+                          child: new Image.asset('assets/images/animals/' + level.icon,
+                              width: 76.0 * hc, height: 76.0 * hc),
                           backgroundColor: Colors.white,
                         ),
                         Padding(
@@ -123,7 +135,7 @@ class _MainHeaderState extends State<MainHeader> {
                             style: TextStyle(
                               fontWeight: FontWeight.w400,
                               color: Colors.white,
-                              fontSize: 15.0,
+                              fontSize: 15.0 * wc,
                               letterSpacing: .5,
                             ),
                           ),
