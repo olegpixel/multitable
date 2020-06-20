@@ -7,6 +7,7 @@ import 'package:multitables/screens/test_exam_screen.dart';
 import 'package:multitables/screens/answers_list_screen.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:multitables/funcs/localisations.dart';
+import 'package:firebase_admob/firebase_admob.dart';
 import 'dart:math';
 
 class TestResultsScreen extends StatefulWidget {
@@ -17,6 +18,9 @@ class TestResultsScreen extends StatefulWidget {
 }
 
 class _TestResultsScreenState extends State<TestResultsScreen> {
+  MobileAdTargetingInfo targetingInfo;
+  InterstitialAd myInterstitial;
+
   @override
   void initState() {
     super.initState();
@@ -26,6 +30,34 @@ class _TestResultsScreenState extends State<TestResultsScreen> {
         showSimpleCustomDialog(context, args);
       }
     });
+
+    targetingInfo = MobileAdTargetingInfo(
+      keywords: <String>['education', 'kids', 'learn', 'math', 'mathamatics', 'school', 'children'],
+      childDirected: true,
+      testDevices: <String>[], // Android emulators are considered test devices
+    );
+    myInterstitial = InterstitialAd(
+      // Replace the testAdUnitId with an ad unit id from the AdMob dash.
+      adUnitId: "ca-app-pub-1857451981250394/1217848443",
+      targetingInfo: targetingInfo,
+      listener: (MobileAdEvent event) {
+        print("InterstitialAd event is $event");
+      },
+    );
+    myInterstitial.load();
+  }
+
+  void _showInterstitial() {
+    myInterstitial.show(
+      anchorOffset: 0.0,
+      // Banner Position
+      anchorType: AnchorType.bottom,
+    );
+  }
+
+  void _showAds(Function pathFunc) async {
+    _showInterstitial();
+    pathFunc();
   }
 
   void showSimpleCustomDialog(BuildContext context, TestResults args) {
@@ -160,7 +192,7 @@ class _TestResultsScreenState extends State<TestResultsScreen> {
               color: Color(0xff3D3D74),
               size: 30 * wc,
             ),
-            onPressed: () => Navigator.of(context).pop(),
+            onPressed: () => _showAds(Navigator.of(context).pop),
           ),
           backgroundColor: Colors.transparent,
         ),
@@ -274,19 +306,22 @@ class _TestResultsScreenState extends State<TestResultsScreen> {
                     onPressed: () => {
                       if (args.exam)
                         {
-                          Navigator.of(context)
-                              .pushReplacementNamed(TestExamScreen.routeName, arguments: args.testGroup),
+                          _showAds(() => Navigator.of(context)
+                              .pushReplacementNamed(TestExamScreen.routeName, arguments: args.testGroup)),
                         }
                       else
                         {
-                          Navigator.of(context).pushReplacementNamed(TestScreen.routeName, arguments: args.testGroup),
+                          _showAds(() => Navigator.of(context)
+                              .pushReplacementNamed(TestScreen.routeName, arguments: args.testGroup)),
                         }
                     },
                     text: AppLocalizations.of(context).translate('test-results-screen_try-again'),
                   )
                 : StyledButton(
                     wc: wc,
-                    onPressed: () => Navigator.of(context).pop(),
+                    onPressed: () {
+                      _showAds(Navigator.of(context).pop);
+                    },
                     text: AppLocalizations.of(context).translate('test-results-screen_done'),
                   ),
           ),

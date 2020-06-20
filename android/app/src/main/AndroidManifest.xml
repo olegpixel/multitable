@@ -10,6 +10,9 @@
         android:name="io.flutter.app.FlutterApplication"
         android:label="Multiplication Table"
         android:icon="@mipmap/ic_launcher">
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-1857451981250394~6199191315"/>
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
