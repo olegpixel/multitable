@@ -20,14 +20,20 @@ class Header extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final mediaQuerySize = MediaQuery.of(context);
+    final screenWidth = mediaQuerySize.size.width;
+    final screenHeight = mediaQuerySize.size.height;
+    final hc = screenHeight / 683;
+    final wc = screenWidth / 411;
+
     return Container(
-      padding: const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 0),
-      margin: const EdgeInsets.only(bottom: 10.0),
+      padding: EdgeInsets.fromLTRB(20.0 * wc, 0.0, 20.0 * wc, 0),
+      margin: EdgeInsets.only(bottom: 10.0 * hc),
       width: double.infinity,
-      height: 145.0,
+      height: 120.0 * hc,
       decoration: BoxDecoration(
         color: Color(bgColor),
-        borderRadius: BorderRadius.only(bottomLeft: Radius.circular(40)),
+        borderRadius: BorderRadius.only(bottomLeft: Radius.circular(40 * hc)),
       ),
       child: Column(
         children: <Widget>[
@@ -43,13 +49,13 @@ class Header extends StatelessWidget {
                       children: <Widget>[
                         InkWell(
                           onTap: () => goHomeScreen(context),
-                          borderRadius: BorderRadius.circular(15.0),
+                          borderRadius: BorderRadius.circular(15.0 * hc),
                           child: Padding(
-                            padding: const EdgeInsets.only(top: 12.0, bottom: 12.0, right: 15.0),
+                            padding: EdgeInsets.only(top: 12.0 * hc, bottom: 12.0 * hc, right: 15.0 * wc),
                             child: Icon(
                               Icons.arrow_back,
                               color: Color(0xff3D3D74),
-                              size: 25.0,
+                              size: 25.0 * wc,
                             ),
                           ),
                         ),
@@ -61,7 +67,7 @@ class Header extends StatelessWidget {
                             textStyle: TextStyle(
                               fontWeight: FontWeight.w700,
                               color: Color(0xff3D3D74),
-                              fontSize: 24.0,
+                              fontSize: 24.0 * wc,
                               letterSpacing: .5,
                             ),
                           ),
@@ -69,17 +75,15 @@ class Header extends StatelessWidget {
                       ],
                     ),
                     Container(
-                      margin: const EdgeInsets.only(top: 2.0, right: 10.0),
+                      margin: EdgeInsets.only(top: 2.0 * hc, right: 10.0 * wc),
                       child: Text(
                         description,
                         textAlign: TextAlign.left,
-//                        height: 1.01,
                         style: TextStyle(
                           height: 1.2,
                           fontWeight: FontWeight.w400,
                           color: Color(0xff3D3D74),
-                          fontSize: 15.0,
-//                          fontFamily: 'Lato',
+                          fontSize: 15.0 * wc,
                         ),
                       ),
                     ),
@@ -87,13 +91,13 @@ class Header extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 20.0),
+                padding: EdgeInsets.only(top: 10.0 * hc),
                 child: Image(
                   image: AssetImage(
                     image,
                   ),
-                  width: 100.0,
-                  height: 100.0,
+                  width: 100.0 * wc,
+                  height: 100.0 * hc,
                 ),
               ),
             ],

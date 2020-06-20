@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "439423146526",
+    "firebase_url": "https://multiplication-table-200bc.firebaseio.com",
+    "project_id": "multiplication-table-200bc",
+    "storage_bucket": "multiplication-table-200bc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:439423146526:android:c8264ebb3c61792dcaac0f",
+        "android_client_info": {
+          "package_name": "fun.mathapp.multiplication_table"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "439423146526-4eedvj5gp8i1ebl2htre7r7ak496lmlf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAxPO7NuPevUcur0y0V8cRPKqrqL9wdwUQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "439423146526-4eedvj5gp8i1ebl2htre7r7ak496lmlf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -8,33 +8,35 @@ class MenuIcon extends StatelessWidget {
   final IconData icon;
   final Color color;
   final String pathTo;
+  final double wc;
+  final double hc;
 
-  MenuIcon(this.title, this.icon, this.color, this.pathTo);
+  MenuIcon(this.title, this.icon, this.color, this.pathTo, this.wc, this.hc);
 
   @override
   Widget build(BuildContext context) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
-        FlatButton(
-          onPressed: () => Navigator.of(context).pushNamed(pathTo),
+        InkWell(
+          onTap: () => Navigator.of(context).pushNamed(pathTo),
           child: Padding(
-            padding: const EdgeInsets.only(top: 4.0, bottom: 4.0),
+            padding: EdgeInsets.only(top: 4.0 * hc, bottom: 4.0 * hc),
             child: Column(
               children: <Widget>[
                 Icon(
                   icon,
                   color: color,
-                  size: 25.0,
+                  size: 25.0 * wc,
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(top: 4.0),
+                  padding: EdgeInsets.only(top: 4.0 * hc),
                   child: Text(
                     '$title',
                     style: TextStyle(
                       fontWeight: FontWeight.w500,
                       color: color,
-                      fontSize: 12.0,
+                      fontSize: 12.0 * wc,
                       fontFamily: 'Lato',
                     ),
                   ),
@@ -51,33 +53,38 @@ class MenuIcon extends StatelessWidget {
 class Footer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final mediaQuerySize = MediaQuery.of(context);
+    final screenWidth = mediaQuerySize.size.width;
+    final screenHeight = mediaQuerySize.size.height;
+    final hc = screenHeight / 683;
+    final wc = screenWidth / 411;
     return Container(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-//          MenuIcon('Home', Icons.home, hexToColor('#666666')),
           MenuIcon(AppLocalizations.of(context).translate('home-screen_footer-language'), Icons.language,
-              Color(0xff666666), LanguageScreen.routeName),
+              Color(0xff666666), LanguageScreen.routeName, hc, wc),
           MenuIcon(AppLocalizations.of(context).translate('home-screen_footer-settings'), Icons.settings,
-              Color(0xff666666), SettingsScreen.routeName),
+              Color(0xff666666), SettingsScreen.routeName, hc, wc),
 //          MenuIcon(AppLocalizations.of(context).translate('home-screen_footer-rate-us'), Icons.star,
 //             Color(0xffFF8A5B), '/'),
         ],
       ),
-      height: 60.0,
+      height: 60.0 * hc,
       width: double.infinity,
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(25),
-          topRight: Radius.circular(25),
+          topLeft: Radius.circular(25 * wc),
+          topRight: Radius.circular(25 * wc),
         ),
         boxShadow: [
           BoxShadow(
             color: Color(0xff999999).withOpacity(0.18),
-            spreadRadius: 5,
-            blurRadius: 15,
-            offset: Offset(0, -3), // changes position of shadow
+            spreadRadius: 5 * hc,
+            blurRadius: 15 * hc,
+            offset: Offset(0, -3 * hc), // changes position of shadow
           ),
         ],
       ),
