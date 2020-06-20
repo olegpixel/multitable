@@ -79,7 +79,7 @@ class _MainHeaderState extends State<MainHeader> {
                         child: () {
                           NextLevelPoints p = getPointsToNextLevel();
                           return LinearPercentIndicator(
-                            width: 250.0,
+                            width: 235.0,
                             animation: true,
                             animationDuration: 700,
                             lineHeight: 18.0,
