@@ -33,8 +33,8 @@ class _MainHeaderState extends State<MainHeader> {
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: [
-            Color(0xff599BF0),
-            Color(0xff4785EB),
+            const Color(0xff599BF0),
+            const Color(0xff4785EB),
           ],
           begin: Alignment.bottomLeft,
           end: Alignment.topRight,
