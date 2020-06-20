@@ -8,6 +8,7 @@ import 'package:multitables/models/problem.dart';
 import 'package:multitables/funcs/question_generator.dart';
 import 'package:multitables/models/user_level.dart';
 import 'package:multitables/funcs/localisations.dart';
+import 'package:multitables/funcs/firebase_analytics.dart';
 import 'dart:async';
 
 class TestScreen extends StatefulWidget {
@@ -82,6 +83,7 @@ class _TestScreenState extends State<TestScreen> {
 
             if (levelBeforeUpdate.id != levelAfterUpdate.id) {
               nextLevelModal = true;
+              analytics.logEvent(name: 'level_achieved', parameters: {'level': levelAfterUpdate.id});
             }
 
             TestResults tr = TestResults(
@@ -101,6 +103,12 @@ class _TestScreenState extends State<TestScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final mediaQuerySize = MediaQuery.of(context);
+    final screenWidth = mediaQuerySize.size.width;
+    final screenHeight = mediaQuerySize.size.height;
+    final hc = screenHeight / 683;
+    final wc = screenWidth / 411;
+
     return Scaffold(
       appBar: AppBar(
         bottomOpacity: 0.0,
@@ -127,7 +135,7 @@ class _TestScreenState extends State<TestScreen> {
                 style: TextStyle(
                   fontWeight: FontWeight.w600,
                   color: Color(0xff888992),
-                  fontSize: 19.0,
+                  fontSize: 19.0 * wc,
                 ),
               ),
             ),
@@ -139,7 +147,7 @@ class _TestScreenState extends State<TestScreen> {
                 textStyle: TextStyle(
                   fontWeight: FontWeight.w600,
                   color: Color(0xff202027),
-                  fontSize: 67.0,
+                  fontSize: 67.0 * wc,
                 ),
               ),
             ),
@@ -158,21 +166,21 @@ class _TestScreenState extends State<TestScreen> {
                     children: <Widget>[
                       Expanded(
                         child: Padding(
-                          padding: const EdgeInsets.only(left: 30.0, top: 20.0, right: 15.0, bottom: 6.0),
+                          padding: EdgeInsets.only(left: 30.0 * wc, top: 20.0 * hc, right: 15.0 * wc, bottom: 6.0 * hc),
                           child: InkWell(
                             onTap: () => answerClick(context, 0),
-                            borderRadius: BorderRadius.circular(30.0),
-                            child: AnswerSquare(_questionsList[iterator].answers[0].toString(), buttonColors[0]),
+                            borderRadius: BorderRadius.circular(30.0 * wc),
+                            child: AnswerSquare(_questionsList[iterator].answers[0].toString(), buttonColors[0], wc),
                           ),
                         ),
                       ),
                       Expanded(
                         child: Padding(
-                          padding: const EdgeInsets.only(left: 15.0, top: 20.0, right: 30.0, bottom: 6.0),
+                          padding: EdgeInsets.only(left: 15.0 * wc, top: 20.0 * hc, right: 30.0 * wc, bottom: 6.0 * hc),
                           child: InkWell(
                             onTap: () => answerClick(context, 1),
-                            borderRadius: BorderRadius.circular(30.0),
-                            child: AnswerSquare(_questionsList[iterator].answers[1].toString(), buttonColors[1]),
+                            borderRadius: BorderRadius.circular(30.0 * wc),
+                            child: AnswerSquare(_questionsList[iterator].answers[1].toString(), buttonColors[1], wc),
                           ),
                         ),
                       ),
@@ -184,21 +192,21 @@ class _TestScreenState extends State<TestScreen> {
                     children: <Widget>[
                       Expanded(
                         child: Padding(
-                          padding: const EdgeInsets.only(left: 30.0, top: 20.0, right: 15.0, bottom: 6.0),
+                          padding: EdgeInsets.only(left: 30.0 * wc, top: 20.0 * hc, right: 15.0 * wc, bottom: 6.0 * hc),
                           child: InkWell(
                             onTap: () => answerClick(context, 2),
-                            borderRadius: BorderRadius.circular(30.0),
-                            child: AnswerSquare(_questionsList[iterator].answers[2].toString(), buttonColors[2]),
+                            borderRadius: BorderRadius.circular(30.0 * wc),
+                            child: AnswerSquare(_questionsList[iterator].answers[2].toString(), buttonColors[2], wc),
                           ),
                         ),
                       ),
                       Expanded(
                         child: Padding(
-                          padding: const EdgeInsets.only(left: 15.0, top: 20.0, right: 30.0, bottom: 6.0),
+                          padding: EdgeInsets.only(left: 15.0 * wc, top: 20.0 * hc, right: 30.0 * wc, bottom: 6.0 * hc),
                           child: InkWell(
                             onTap: () => answerClick(context, 3),
-                            borderRadius: BorderRadius.circular(30.0),
-                            child: AnswerSquare(_questionsList[iterator].answers[3].toString(), buttonColors[3]),
+                            borderRadius: BorderRadius.circular(30.0 * wc),
+                            child: AnswerSquare(_questionsList[iterator].answers[3].toString(), buttonColors[3], wc),
                           ),
                         ),
                       ),
@@ -220,8 +228,9 @@ class _TestScreenState extends State<TestScreen> {
 class AnswerSquare extends StatelessWidget {
   final String answerText;
   final Color bgColor;
+  final double wc;
 
-  AnswerSquare(this.answerText, this.bgColor);
+  AnswerSquare(this.answerText, this.bgColor, this.wc);
 
   @override
   Widget build(BuildContext context) {
@@ -245,7 +254,7 @@ class AnswerSquare extends StatelessWidget {
           style: TextStyle(
             fontWeight: FontWeight.w700,
             color: Color(0xff3D3D74),
-            fontSize: 63.0,
+            fontSize: 63.0 * wc,
             letterSpacing: 1.5,
           ),
         ),

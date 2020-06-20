@@ -142,16 +142,28 @@ class _TestResultsScreenState extends State<TestResultsScreen> {
       }
       percentage = correctNumber / totalNumber * 1.0;
     }
+    final mediaQuerySize = MediaQuery.of(context);
+    final screenWidth = mediaQuerySize.size.width;
+    final screenHeight = mediaQuerySize.size.height;
+    final hc = screenHeight / 683;
+    final wc = screenWidth / 411;
 
     return Scaffold(
-      appBar: AppBar(
-        bottomOpacity: 0.0,
-        elevation: 0.0,
-        leading: IconButton(
-          icon: Icon(Icons.close, color: Color(0xff3D3D74)),
-          onPressed: () => Navigator.of(context).pop(),
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(50.0 * hc), // here the desired height
+        child: AppBar(
+          bottomOpacity: 0.0,
+          elevation: 0.0,
+          leading: IconButton(
+            icon: Icon(
+              Icons.close,
+              color: Color(0xff3D3D74),
+              size: 30 * wc,
+            ),
+            onPressed: () => Navigator.of(context).pop(),
+          ),
+          backgroundColor: Colors.transparent,
         ),
-        backgroundColor: Colors.transparent,
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -162,7 +174,7 @@ class _TestResultsScreenState extends State<TestResultsScreen> {
             child: Container(
               decoration: BoxDecoration(
                 image: DecorationImage(
-                    image: AssetImage('assets/images/test-results-background.png'), fit: BoxFit.fitHeight),
+                    image: AssetImage('assets/images/test-results-background.png'), fit: BoxFit.fitWidth),
               ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -178,15 +190,16 @@ class _TestResultsScreenState extends State<TestResultsScreen> {
                             color: Color(0xff599BF0),
                           ),
                           child: Padding(
-                            padding: const EdgeInsets.all(22.0),
+                            padding: EdgeInsets.all(22.0 * wc),
                             child: new CircularPercentIndicator(
-                              radius: 140.0,
+                              radius: 140.0 * hc,
                               lineWidth: 13.0,
                               animation: true,
                               percent: correctNumber / totalNumber,
                               center: new Text(
                                 '$correctNumber ' + AppLocalizations.of(context).translate('out-of') + ' $totalNumber',
-                                style: new TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0, color: Colors.white),
+                                style: new TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 20.0 * wc, color: Colors.white),
                               ),
                               circularStrokeCap: CircularStrokeCap.round,
                               progressColor: Color(0xffE3F0FF),
@@ -197,9 +210,9 @@ class _TestResultsScreenState extends State<TestResultsScreen> {
                       ),
                       Center(
                         child: Container(
-                          margin: const EdgeInsets.only(top: 139.0),
+                          margin: EdgeInsets.only(top: 139.0 * hc),
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(30.0),
+                            borderRadius: BorderRadius.circular(30.0 * wc),
                             color: Colors.white,
                             boxShadow: [
                               BoxShadow(
@@ -211,14 +224,14 @@ class _TestResultsScreenState extends State<TestResultsScreen> {
                             ],
                           ),
                           child: Padding(
-                            padding: const EdgeInsets.all(8.0),
+                            padding: EdgeInsets.all(8.0 * wc),
                             child: Text(
                               '+ $xp XP',
                               overflow: TextOverflow.clip,
                               style: TextStyle(
                                 fontWeight: FontWeight.w800,
                                 color: Color(0xffE24C4B),
-                                fontSize: 16.0,
+                                fontSize: 16.0 * wc,
                               ),
                             ),
                           ),
@@ -227,33 +240,37 @@ class _TestResultsScreenState extends State<TestResultsScreen> {
                     ],
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(bottom: 45.0),
+                    padding: EdgeInsets.only(bottom: 45.0 * hc),
                     child: Image(
                       image: starsRating(percentage),
-                      width: 25.0,
-                      height: 40.0,
+                      width: 25.0 * wc,
+                      height: 40.0 * hc,
                     ),
                   ),
                 ],
               ),
             ),
           ),
-          ...resultText(percentage, context),
-          Spacer(
-            flex: 1,
-          ),
+          ...resultText(percentage, context, wc, hc, screenHeight),
+          (screenHeight > 600)
+              ? Spacer(
+                  flex: 1,
+                )
+              : Container(),
           Padding(
-            padding: const EdgeInsets.only(top: 10.0, bottom: 3.0, right: 15.0, left: 15.0),
+            padding: EdgeInsets.only(top: 10.0 * hc, bottom: 3.0 * hc, right: 15.0 * wc, left: 15.0 * wc),
             child: StyledButton(
+              wc: wc,
               onPressed: () => Navigator.of(context).pushNamed(AnswersListScreen.routeName, arguments: args.testData),
               text: AppLocalizations.of(context).translate('test-results-screen_show-answers'),
               light: true,
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 3.0, bottom: 25.0, right: 15.0, left: 15.0),
+            padding: EdgeInsets.only(top: 3.0 * hc, bottom: 25.0 * hc, right: 15.0 * wc, left: 15.0 * wc),
             child: totalNumber > correctNumber
                 ? StyledButton(
+                    wc: wc,
                     onPressed: () => {
                       if (args.exam)
                         {
@@ -268,6 +285,7 @@ class _TestResultsScreenState extends State<TestResultsScreen> {
                     text: AppLocalizations.of(context).translate('test-results-screen_try-again'),
                   )
                 : StyledButton(
+                    wc: wc,
                     onPressed: () => Navigator.of(context).pop(),
                     text: AppLocalizations.of(context).translate('test-results-screen_done'),
                   ),
@@ -290,7 +308,7 @@ AssetImage starsRating(double percent) {
   }
 }
 
-List<Widget> resultText(double percent, BuildContext context) {
+List<Widget> resultText(double percent, BuildContext context, double wc, double hc, double screenHeight) {
   String title;
   String desc;
 
@@ -321,26 +339,28 @@ List<Widget> resultText(double percent, BuildContext context) {
     Text(
       title,
       style: TextStyle(
-        fontSize: 18.0,
+        fontSize: 18.0 * wc,
         fontWeight: FontWeight.w700,
         color: Color(0xff3D3D74),
         letterSpacing: 0.3,
       ),
       textAlign: TextAlign.center,
     ),
-    Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 35.0),
-      child: Text(
-        desc,
-        style: TextStyle(
-          fontSize: 17.0,
-          height: 1.7,
-          fontWeight: FontWeight.w400,
-          color: Color(0xff999999),
-          letterSpacing: 0.3,
-        ),
-        textAlign: TextAlign.center,
-      ),
-    ),
+    (screenHeight > 600)
+        ? Padding(
+            padding: EdgeInsets.symmetric(horizontal: 35.0 * hc),
+            child: Text(
+              desc,
+              style: TextStyle(
+                fontSize: 17.0 * wc,
+                height: 1.7,
+                fontWeight: FontWeight.w400,
+                color: Color(0xff999999),
+                letterSpacing: 0.3,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          )
+        : Container(),
   ];
 }

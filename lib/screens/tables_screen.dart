@@ -204,6 +204,12 @@ class _TableBodyState extends State<TableBody> {
 
   @override
   Widget build(BuildContext context) {
+    final mediaQuerySize = MediaQuery.of(context);
+    final screenWidth = mediaQuerySize.size.width;
+    final screenHeight = mediaQuerySize.size.height;
+    final hc = screenHeight / 683;
+    final wc = screenWidth / 411;
+
     return Container(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -211,9 +217,9 @@ class _TableBodyState extends State<TableBody> {
         children: <Widget>[
           Expanded(
             child: Container(
-              margin: EdgeInsets.only(left: 10.0, top: 0.0, right: 10.0, bottom: 5.0),
+              margin: EdgeInsets.only(left: 10.0 * wc, top: 0.0, right: 10.0 * wc, bottom: 5.0 * hc),
               child: Container(
-                child: TableText(_selectedNumber),
+                child: TableText(_selectedNumber, wc),
               ),
             ),
           ),
@@ -234,35 +240,35 @@ class _TableBodyState extends State<TableBody> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
-                    NumberIcon(1, _handelTap, 1 == _selectedNumber),
-                    NumberIcon(2, _handelTap, 2 == _selectedNumber),
-                    NumberIcon(3, _handelTap, 3 == _selectedNumber),
-                    NumberIcon(4, _handelTap, 4 == _selectedNumber),
+                    NumberIcon(1, _handelTap, 1 == _selectedNumber, wc, hc),
+                    NumberIcon(2, _handelTap, 2 == _selectedNumber, wc, hc),
+                    NumberIcon(3, _handelTap, 3 == _selectedNumber, wc, hc),
+                    NumberIcon(4, _handelTap, 4 == _selectedNumber, wc, hc),
                   ],
                 ),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
-                    NumberIcon(5, _handelTap, 5 == _selectedNumber),
-                    NumberIcon(6, _handelTap, 6 == _selectedNumber),
-                    NumberIcon(7, _handelTap, 7 == _selectedNumber),
-                    NumberIcon(8, _handelTap, 8 == _selectedNumber),
+                    NumberIcon(5, _handelTap, 5 == _selectedNumber, wc, hc),
+                    NumberIcon(6, _handelTap, 6 == _selectedNumber, wc, hc),
+                    NumberIcon(7, _handelTap, 7 == _selectedNumber, wc, hc),
+                    NumberIcon(8, _handelTap, 8 == _selectedNumber, wc, hc),
                   ],
                 ),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
-                    NumberIcon(9, _handelTap, 9 == _selectedNumber),
-                    NumberIcon(10, _handelTap, 10 == _selectedNumber),
-                    NumberIcon(11, _handelTap, 11 == _selectedNumber),
-                    NumberIcon(12, _handelTap, 12 == _selectedNumber),
+                    NumberIcon(9, _handelTap, 9 == _selectedNumber, wc, hc),
+                    NumberIcon(10, _handelTap, 10 == _selectedNumber, wc, hc),
+                    NumberIcon(11, _handelTap, 11 == _selectedNumber, wc, hc),
+                    NumberIcon(12, _handelTap, 12 == _selectedNumber, wc, hc),
                   ],
                 ),
               ],
             ),
-            height: 250.0,
+            height: 250.0 * hc,
           )
         ],
       ),
@@ -272,11 +278,12 @@ class _TableBodyState extends State<TableBody> {
 
 class TableText extends StatelessWidget {
   final int _selectedNumber;
+  final double wc;
 
   static const odds = [1, 3, 5, 7, 9, 11];
   static const evens = [2, 4, 6, 8, 10, 12];
 
-  TableText(this._selectedNumber);
+  TableText(this._selectedNumber, this.wc);
 
   @override
   Widget build(BuildContext context) {
@@ -299,7 +306,7 @@ class TableText extends StatelessWidget {
                             style: TextStyle(
                               fontWeight: FontWeight.w500,
                               color: const Color(0xff3D3D74),
-                              fontSize: 24.0,
+                              fontSize: 24.0 * wc,
                             ),
                           ))
                       .toList(),
@@ -323,7 +330,7 @@ class TableText extends StatelessWidget {
                             style: TextStyle(
                               fontWeight: FontWeight.w500,
                               color: const Color(0xff3D3D74),
-                              fontSize: 24.0,
+                              fontSize: 24.0 * wc,
                             ),
                           ))
                       .toList(),
@@ -341,8 +348,16 @@ class NumberIcon extends StatelessWidget {
   final int number;
   final Function tapHandler;
   final bool selected;
+  final double wc;
+  final double hc;
 
-  NumberIcon(this.number, this.tapHandler, this.selected);
+  NumberIcon(
+    this.number,
+    this.tapHandler,
+    this.selected,
+    this.wc,
+    this.hc,
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -353,23 +368,23 @@ class NumberIcon extends StatelessWidget {
       onPressed: () => tapHandler(number),
       child: Container(
         child: Padding(
-          padding: const EdgeInsets.only(top: 4.0, bottom: 4.0),
+          padding: EdgeInsets.only(top: 4.0 * hc, bottom: 4.0 * hc),
           child: Center(
             child: Text(
               number.toString(),
               style: TextStyle(
                 fontWeight: FontWeight.w400,
                 color: (this.selected ? Colors.white : Color(0xff3C8DEF)),
-                fontSize: 30.0,
+                fontSize: 30.0 * wc,
               ),
             ),
           ),
         ),
-        width: 64,
-        height: 64,
+        width: 64 * wc,
+        height: 64 * hc,
         decoration: BoxDecoration(
           color: (this.selected ? const Color(0xff3C8DEF) : Colors.white),
-          borderRadius: BorderRadius.all(Radius.circular(10)),
+          borderRadius: BorderRadius.all(Radius.circular(10 * hc)),
           boxShadow: [
             BoxShadow(
               color: const Color(0xff999999).withOpacity(0.3),

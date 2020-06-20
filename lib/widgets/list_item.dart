@@ -39,24 +39,30 @@ class _ListItemState extends State<ListItem> {
 
   @override
   Widget build(BuildContext context) {
+    final mediaQuerySize = MediaQuery.of(context);
+    final screenWidth = mediaQuerySize.size.width;
+    final screenHeight = mediaQuerySize.size.height;
+    final hc = screenHeight / 683;
+    final wc = screenWidth / 411;
+
     return Container(
       child: Container(
         width: double.infinity,
-        margin: EdgeInsets.only(left: 20.0, top: 10.0, right: 20.0, bottom: 8.0),
-        height: 115.0,
+        margin: EdgeInsets.only(left: 20.0 * wc, top: 10.0 * hc, right: 20.0 * wc, bottom: 8.0 * hc),
+        height: 115.0 * hc,
         child: InkWell(
           onTap: () => selectCategory(context, widget.testGroup),
-          borderRadius: BorderRadius.circular(8.0),
+          borderRadius: BorderRadius.circular(8.0 * hc),
           child: Container(
             width: double.infinity,
             decoration: BoxDecoration(
               color: Colors.white,
-              borderRadius: BorderRadius.circular(8.0),
+              borderRadius: BorderRadius.circular(8.0 * hc),
               boxShadow: [
                 BoxShadow(
                   color: Color(0xffc3c3c3).withOpacity(0.5),
-                  spreadRadius: 4,
-                  blurRadius: 8,
+                  spreadRadius: 4 * wc,
+                  blurRadius: 8 * wc,
                   offset: Offset(0, -2), // changes position of shadow
                 ),
               ],
@@ -70,13 +76,13 @@ class _ListItemState extends State<ListItem> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     Padding(
-                      padding: const EdgeInsets.only(top: 5.0, left: 15.0, bottom: 10.0, right: 10.0),
+                      padding: EdgeInsets.only(top: 5.0 * hc, left: 15.0 * wc, bottom: 10.0 * hc, right: 10.0 * wc),
                       child: Image(
                         image: AssetImage(
                           'assets/images/' + widget.testGroup.iconImage,
                         ),
-                        width: 67.0,
-                        height: 67.0,
+                        width: 67.0 * wc,
+                        height: 67.0 * hc,
                       ),
                     ),
                     Expanded(
@@ -90,13 +96,13 @@ class _ListItemState extends State<ListItem> {
                             style: TextStyle(
                               fontWeight: FontWeight.w800,
                               color: Color(0xff3D3D74),
-                              fontSize: 17.0,
+                              fontSize: 17.0 * wc,
                             ),
                           ),
                           Padding(
                             padding: widget.testGroup.withVariants
-                                ? const EdgeInsets.only(top: 8.0, bottom: 8.0)
-                                : const EdgeInsets.only(top: 4.0, bottom: 8.0),
+                                ? EdgeInsets.only(top: 8.0 * hc, bottom: 8.0 * wc)
+                                : EdgeInsets.only(top: 4.0 * hc, bottom: 8.0 * wc),
                             child: Text(
                               (widget.testGroup.withVariants
                                       ? ''
@@ -110,7 +116,7 @@ class _ListItemState extends State<ListItem> {
                                 textStyle: TextStyle(
                                   fontWeight: FontWeight.w600,
                                   color: Colors.grey,
-                                  fontSize: 13.0,
+                                  fontSize: 13.0 * wc,
                                 ),
                               ),
                             ),
@@ -119,7 +125,7 @@ class _ListItemState extends State<ListItem> {
                       ),
                     ),
                     Container(
-                      margin: const EdgeInsets.only(right: 15.0, bottom: 5.0),
+                      margin: EdgeInsets.only(right: 15.0 * wc, bottom: 5.0 * hc),
                       child: ValueListenableBuilder(
                         valueListenable: Hive.box(HIVE_PROGRESS_BOX).listenable(keys: [widget.testGroup.id]),
                         builder: (context, box, w) {
@@ -127,21 +133,21 @@ class _ListItemState extends State<ListItem> {
                           Widget c;
                           if (percent > 0.99) {
                             c = CircleAvatar(
-                              radius: 20.0,
+                              radius: 20.0 * hc,
                               child: Icon(
                                 Icons.done,
                                 color: Colors.white,
-                                size: 36.0,
+                                size: 36.0 * hc,
                               ),
                               backgroundColor: Color(0xff4CAF50),
                             );
                           } else if (percent > 0) {
                             c = CircleAvatar(
-                              radius: 20.0,
+                              radius: 20.0 * hc,
                               child: Icon(
                                 Icons.priority_high,
                                 color: Colors.white,
-                                size: 36.0,
+                                size: 36.0 * hc,
                               ),
                               backgroundColor: Color(0xffF7AC1A),
                             );
@@ -156,7 +162,7 @@ class _ListItemState extends State<ListItem> {
                   ],
                 ),
                 Container(
-                  margin: const EdgeInsets.only(left: 10.0, right: 10.0),
+                  margin: EdgeInsets.only(left: 10.0 * wc, right: 10.0 * wc),
                   child: Row(
                     children: <Widget>[
                       Expanded(
@@ -168,7 +174,7 @@ class _ListItemState extends State<ListItem> {
                             return new LinearPercentIndicator(
                               animation: true,
                               animationDuration: 700,
-                              lineHeight: 12.0,
+                              lineHeight: 12.0 * hc,
                               percent: percent,
                               backgroundColor: const Color(0xFFE6E6E6),
                               linearStrokeCap: LinearStrokeCap.roundAll,
@@ -193,7 +199,7 @@ class _ListItemState extends State<ListItem> {
                             style: TextStyle(
                               fontWeight: FontWeight.w500,
                               color: c,
-                              fontSize: 14.0,
+                              fontSize: 14.0 * wc,
                             ),
                           );
                         },

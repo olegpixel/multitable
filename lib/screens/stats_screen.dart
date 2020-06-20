@@ -65,6 +65,12 @@ class StatsScreen extends StatelessWidget {
 
     showingBarGroups = rawBarGroups;
 
+    final mediaQuerySize = MediaQuery.of(context);
+    final screenWidth = mediaQuerySize.size.width;
+    final screenHeight = mediaQuerySize.size.height;
+    final hc = screenHeight / 683;
+    final wc = screenWidth / 411;
+
     return Container(
       color: Color(0xffFFEABA),
       child: SafeArea(
@@ -81,18 +87,18 @@ class StatsScreen extends StatelessWidget {
                   bgColor: 0xffFFEABA,
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 20.0, top: 10.0),
+                  padding: EdgeInsets.only(left: 20.0 * wc, top: 10.0 * hc),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Padding(
-                        padding: const EdgeInsets.only(top: 15.0, bottom: 15.0),
+                        padding: EdgeInsets.only(top: 15.0 * hc, bottom: 15.0 * hc),
                         child: RichText(
                           text: TextSpan(
                             style: TextStyle(
                               fontWeight: FontWeight.w400,
                               color: Color(0xff3D3D74),
-                              fontSize: 19.0,
+                              fontSize: 19.0 * wc,
                             ),
                             children: <TextSpan>[
                               TextSpan(text: AppLocalizations.of(context).translate('stats-screen_solved-total')),
@@ -111,7 +117,7 @@ class StatsScreen extends StatelessWidget {
                           style: TextStyle(
                             fontWeight: FontWeight.w400,
                             color: Color(0xff3D3D74),
-                            fontSize: 19.0,
+                            fontSize: 19.0 * wc,
                           ),
                           children: <TextSpan>[
                             TextSpan(text: AppLocalizations.of(context).translate('stats-screen_solved-7-days')),
@@ -132,18 +138,18 @@ class StatsScreen extends StatelessWidget {
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
                       color: Colors.transparent,
                       child: Padding(
-                        padding: const EdgeInsets.all(16),
+                        padding: EdgeInsets.all(16 * hc),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           mainAxisAlignment: MainAxisAlignment.start,
                           mainAxisSize: MainAxisSize.max,
                           children: <Widget>[
-                            const SizedBox(
-                              height: 18,
+                            SizedBox(
+                              height: 18 * hc,
                             ),
                             Expanded(
                               child: Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                padding: EdgeInsets.symmetric(horizontal: 8.0 * hc),
                                 child: BarChart(
                                   BarChartData(
                                     maxY: maxY,
@@ -152,8 +158,10 @@ class StatsScreen extends StatelessWidget {
                                       bottomTitles: SideTitles(
                                         showTitles: true,
                                         textStyle: TextStyle(
-                                            color: const Color(0xff3D3D74), fontWeight: FontWeight.w500, fontSize: 15),
-                                        margin: 12,
+                                            color: const Color(0xff3D3D74),
+                                            fontWeight: FontWeight.w500,
+                                            fontSize: 15 * wc),
+                                        margin: 12 * wc,
                                         getTitles: (double value) {
                                           return lastWeekProgress[value.toInt()][0];
                                         },
@@ -161,8 +169,10 @@ class StatsScreen extends StatelessWidget {
                                       leftTitles: SideTitles(
                                         showTitles: true,
                                         textStyle: TextStyle(
-                                            color: const Color(0xff3D3D74), fontWeight: FontWeight.w500, fontSize: 15),
-                                        margin: 20,
+                                            color: const Color(0xff3D3D74),
+                                            fontWeight: FontWeight.w500,
+                                            fontSize: 15 * wc),
+                                        margin: 20 * wc,
                                         reservedSize: 14,
                                         getTitles: (value) {
                                           if (value % (segment * 2) == 0) {
@@ -198,8 +208,8 @@ class StatsScreen extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            const SizedBox(
-                              height: 12,
+                            SizedBox(
+                              height: 12 * hc,
                             ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -210,27 +220,27 @@ class StatsScreen extends StatelessWidget {
                                       Container(
                                         margin: const EdgeInsets.only(right: 6.0),
                                         color: const Color(0xffE24C4B),
-                                        width: 12.0,
-                                        height: 12.0,
+                                        width: 12.0 * wc,
+                                        height: 12.0 * hc,
                                       ),
                                       Text(
                                         AppLocalizations.of(context).translate('stats-screen_chart-wrong'),
                                         style: TextStyle(
                                           color: Color(0xff3D3D74),
-                                          fontSize: 14.0,
+                                          fontSize: 14.0 * wc,
                                         ),
                                       ),
                                       Container(
-                                        margin: const EdgeInsets.only(left: 12.0, right: 6.0),
+                                        margin: EdgeInsets.only(left: 12.0 * wc, right: 6.0 * wc),
                                         color: const Color(0xff4CAF50),
-                                        width: 12.0,
-                                        height: 12.0,
+                                        width: 12.0 * wc,
+                                        height: 12.0 * hc,
                                       ),
                                       Text(
                                         AppLocalizations.of(context).translate('stats-screen_chart-correct'),
                                         style: TextStyle(
                                           color: Color(0xff3D3D74),
-                                          fontSize: 14.0,
+                                          fontSize: 14.0 * wc,
                                         ),
                                       ),
                                     ],

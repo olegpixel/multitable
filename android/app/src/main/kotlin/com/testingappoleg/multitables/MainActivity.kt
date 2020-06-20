@@ -1,4 +1,4 @@
-package fun.mathapp.multiplication_table
+package `fun`.mathapp.multiplication_table
 
 import androidx.annotation.NonNull;
 import io.flutter.embedding.android.FlutterActivity

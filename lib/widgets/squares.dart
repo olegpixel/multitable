@@ -8,6 +8,8 @@ class SquareMenuItem extends StatelessWidget {
   final Widget iconImage;
   final String pathTo;
   final EdgeInsets margins;
+  final double wc;
+  final double hc;
 
   const SquareMenuItem({
     this.title,
@@ -16,6 +18,8 @@ class SquareMenuItem extends StatelessWidget {
     this.iconImage,
     this.margins,
     this.pathTo,
+    this.wc,
+    this.hc,
   });
 
   void selectCategory(BuildContext ctx) {
@@ -29,12 +33,12 @@ class SquareMenuItem extends StatelessWidget {
         margin: margins,
         child: InkWell(
           onTap: () => selectCategory(context),
-          borderRadius: BorderRadius.circular(15.0),
+          borderRadius: BorderRadius.circular(15.0 * wc),
           child: Container(
             width: double.infinity,
             height: double.infinity,
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(15.0),
+              borderRadius: BorderRadius.circular(15.0 * wc),
               color: Color(backgroundColor),
               image: DecorationImage(
                 image: AssetImage("$backgroundImage"),
@@ -46,7 +50,7 @@ class SquareMenuItem extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
                 Padding(
-                  padding: const EdgeInsets.only(top: 22.0, left: 15.0),
+                  padding: EdgeInsets.only(top: 22.0 * hc, left: 15.0 * wc),
                   child: Text(
                     '$title',
                     overflow: TextOverflow.clip,
@@ -54,7 +58,7 @@ class SquareMenuItem extends StatelessWidget {
                       textStyle: TextStyle(
                         fontWeight: FontWeight.w700,
                         color: Color(0xff3D3D74),
-                        fontSize: 32.0,
+                        fontSize: 32.0 * wc,
                         letterSpacing: .5,
                       ),
                     ),

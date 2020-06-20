@@ -9,6 +9,7 @@ import 'package:multitables/funcs/question_generator.dart';
 import 'package:multitables/widgets/styled_button.dart';
 import 'package:multitables/models/user_level.dart';
 import 'package:multitables/funcs/localisations.dart';
+import 'package:multitables/funcs/firebase_analytics.dart';
 
 class TestExamScreen extends StatefulWidget {
   static const routeName = '/testexam';
@@ -111,6 +112,7 @@ class _TestExamScreenState extends State<TestExamScreen> {
 
             if (levelBeforeUpdate.id != levelAfterUpdate.id) {
               nextLevelModal = true;
+              analytics.logEvent(name: 'level_achieved', parameters: {'level': levelAfterUpdate.id});
             }
 
             TestResults tr = TestResults(
@@ -130,18 +132,36 @@ class _TestExamScreenState extends State<TestExamScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final mediaQuerySize = MediaQuery.of(context);
+    final screenWidth = mediaQuerySize.size.width;
+    final screenHeight = mediaQuerySize.size.height;
+    final hc = screenHeight / 683;
+    final wc = screenWidth / 411;
+    final bool bs = (screenWidth > 400);
+
     return Scaffold(
-      appBar: AppBar(
-        bottomOpacity: 0.0,
-        elevation: 0.0,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Color(0xff3D3D74)),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
-        backgroundColor: Colors.transparent,
-        title: Text(
-          AppLocalizations.of(context).translate(widget.testGroup.id),
-          style: TextStyle(color: Color(0xff3D3D74)),
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(50.0 * hc), // here the desired height
+        child: AppBar(
+          bottomOpacity: 0.0,
+          elevation: 0.0,
+          leading: InkWell(
+//            iconSize: 30,
+            child: Icon(
+              Icons.arrow_back,
+              color: Color(0xff3D3D74),
+              size: 30 * wc,
+            ),
+            onTap: () => Navigator.of(context).pop(),
+          ),
+          backgroundColor: Colors.transparent,
+          title: Text(
+            AppLocalizations.of(context).translate(widget.testGroup.id),
+            style: TextStyle(
+              color: Color(0xff3D3D74),
+              fontSize: 20 * wc,
+            ),
+          ),
         ),
       ),
       body: Column(
@@ -149,14 +169,14 @@ class _TestExamScreenState extends State<TestExamScreen> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           Padding(
-            padding: const EdgeInsets.only(top: 4.0, bottom: 14.0),
+            padding: EdgeInsets.only(top: 4.0 * hc, bottom: 14.0 * hc),
             child: Center(
               child: Text(
                 '${iterator + 1}  ' + AppLocalizations.of(context).translate('out-of') + ' $totalQNumber',
                 style: TextStyle(
                   fontWeight: FontWeight.w600,
                   color: Color(0xff888992),
-                  fontSize: 19.0,
+                  fontSize: 19.0 * wc,
                 ),
               ),
             ),
@@ -168,7 +188,7 @@ class _TestExamScreenState extends State<TestExamScreen> {
                 textStyle: TextStyle(
                   fontWeight: FontWeight.w600,
                   color: Color(0xff202027),
-                  fontSize: 67.0,
+                  fontSize: bs ? 74 : (57.0 * wc),
                 ),
               ),
             ),
@@ -177,15 +197,15 @@ class _TestExamScreenState extends State<TestExamScreen> {
             children: <Widget>[
               Center(
                 child: Container(
-                  margin: const EdgeInsets.only(top: 25.0, bottom: 15.0),
-                  width: 150,
+                  margin: EdgeInsets.only(top: 15.0 * hc, bottom: 15.0 * hc),
+                  width: 150 * wc,
                   child: Center(
                       child: Text(
                     givenAnswer,
                     style: TextStyle(
                       fontWeight: FontWeight.w600,
                       color: Color(0xff202027),
-                      fontSize: 50.0,
+                      fontSize: bs ? 55 : (50.0 * wc),
                     ),
                   )),
                   decoration: BoxDecoration(
@@ -201,18 +221,19 @@ class _TestExamScreenState extends State<TestExamScreen> {
               ),
               Center(
                 child: Container(
-                  margin: const EdgeInsets.only(top: 38.0, bottom: 15.0, left: 180.0),
+                  margin: EdgeInsets.only(top: 22.0 * hc, bottom: 15.0 * hc, left: 180.0 * wc),
                   child: iconToShow,
                 ),
               ),
             ],
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 10.0, bottom: 15.0, right: 15.0, left: 15.0),
+            padding: EdgeInsets.only(top: 10.0 * hc, bottom: 15.0 * hc, right: 15.0 * wc, left: 15.0 * wc),
             child: StyledButton(
               onPressed: () => _checkAnswer(context),
               text: AppLocalizations.of(context).translate('test-exam-screen_next-button'),
               light: false,
+              wc: wc,
             ),
           ),
           Expanded(
@@ -236,36 +257,36 @@ class _TestExamScreenState extends State<TestExamScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
-                      NumberIcon(1, _numberIconTap),
-                      NumberIcon(2, _numberIconTap),
-                      NumberIcon(3, _numberIconTap),
+                      NumberIcon(1, _numberIconTap, wc, hc),
+                      NumberIcon(2, _numberIconTap, wc, hc),
+                      NumberIcon(3, _numberIconTap, wc, hc),
                     ],
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
-                      NumberIcon(4, _numberIconTap),
-                      NumberIcon(5, _numberIconTap),
-                      NumberIcon(6, _numberIconTap),
+                      NumberIcon(4, _numberIconTap, wc, hc),
+                      NumberIcon(5, _numberIconTap, wc, hc),
+                      NumberIcon(6, _numberIconTap, wc, hc),
                     ],
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
-                      NumberIcon(7, _numberIconTap),
-                      NumberIcon(8, _numberIconTap),
-                      NumberIcon(9, _numberIconTap),
+                      NumberIcon(7, _numberIconTap, wc, hc),
+                      NumberIcon(8, _numberIconTap, wc, hc),
+                      NumberIcon(9, _numberIconTap, wc, hc),
                     ],
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
                       Container(
-                        width: 100,
-                        height: 54,
+                        width: 100 * wc,
+                        height: 54 * hc,
                       ),
-                      NumberIcon(0, _numberIconTap),
-                      BackspaceButton(_backSpaceTap),
+                      NumberIcon(0, _numberIconTap, wc, hc),
+                      BackspaceButton(_backSpaceTap, wc, hc),
                     ],
                   ),
                 ],
@@ -280,25 +301,27 @@ class _TestExamScreenState extends State<TestExamScreen> {
 
 class BackspaceButton extends StatelessWidget {
   final Function tapHandler;
+  final double wc;
+  final double hc;
 
-  BackspaceButton(this.tapHandler);
+  BackspaceButton(this.tapHandler, this.wc, this.hc);
 
   @override
   Widget build(BuildContext context) {
-    return FlatButton(
-      highlightColor: Colors.transparent,
-      splashColor: Colors.transparent,
-      padding: EdgeInsets.all(0),
-      onPressed: () => tapHandler(),
+    return InkWell(
+//      highlightColor: Colors.transparent,
+//      splashColor: Colors.transparent,
+//      padding: EdgeInsets.all(0),
+      onTap: () => tapHandler(),
       child: Container(
         child: Padding(
-          padding: const EdgeInsets.only(top: 4.0, bottom: 4.0),
+          padding: EdgeInsets.only(top: 4.0 * hc, bottom: 4.0 * hc),
           child: Center(
             child: Icon(Icons.backspace, color: Colors.black),
           ),
         ),
-        width: 100,
-        height: 54,
+        width: 100 * wc,
+        height: 54 * hc,
       ),
     );
   }
@@ -307,32 +330,34 @@ class BackspaceButton extends StatelessWidget {
 class NumberIcon extends StatelessWidget {
   final int number;
   final Function tapHandler;
+  final double wc;
+  final double hc;
 
-  NumberIcon(this.number, this.tapHandler);
+  NumberIcon(this.number, this.tapHandler, this.wc, this.hc);
 
   @override
   Widget build(BuildContext context) {
-    return FlatButton(
-      highlightColor: Colors.transparent,
-      splashColor: Colors.transparent,
-      padding: EdgeInsets.all(0),
-      onPressed: () => tapHandler(number.toString()),
+    return InkWell(
+//      highlightColor: Colors.transparent,
+//      splashColor: Colors.transparent,
+//      padding: EdgeInsets.all(0),
+      onTap: () => tapHandler(number.toString()),
       child: Container(
         child: Padding(
-          padding: const EdgeInsets.only(top: 4.0, bottom: 4.0),
+          padding: EdgeInsets.only(top: 4.0 * hc, bottom: 4.0 * hc),
           child: Center(
             child: Text(
               number.toString(),
               style: TextStyle(
                 fontWeight: FontWeight.w400,
                 color: Colors.black,
-                fontSize: 30.0,
+                fontSize: 30.0 * wc,
               ),
             ),
           ),
         ),
-        width: 100,
-        height: 54,
+        width: 100 * wc,
+        height: 54 * hc,
         decoration: BoxDecoration(
           color: const Color(0xffFCFCFE),
           borderRadius: BorderRadius.all(Radius.circular(10)),
