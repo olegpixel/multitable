@@ -10,6 +10,7 @@ class SquareMenuItem extends StatelessWidget {
   final EdgeInsets margins;
   final double wc;
   final double hc;
+  final double size;
 
   const SquareMenuItem({
     this.title,
@@ -20,6 +21,7 @@ class SquareMenuItem extends StatelessWidget {
     this.pathTo,
     this.wc,
     this.hc,
+    this.size,
   });
 
   void selectCategory(BuildContext ctx) {
@@ -28,48 +30,46 @@ class SquareMenuItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Container(
-        margin: margins,
-        child: InkWell(
-          onTap: () => selectCategory(context),
-          borderRadius: BorderRadius.circular(15.0 * wc),
-          child: Container(
-            width: double.infinity,
-            height: double.infinity,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(15.0 * wc),
-              color: Color(backgroundColor),
-              image: DecorationImage(
-                image: AssetImage("$backgroundImage"),
-                fit: BoxFit.cover,
-              ),
+    return Container(
+      margin: margins,
+      child: InkWell(
+        onTap: () => selectCategory(context),
+        borderRadius: BorderRadius.circular(15.0 * wc),
+        child: Container(
+          width: size,
+          height: size,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(15.0 * wc),
+            color: Color(backgroundColor),
+            image: DecorationImage(
+              image: AssetImage("$backgroundImage"),
+              fit: BoxFit.cover,
             ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: <Widget>[
-                Padding(
-                  padding: EdgeInsets.only(top: 22.0 * hc, left: 15.0 * wc),
-                  child: Text(
-                    '$title',
-                    overflow: TextOverflow.clip,
-                    style: GoogleFonts.titilliumWeb(
-                      textStyle: TextStyle(
-                        fontWeight: FontWeight.w700,
-                        color: Color(0xff3D3D74),
-                        fontSize: 32.0 * wc,
-                        letterSpacing: .5,
-                      ),
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              Padding(
+                padding: EdgeInsets.only(top: 22.0 * hc, left: 15.0 * wc),
+                child: Text(
+                  '$title',
+                  overflow: TextOverflow.clip,
+                  style: GoogleFonts.titilliumWeb(
+                    textStyle: TextStyle(
+                      fontWeight: FontWeight.w700,
+                      color: Color(0xff3D3D74),
+                      fontSize: 32.0 * wc,
+                      letterSpacing: .5,
                     ),
                   ),
                 ),
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: iconImage,
-                ),
-              ],
-            ),
+              ),
+              Align(
+                alignment: Alignment.centerRight,
+                child: iconImage,
+              ),
+            ],
           ),
         ),
       ),
