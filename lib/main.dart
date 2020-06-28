@@ -10,6 +10,7 @@ import 'screens/test_exam_screen.dart';
 import 'screens/test_results_screen.dart';
 import 'screens/language_screen.dart';
 import 'screens/settings_screen.dart';
+import 'package:multitables/screens/game_dragndrop_screen.dart';
 import 'package:multitables/funcs/firebase_analytics.dart';
 
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -104,6 +105,7 @@ class _MyAppState extends State<MyApp> {
           AnswersListScreen.routeName: (ctx) => AnswersListScreen(),
           LanguageScreen.routeName: (ctx) => LanguageScreen(),
           SettingsScreen.routeName: (ctx) => SettingsScreen(),
+          DragNDropGame.routeName: (ctx) => DragNDropGame(),
         },
         onGenerateRoute: (RouteSettings settings) {
           var routes = <String, WidgetBuilder>{

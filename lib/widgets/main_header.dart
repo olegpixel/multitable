@@ -76,7 +76,7 @@ class _MainHeaderState extends State<MainHeader> {
                           textStyle: TextStyle(
                             fontWeight: FontWeight.w400,
                             color: Colors.white,
-                            fontSize: 17.0 * wc,
+                            fontSize: 16.0 * wc,
                           ),
                         ),
                       ),
