@@ -3,10 +3,12 @@
 
     <item android:drawable="@android:color/white" />
 
-    <item>
-        <bitmap android:src="@drawable/launching"
-            android:gravity="center" />
+	<item
+    android:width="148dp"
+    android:height="148dp"
+    android:drawable="@drawable/launching"
+    android:gravity="center" />
+	
 
-    </item>
 
 </layer-list>
