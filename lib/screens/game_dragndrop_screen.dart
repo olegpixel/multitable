@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:multitables/funcs/localisations.dart';
+import 'package:multitables/funcs/drag_n_drop_options_generator.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'dart:math';
 
@@ -11,25 +12,34 @@ class DragNDropGame extends StatefulWidget {
 }
 
 class _DragNDropGameState extends State<DragNDropGame> {
-  Map<String, bool> score = {};
+  Map<int, bool> score = {};
+  int pageNumber;
+  var questionsList = [];
+  var choices = [];
 
-  void dragDrop(String s) {
+  void dragDrop(int s) {
     setState(() {
-      print(score);
       score[s] = true;
-      print(score[s]);
-      print(score);
     });
+
+    if (score.length >= 4) {
+      Future.delayed(const Duration(milliseconds: 500), () {
+        setState(() {
+          score = {};
+          pageNumber++;
+          choices = questionsList[pageNumber - 1];
+        });
+      });
+    }
   }
 
-  final choices = [
-    ['10', '2 \u00D7 5'],
-    ['25', '5 \u00D7 5'],
-    ['144', '12 \u00D7 12'],
-    ['7', '7 \u00D7 1'],
-  ];
-
-  int seed = 0;
+  @override
+  void initState() {
+    super.initState();
+    pageNumber = 1;
+    questionsList = generateVariants(1, 2);
+    choices = questionsList[pageNumber - 1];
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -72,7 +82,7 @@ class _DragNDropGameState extends State<DragNDropGame> {
             padding: EdgeInsets.only(top: 4.0 * hc, bottom: 14.0 * hc),
             child: Center(
               child: Text(
-                '1  ' + AppLocalizations.of(context).translate('out-of') + '  10',
+                '$pageNumber  ' + AppLocalizations.of(context).translate('out-of') + '  10',
                 style: TextStyle(
                   fontWeight: FontWeight.w600,
                   color: Color(0xff888992),
@@ -89,16 +99,16 @@ class _DragNDropGameState extends State<DragNDropGame> {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    _buildDragTarget(choices[0]),
-                    _buildDragTarget(choices[1]),
+                    _buildDragTarget(choices[0], 0),
+                    _buildDragTarget(choices[1], 1),
                   ],
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    _buildDragTarget(choices[2]),
-                    _buildDragTarget(choices[3]),
+                    _buildDragTarget(choices[2], 2),
+                    _buildDragTarget(choices[3], 3),
                   ],
                 ),
                 SizedBox(
@@ -109,20 +119,24 @@ class _DragNDropGameState extends State<DragNDropGame> {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: <Widget>[
                     Expanded(
-                      child: Draggable<String>(
-                        data: choices[0][1],
-                        child: AnswerSquare(answerText: choices[0][0], opacity: score[choices[0][0]] == true),
-                        feedback: AnswerSquare(answerText: choices[0][0]),
-                        childWhenDragging: AnswerSquare(answerText: choices[0][0]),
-                      ),
+                      child: (score[0] == true)
+                          ? AnswerSquare(answerText: choices[0][0], light: true)
+                          : Draggable<String>(
+                              data: choices[0][1],
+                              child: AnswerSquare(answerText: choices[0][0]),
+                              feedback: AnswerSquare(answerText: choices[0][0]),
+                              childWhenDragging: AnswerSquare(answerText: choices[0][0]),
+                            ),
                     ),
                     Expanded(
-                      child: Draggable<String>(
-                        data: choices[1][1],
-                        child: AnswerSquare(answerText: choices[1][0], opacity: score[choices[1][0]] == true),
-                        feedback: AnswerSquare(answerText: choices[1][0]),
-                        childWhenDragging: AnswerSquare(answerText: choices[1][0]),
-                      ),
+                      child: (score[1] == true)
+                          ? AnswerSquare(answerText: choices[1][0], light: true)
+                          : Draggable<String>(
+                              data: choices[1][1],
+                              child: AnswerSquare(answerText: choices[1][0]),
+                              feedback: AnswerSquare(answerText: choices[1][0]),
+                              childWhenDragging: AnswerSquare(answerText: choices[1][0], light: true),
+                            ),
                     ),
                   ],
                 ),
@@ -131,20 +145,24 @@ class _DragNDropGameState extends State<DragNDropGame> {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: <Widget>[
                     Expanded(
-                      child: Draggable<String>(
-                        data: choices[2][1],
-                        child: AnswerSquare(answerText: choices[2][0], opacity: score[choices[2][0]] == true),
-                        feedback: AnswerSquare(answerText: choices[2][0]),
-                        childWhenDragging: AnswerSquare(answerText: choices[2][0]),
-                      ),
+                      child: (score[2] == true)
+                          ? AnswerSquare(answerText: choices[2][0], light: true)
+                          : Draggable<String>(
+                              data: choices[2][1],
+                              child: AnswerSquare(answerText: choices[2][0]),
+                              feedback: AnswerSquare(answerText: choices[2][0]),
+                              childWhenDragging: AnswerSquare(answerText: choices[2][0], light: true),
+                            ),
                     ),
                     Expanded(
-                      child: Draggable<String>(
-                        data: choices[3][1],
-                        child: AnswerSquare(answerText: choices[3][0], opacity: score[choices[3][0]] == true),
-                        feedback: AnswerSquare(answerText: choices[3][0]),
-                        childWhenDragging: AnswerSquare(answerText: choices[3][0]),
-                      ),
+                      child: (score[3] == true)
+                          ? AnswerSquare(answerText: choices[3][0], light: true)
+                          : Draggable<String>(
+                              data: choices[3][1],
+                              child: AnswerSquare(answerText: choices[3][0]),
+                              feedback: AnswerSquare(answerText: choices[3][0]),
+                              childWhenDragging: AnswerSquare(answerText: choices[3][0], light: true),
+                            ),
                     ),
                   ],
                 ),
@@ -156,26 +174,25 @@ class _DragNDropGameState extends State<DragNDropGame> {
     );
   }
 
-  Widget _buildDragTarget(q) {
-    print(q);
+  Widget _buildDragTarget(q, ind) {
     return DragTarget<String>(
       builder: (BuildContext context, List<String> incoming, List rejected) {
-        if (score[q[0]] == true) {
+        if (score[ind] == true) {
           return Container(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                Icon(
-                  Icons.check,
-                  color: Colors.green,
-                  size: 30,
-                ),
                 Text(
-                  q[0],
+                  q[1],
                   style: TextStyle(
                     color: Color(0xff777777),
                     fontSize: 39,
                   ),
+                ),
+                Icon(
+                  Icons.check,
+                  color: Colors.green,
+                  size: 30,
                 ),
               ],
             ),
@@ -216,8 +233,7 @@ class _DragNDropGameState extends State<DragNDropGame> {
       },
       onWillAccept: (data) => data == q[1],
       onAccept: (data) {
-        print(q[0]);
-        dragDrop(q[0]);
+        dragDrop(ind);
       },
       onLeave: (data) {},
     );
@@ -225,31 +241,40 @@ class _DragNDropGameState extends State<DragNDropGame> {
 }
 
 class AnswerSquare extends StatelessWidget {
-  AnswerSquare({Key key, this.answerText, this.opacity = true}) : super(key: key);
+  AnswerSquare({Key key, this.answerText, this.visible = true, this.light = false}) : super(key: key);
 
   final String answerText;
-  final bool opacity;
+  final bool visible;
+  final bool light;
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      color: Colors.transparent,
-      child: Container(
-        margin: const EdgeInsets.only(left: 10.0, right: 10.0),
-        alignment: Alignment.center,
-        height: 80,
-        width: 180,
-        padding: EdgeInsets.all(10),
-        child: Text(
-          answerText,
-          style: TextStyle(color: Colors.black, fontSize: 50),
-        ),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10.0),
-          border: Border.all(color: Colors.grey),
-          color: Colors.white,
-        ),
-      ),
-    );
+    return visible
+        ? Opacity(
+            opacity: light ? 0.3 : 1.0,
+            child: Material(
+              color: Colors.transparent,
+              child: Container(
+                margin: const EdgeInsets.only(left: 10.0, right: 10.0),
+                alignment: Alignment.center,
+                height: 80,
+                width: 180,
+                padding: EdgeInsets.all(10),
+                child: Text(
+                  answerText,
+                  style: TextStyle(color: Colors.black, fontSize: 50),
+                ),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10.0),
+                  border: Border.all(color: Colors.grey),
+                  color: Colors.white,
+                ),
+              ),
+            ),
+          )
+        : Container(
+            height: 80,
+            width: 180,
+          );
   }
 }
