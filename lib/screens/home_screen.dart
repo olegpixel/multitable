@@ -7,7 +7,7 @@ import 'package:multitables/screens/practice_screen.dart';
 import 'package:multitables/screens/stats_screen.dart';
 import 'package:multitables/screens/exam_screen.dart';
 import 'package:multitables/screens/tables_screen.dart';
-import 'package:multitables/screens/game_dragndrop_screen.dart';
+import 'package:multitables/screens/games_screen.dart';
 import 'package:multitables/funcs/localisations.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -98,7 +98,7 @@ class HomeScreen extends StatelessWidget {
                               ),
                             ),
                             backgroundColor: 0xffFFD5DF,
-                            pathTo: DragNDropGame.routeName,
+                            pathTo: GamesScreen.routeName,
                             margins: EdgeInsets.only(left: 20.0 * wc, top: 6.0 * hc, right: 7.0 * wc, bottom: 6.0 * hc),
                             wc: wc,
                             hc: hc,

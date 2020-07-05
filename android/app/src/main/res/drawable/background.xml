@@ -4,11 +4,9 @@
     <item android:drawable="@android:color/white" />
 
 	<item
-    android:width="148dp"
-    android:height="148dp"
-    android:drawable="@drawable/launching"
+    android:width="158dp"
+    android:height="158dp"
+    android:drawable="@drawable/rocket"
     android:gravity="center" />
 	
-
-
 </layer-list>

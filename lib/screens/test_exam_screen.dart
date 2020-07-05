@@ -97,9 +97,6 @@ class _TestExamScreenState extends State<TestExamScreen> {
             }
 
             int xpToAdd = (correctAnswersCount * widget.testGroup.coefficient).floor().toInt();
-            print(correctAnswersCount);
-            print(widget.testGroup.coefficient);
-            print(xpToAdd);
             if (widget.testGroup.itemsCount - correctAnswersCount == 0) {
               xpToAdd = (xpToAdd * 1.1).floor().toInt();
             }

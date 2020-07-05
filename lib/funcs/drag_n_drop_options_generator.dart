@@ -18,13 +18,10 @@ List<List<List<String>>> generateVariants(int minNumber, int maxNumber) {
     temp = temp + temp;
   }
   temp.shuffle();
-  print(temp);
-  print(temp.length);
 
   for (int i = 0; i < SCREENS_NUMBER; i++) {
     List<List<String>> temp2 = [];
     for (int j = 0; j < VARS_PER_SCREEN; j++) {
-      print(i * VARS_PER_SCREEN + j);
       temp2.add(temp[i * VARS_PER_SCREEN + j]);
     }
     resp.add(temp2);

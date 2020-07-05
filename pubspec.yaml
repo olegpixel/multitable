@@ -54,6 +54,7 @@ flutter:
   - assets/images/animals/
   - assets/images/flags/
   - assets/images/exam-icons/
+  - assets/images/games/
   - assets/images/practice-numbers/
   - assets/lang/en.json
   - assets/lang/ru.json
