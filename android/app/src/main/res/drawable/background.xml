@@ -3,10 +3,10 @@
 
     <item android:drawable="@android:color/white" />
 
-    <item>
-        <bitmap android:src="@drawable/launching"
-            android:gravity="center" />
-
-    </item>
+	<item
+    android:width="158dp"
+    android:height="158dp"
+    android:drawable="@drawable/rocket"
+    android:gravity="center" />
 
 </layer-list>
