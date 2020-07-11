@@ -65,12 +65,25 @@ NextLevelPoints getPointsToNextLevel() {
   do {
     level = USER_LEVELS[ind];
     ind++;
-  } while (level.number <= curCount);
-  NextLevelPoints resp = NextLevelPoints(
-    current: curCount - USER_LEVELS[ind - 2].number,
-    totalLevelPoints: USER_LEVELS[ind - 1].number - USER_LEVELS[ind - 2].number,
-  );
-  return resp;
+  } while (level.number <= curCount && ind < USER_LEVELS.length);
+
+  if (ind - 1 >= USER_LEVELS.length) {
+    print("curCount");
+    print(curCount);
+    print(USER_LEVELS[ind - 2].number);
+    print(curCount);
+    NextLevelPoints resp = NextLevelPoints(
+      current: curCount - USER_LEVELS[ind - 2].number,
+      totalLevelPoints: 100,
+    );
+    return resp;
+  } else {
+    NextLevelPoints resp = NextLevelPoints(
+      current: curCount - USER_LEVELS[ind - 2].number,
+      totalLevelPoints: USER_LEVELS[ind - 1].number - USER_LEVELS[ind - 2].number,
+    );
+    return resp;
+  }
 }
 
 // return User Level based on total questions solved
@@ -81,7 +94,7 @@ UserLevel getCurrentUserLevel() {
   do {
     level = USER_LEVELS[ind];
     ind++;
-  } while (level.number <= curCount);
+  } while (level.number <= curCount && ind < USER_LEVELS.length);
   return USER_LEVELS[ind - 2];
 }
 
