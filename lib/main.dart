@@ -67,7 +67,6 @@ class _MyAppState extends State<MyApp> {
           primarySwatch: Colors.blue,
           buttonTheme: ButtonThemeData(
             minWidth: 20,
-//            minHeight: 10,
           ),
         ),
         navigatorObservers: <NavigatorObserver>[MyApp.observer],

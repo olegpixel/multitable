@@ -50,15 +50,15 @@ class SquareMenuItem extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
                 Padding(
-                  padding: EdgeInsets.only(top: 22.0 * hc, left: 15.0 * wc),
+                  padding: EdgeInsets.only(top: 27.0 * hc, left: 15.0 * wc),
                   child: Text(
                     '$title',
                     overflow: TextOverflow.clip,
-                    style: GoogleFonts.titilliumWeb(
+                    style: GoogleFonts.lato(
                       textStyle: TextStyle(
                         fontWeight: FontWeight.w700,
                         color: Color(0xff3D3D74),
-                        fontSize: 32.0 * wc,
+                        fontSize: 30.0 * wc,
                         letterSpacing: .5,
                       ),
                     ),

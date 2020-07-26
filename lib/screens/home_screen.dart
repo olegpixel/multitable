@@ -94,8 +94,8 @@ class HomeScreen extends StatelessWidget {
                                 image: AssetImage(
                                   'assets/images/graduation-cap.png',
                                 ),
-                                width: 115.0 * wc,
-                                height: 115.0 * hc,
+                                width: 110.0 * wc,
+                                height: 110.0 * hc,
                               ),
                             ),
                             backgroundColor: 0xffB3EEFA,
